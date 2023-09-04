@@ -1,0 +1,53 @@
+@import 'fonts.scss';
+@import 'reset.scss';
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow-x: hidden;
+    min-width: 0;
+    height: 100%;
+}
+
+
+
+body._lock {
+    overflow-y: hidden;
+}
+
+
+#root {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    min-width: 0;
+}
+
+.wrapper {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.height {
+    height: 10000px;
+}
+
+.body {
+    width: 100%;
+    max-width: 1130px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 134px;
+}
+

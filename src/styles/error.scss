@@ -1,0 +1,105 @@
+.page-404 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__title {
+        margin: 28px 0 0 0;
+        color: #7791C2;
+        text-align: center;
+        font-variant-numeric: lining-nums proportional-nums;
+        font-family: Poppins-500;
+        font-size: 24px;
+        line-height: 45.4px;
+        /* 189.167% */
+        letter-spacing: 3.281px;
+        text-transform: uppercase;
+    }
+
+    &__img {
+        margin: 38px 0 0 0;
+        width: 660px;
+    }
+
+    &__text {
+        margin: 37px 0 0 0;
+        color: #272557;
+        text-align: center;
+        font-variant-numeric: lining-nums proportional-nums;
+        font-family: Poppins-400;
+        font-size: 18px;
+        line-height: 28.4px;
+        /* 157.778% */
+    }
+
+    &__button {
+        width: 199px;
+        height: 41px;
+        color: #FFF;
+
+        /* h6 Heading */
+        font-family: Nunito-600;
+        font-size: 14px;
+        line-height: 20.4px;
+        /* 145.714% */
+        letter-spacing: 0.06px;
+        margin: 38px 0 0 0;
+        position: relative;
+    }
+
+    &__button {
+        display: flex;
+        margin: 38px 0 0 0;
+        padding: 10px 0 0 54px;
+        z-index: 25;
+        position: relative;
+        border-radius: 30px;
+        background: #1565C0;
+        width: 199px;
+        height: 41px;
+        color: #FFF;
+
+        /* h6 Heading */
+        font-family: Nunito-600;
+        font-size: 14px;
+        line-height: 20.4px;
+        /* 145.714% */
+        letter-spacing: 0.06px;
+
+
+    }
+
+    &__button-text {
+        z-index: 25;
+        position: relative;
+    }
+
+    &__button-shadow {
+        z-index: 4;
+        top: 10px;
+        left: 16px;
+        position: absolute;
+        border-radius: 50px;
+        opacity: 0.7;
+        background: #1565C0;
+        width: 185px;
+        height: 37px;
+        flex-shrink: 0;
+        filter: blur(16.5px);
+
+    }
+
+
+    &__report-button {
+        margin: 15px 0 0 0;
+        color: var(--colors-2-secondary, #1565C0);
+        text-align: center;
+        font-variant-numeric: lining-nums proportional-nums;
+        font-family: Poppins-400;
+        font-size: 14px;
+        line-height: 28.4px;
+        /* 202.857% */
+        text-decoration-line: underline;
+    }
+}
