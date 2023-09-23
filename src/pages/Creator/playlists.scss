@@ -1,0 +1,18 @@
+.playlists-container {
+	margin: 32px 0 0 0;
+	display: flex;
+	flex-direction: column;
+	gap: 32.8px;
+	width: 100%;
+}
+
+@media (max-width: 650px) {
+	.playlists-container {
+		margin: 16px 0 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		width: 100%;
+		padding: 0 16px;
+	}
+}

@@ -1,0 +1,49 @@
+.log-input {
+	border-radius: 8px;
+	background: var(--9, #222);
+	width: 100%;
+	// max-width: 420px;
+	height: 48px;
+	padding: 16px;
+	color: var(--6, #999);
+	font-family: Uto-400;
+	font-size: 16px;
+	display: flex;
+
+	&__container {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	&__label {
+		color: var(--3, #fff);
+		font-family: Uto-400;
+		font-size: 14px;
+		line-height: normal;
+
+		display: flex;
+		flex-direction: row;
+		gap: 4px;
+	}
+
+	&__textarea {
+		border-radius: 8px;
+		background: var(--9, #222);
+		width: 100%;
+		max-width: 430px;
+		max-height: 49px;
+		height: fit-content;
+		padding: 14px 16px 16px 16px;
+		color: var(--6, #999);
+		font-family: Uto-400;
+		font-size: 16px;
+		display: flex;
+
+
+		
+		&::placeholder{
+			height: 0px !important;;
+		}
+	}
+}

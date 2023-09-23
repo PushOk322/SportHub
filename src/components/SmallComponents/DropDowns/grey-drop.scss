@@ -1,0 +1,43 @@
+.grey-drop {
+	&__container {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	&__label {
+		color: var(--3, #fff);
+		font-family: Uto-400;
+		font-size: 14px;
+	}
+
+	&__custom-dropdown {
+		padding: 13.5px;
+		border-radius: 8px;
+		background: var(--9, #222);
+		color: var(--3, #fff);
+		font-family: Uto-400;
+		font-size: 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	&__arrow {
+		margin: 7px 8px 0 0;
+		width: 14px;
+		height: 8px;
+	}
+
+	&__custom-dropdown-toggle {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	&__custom-dropdown-options {
+	}
+
+	&__custom-dropdown-option {
+	}
+}

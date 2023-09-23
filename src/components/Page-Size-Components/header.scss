@@ -1,0 +1,287 @@
+.header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	// justify-content: space-between;
+	width: 100%;
+	height: 62px;
+	border-bottom: 1px solid var(--9, #222);
+	&__burger-menu {
+	}
+
+	&__logo {
+		width: 127px;
+		height: 32px;
+	}
+
+	&__buttons {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		gap: 24px;
+		align-items: center;
+		height: 38px;
+	}
+
+	&__search-container {
+		margin: 0 8px 0 0;
+	}
+
+	&__notifications {
+		width: 40px;
+		height: 40px;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__notifications-icon {
+		width: auto;
+		height: auto;
+	}
+
+	&__notifications-number {
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		color: var(--3, #fff);
+		background: #ad7955;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: Uto-500;
+		font-size: 10px;
+	}
+
+	&__videos-buttons {
+		display: flex;
+		flex-direction: row;
+		gap: 24px;
+	}
+
+	&__video-button {
+		padding: 9px 10px;
+		background: transparent;
+		color: var(--5, #bbb);
+		font-family: Uto-400;
+		font-size: 16px;
+
+		&.active {
+			border-radius: 8px;
+			background: var(--9, #222);
+			color: var(--3, #fff);
+		}
+	}
+
+	&__profile {
+		margin: 0 0px 0 1px;
+		position: relative;
+		width: 104px;
+		height: 100%;
+	}
+
+	&__profile-preview {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+		align-items: center;
+		color: var(--5, #bbb);
+		font-family: Uto-400;
+		font-size: 16px;
+		cursor: pointer;
+		height: 100%;
+		padding-left: 10px;
+		&.active {
+			border-radius: 8px;
+			background: var(--9, #222);
+		}
+	}
+
+	&__profile-avatar {
+	}
+
+	&__profile-dropdown {
+		position: absolute;
+		height: 0;
+		visibility: hidden;
+		&.active {
+			height: auto;
+			visibility: visible;
+			border-radius: 8px;
+			background: var(--9, #222);
+			position: absolute;
+			top: 42px;
+			left: -95px;
+			display: flex;
+			padding: 16px;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 16px;
+			z-index: 1000;
+			width: 199px;
+		}
+	}
+
+	&__profile-row {
+		display: flex;
+		flex-direction: row;
+		gap: 8px;
+		// align-items: center;
+	}
+
+	&__profile-row-icon {
+		width: 20px;
+		height: 20px;
+	}
+
+	&__profile-row-text {
+		color: var(--5, #bbb);
+		font-family: Uto-400;
+		font-size: 16px;
+	}
+
+	&__profile-line {
+		height: 1px;
+		align-self: stretch;
+		background: var(--10, #111);
+	}
+}
+
+.burger-menu {
+	display: none;
+    &__menu{
+        display: none;
+    }
+}
+
+@media (max-width: 650px) {
+	.header {
+		padding: 0 20px 0 16px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		// justify-content: space-between;
+		width: 100%;
+		height: 64px;
+		border-bottom: 1px solid var(--9, #222);
+		&__burger-menu {
+		}
+
+		&__logo {
+			margin: 0 0 0 48px;
+			width: 143px;
+			height: 32px;
+		}
+
+		&__buttons {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+			gap: 24px;
+			align-items: center;
+			height: 38px;
+		}
+
+		&__search-container {
+			margin: 0;
+		}
+
+		&__notifications {
+			display: none;
+		}
+
+		&__videos-buttons {
+			display: none;
+		}
+
+		&__profile {
+			display: none;
+		}
+	}
+
+	.burger-menu {
+		position: absolute;
+		left: 23px;
+		top: 25px;
+		width: 18px;
+		height: 14px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		cursor: pointer;
+
+		span {
+			width: 100%;
+			height: 2px;
+			background-color: #ffffff; // Change this to your desired color
+			transition: transform 0.2s, opacity 0.2s;
+			border-radius: 3px;
+		}
+
+		&.open {
+			span {
+				&:first-child {
+					transform: translateY(4.5px) rotate(45deg);
+				}
+
+				&:nth-child(2) {
+					opacity: 0;
+				}
+
+				&:last-child {
+					transform: translateY(-8px) rotate(-45deg);
+				}
+			}
+		}
+
+		&__menu {
+            position: absolute;
+			z-index: 50;
+            top: 64px;
+            height: 100%;
+            background: var(--9, #222);
+			display: flex;
+			width: 294px;
+			padding: 24px 16px;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 16px;
+			flex: 1 0 0;
+
+            left: -100%;
+
+            &.active{
+                left: 0;
+            }
+
+            .header__notifications{
+                display: flex;
+                width: 24px;
+                .header__notifications-number{
+                    left: 13px;
+                }
+            }
+		}
+
+		&__row {
+			color: var(--3, #fff);
+			font-family: Uto-400;
+			font-size: 16px;
+			display: flex;
+			height: 48px;
+			padding: 14px 10px;
+			align-items: center;
+			gap: 10px;
+			align-self: stretch;
+		}
+
+		&__icon {
+		}
+	}
+}

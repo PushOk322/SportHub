@@ -1,0 +1,30 @@
+.orange-button {
+	border-radius: 8px;
+	background: var(--light, #ad7955);
+	width: 100%;
+	max-width: 180px;
+	height: 44px;
+	color: var(--3, #fff);
+	font-family: Uto-600;
+	font-size: 16px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	&.back {
+		background: transparent;
+		color: var(--light, #ad7955);
+		text-align: center;
+		font-family: Uto-600;
+		font-size: 16px;
+		border-radius: 8px;
+		border: 1px solid var(--light, #ad7955);
+	}
+
+	&__plus{
+		width: 24px;
+		height: 24px;
+	}
+}
