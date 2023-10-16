@@ -70,7 +70,6 @@ const AddPlaylist = () => {
         if (!addedVideos.some(addedVideo => addedVideo.video_id === video.video_id)) {
 
             setAddedVideos([...addedVideos, video]);
-            console.log("🚀 ~ file: AddPlaylist.jsx:126 ~ addToPlaylist ~ addedVideos:", addedVideos)
         }
     };
 
@@ -96,10 +95,10 @@ const AddPlaylist = () => {
                     playlist_type: selectedCategory,
                 }
             });
-            console.log("info creation success", response);
+            ////console.log("info creation success", response);
             let playlistId = response.data.data.id;
             const videoIds = addedVideos.map(video => video.video_id);
-            console.log("🚀 ~ file: AddPlaylist.jsx:102 ~ handleUpload ~ videoIds:", videoIds)
+            ////console.log("🚀 ~ file: AddPlaylist.jsx:102 ~ handleUpload ~ videoIds:", videoIds)
             try {
                 const responseRelation = await axios.put(`http://localhost:1337/api/playlists/${playlistId}`, {
                     data: {
@@ -108,13 +107,13 @@ const AddPlaylist = () => {
                         }
                     }
                 });
-                console.log("info creation success");
-
+                ////console.log("info creation success");
+                navigate("/Playlists");
             } catch (error) {
-                console.log("info creation error: ", error);
+                ////console.log("info creation error: ", error);
             }
         } catch (error) {
-            console.log("info creation error: ", error);
+            ////console.log("info creation error: ", error);
         }
     };
 
@@ -223,7 +222,7 @@ const AddPlaylist = () => {
                     </div>
                 </div>
             </div>
-            <div className="height"></div>
+            
         </div >
     );
 };

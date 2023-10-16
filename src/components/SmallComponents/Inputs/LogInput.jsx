@@ -9,16 +9,16 @@ const LogInput = (props) => {
       };
     return (
         <>
-            <div className="log-input__container" style={{maxWidth: props.maxWidth}}>
+            <div className="log-input__container" style={{maxWidth: props.maxWidth, width: props.width + "%"}}>
                 <label htmlFor={props.id} className="log-input__label">
                     {props.label}
                     {props.question && (<img src={questionIcon} alt="" className="log-input__question-icon" />)}                    
                 </label>
 
                 {props.textarea ? 
-                <textarea id={props.id} type={props.type} className="log-input__textarea" placeholder={props.placeholder} onChange={handleInputChange}/>
+                <textarea value={props.value} id={props.id} type={props.type} className="log-input__textarea" placeholder={props.placeholder} onChange={handleInputChange}/>
                 :
-                <input id={props.id} type={props.type} className="log-input" placeholder={props.placeholder} onChange={handleInputChange}/>
+                <input value={props.value} id={props.id} type={props.type} className="log-input" placeholder={props.placeholder} onChange={handleInputChange}/>
                 }
             </div>
         </>

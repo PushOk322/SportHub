@@ -19,6 +19,7 @@
 		text-align: center;
 		font-family: Uto-600;
 		font-size: 16px;
+		cursor: pointer;
 	}
 	&__videos {
 		width: 100%;
@@ -29,8 +30,7 @@
 	}
 }
 
-
-@media(max-width: 650px){
+@media (max-width: 650px) {
 	.playlist-row {
 		display: flex;
 		flex-direction: column;

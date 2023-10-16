@@ -7,9 +7,7 @@ import { useAuth } from '../../data/AuthContext.js'; // Import your AuthContext
 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { getUser } from '../../data/store/userSlice';
-import { updateUser } from '../../data/store/userSlice';
-import userSlice from '../../data/store/userSlice';
+
 
 import useFetch from '../../hooks/UseFetch';
 
@@ -28,48 +26,54 @@ const PersonalInfo = () => {
     const navigate = useNavigate();
 
 
-    const user = useSelector(state => state.users.users[0]);
-    console.log("🚀 ~ file: PersonalInfo.jsx:32 ~ PersonalInfo ~  token:", user)
+    const userSign = useSelector(state => state.userSign.userSign[0]);
+    console.log("🚀 ~ file: PersonalInfo.jsx:30 ~ PersonalInfo ~ userSign:", userSign)
+    //console.log("🚀 ~ file: PersonalInfo.jsx:32 ~ PersonalInfo ~  token:", user)
 
 
 
-    const [backgroundImage, setBackgroundImage] = useState([]);
-   
-    console.log("🚀 ~ file: PersonalInfo.jsx:37 ~ PersonalInfo ~ backgroundImage:", backgroundImage)
+    const [backgroundImage, setBackgroundImage] = useState(null);
+
+    //console.log("🚀 ~ file: PersonalInfo.jsx:37 ~ PersonalInfo ~ backgroundImage:", backgroundImage)
     const [gender, setGender] = useState('');
     const [date, setDate] = useState('');
-    // console.log("🚀 ~ file: PersonalInfo.jsx:39 ~ PersonalInfo ~ date:", date)
-    
+    // //console.log("🚀 ~ file: PersonalInfo.jsx:39 ~ PersonalInfo ~ date:", date)
+
 
     const handleLogin = async () => {
-        console.log('pressed');
+
+        const formPreviewData = new FormData();
+        formPreviewData.append('files', backgroundImage);
+
         try {
-            const formData = new FormData();
-            formData.append('gender', gender);
-            formData.append('date', date);
-            formData.append('user_avatar', backgroundImage);
-            // console.log("🚀 ~ file: PersonalInfo.jsx:47 ~ handleLogin ~ formData:", formData.user_avatar)
+            const responsePreview = await axios.post("http://localhost:1337/api/upload", formPreviewData);
+            //console.log("upload of the Preview is successful");
+            const previewId = responsePreview.data[0].id;
 
-            
-            const response = await axios.put(
-                `http://localhost:1337/api/users/${user.id}`, // Update the URL to your API endpoint
-                formData ,
-                {
-                    headers: {
-                        Authorization: `Bearer ${user.jwt}`, // Include the JWT token in the headers
-                    },
-                }
-            );
+            try {
 
-            // Handle successful update here
-            console.log('Well done!');
-            console.log('Updated user profile', response.data);
 
-            // You can navigate to another page or perform other actions as needed
-            navigate('/UserMain'); // Navigate to the appropriate page
+
+
+                const responseInfo = await axios.put(`http://localhost:1337/api/users/${userSign.user_id}`, {
+                    data: {
+                        user_gender: gender,
+                        user_avatar: previewId,
+                        date_of_birth: date,
+                    }
+                },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${userSign.jwt}`, // Include the JWT token in the headers
+                        },
+                    });
+                //console.log("info creation success");
+                navigate("/LogIn");
+            } catch (error) {
+                //console.log("info creation error: ", error);
+            }
         } catch (error) {
-            // Handle update error here
-            console.error('An error occurred:', error);
+            //console.log("preview upload error: ", error);
         }
     };
 
@@ -77,16 +81,15 @@ const PersonalInfo = () => {
 
 
 
+
+
     function updateBackgroundImage(event) {
         const uploadedImage = event.target.files[0];
-        if (uploadedImage) {
-            setBackgroundImage(`url(${URL.createObjectURL(uploadedImage)})`);
-            console.log("🚀 ~ file: PersonalInfo.jsx:37 ~ PersonalInfo ~ backgroundImage:", backgroundImage)
-        }
+        setBackgroundImage(uploadedImage); // Store the image URL
     }
 
     const avatarBoxStyle = {
-        backgroundImage,
+        backgroundImage: backgroundImage === null ?   '#FFF':`url(${URL.createObjectURL(backgroundImage)})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
     };

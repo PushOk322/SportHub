@@ -5,7 +5,7 @@ import "./login.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../data/store/userSlice';
+import { loginUserSign } from '../../data/store/userSIgnSlice';
 
 import LogInput from '../../components/SmallComponents/Inputs/LogInput';
 import PasswordInput from '../../components/SmallComponents/Inputs/PasswordInput';
@@ -25,30 +25,25 @@ const SignUp = () => {
     let username = firstName + " " + lastName;
 
     const users = useSelector(state => state.users.users);
-    console.log("🚀 ~ file: LogIn.jsx:33 ~ LogIn ~ users:", users)
+    //console.log("🚀 ~ file: LogIn.jsx:33 ~ LogIn ~ users:", users)
     const dispatch = useDispatch();
 
     const handleLogin = async () => {
-        console.log("pressed");
+        //console.log("pressed");
         try {
             const response = await axios.post('http://localhost:1337/api/auth/local/register', {
                 username: username,
                 email: email,
                 password: password,
             });
-
-            dispatch(loginUser(response.data));
-
-
-            console.log('Well done!');
-            console.log('User profile', response.data.user);
-            console.log('User token', response.data.jwt);
+            console.log("🚀 ~ file: SignUp.jsx:39 ~ handleLogin ~ response:", response.data)
+            dispatch(loginUserSign(response.data));
 
 
             navigate('/PersonalInfo');
         } catch (error) {
-            // Handle login error here
-            console.error('An error occurred:', error.response.data);
+           console.log("🚀 ~ file: SignUp.jsx:45 ~ handleLogin ~ error:", error)
+           
         }
     };
 
@@ -92,7 +87,7 @@ const SignUp = () => {
 
                 </div>
 
-                {/* <div className="height"></div> */}
+                {/*  */}
             </div>
         </>
     );

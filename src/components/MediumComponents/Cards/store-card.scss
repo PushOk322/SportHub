@@ -1,0 +1,132 @@
+.store-card {
+	border-radius: 8px;
+	background: var(--9, #222);
+	display: flex;
+	width: 100%;
+	max-width: 448px;
+	flex-direction: column;
+	padding: 24px;
+	gap: 2px;
+
+	&__top-container {
+		display: flex;
+		flex-direction: row;
+		gap: 16px;
+	}
+
+	&__store-avatar {
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+	}
+
+	&__main {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	&__title {
+		margin: -1px 0 0 0;
+		color: var(--3, #fff);
+		font-family: Uto-600;
+		font-size: 20px;
+	}
+
+	&__description {
+		margin: 1px 0 0 0;
+		color: var(--4, #eee);
+		font-family: Uto-400;
+		font-size: 12px;
+		max-width: 264px;
+	}
+
+	&__visit-button {
+		margin: 0px 0 0 136px;
+		display: flex;
+		width: 180px;
+		height: 44px;
+		padding: 2px 4px;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+		color: var(--light, #ad7955);
+		font-family: Uto-600;
+		font-size: 16px;
+		border-radius: 8px;
+		border: 1px solid var(--light, #ad7955);
+		background: transparent;
+	}
+
+	&__icon {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+@media (max-width: 650px) {
+	.store-card {
+		border-radius: 8px;
+		background: var(--9, #222);
+		display: flex;
+		width: 100%;
+		max-width: 343px;
+		flex-direction: column;
+		padding: 24px;
+		gap: 16px;
+
+		&__top-container {
+			display: flex;
+			flex-direction: row;
+			gap: 16px;
+		}
+
+		&__store-avatar {
+			width: 120px;
+			height: 120px;
+			border-radius: 50%;
+		}
+
+		&__main {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		&__title {
+			color: var(--3, #fff);
+			font-family: Uto-600;
+			font-size: 20px;
+		}
+
+		&__description {
+			color: var(--4, #eee);
+			font-family: Uto-400;
+			font-size: 12px;
+			max-width: 159px;
+			line-height: 16px;
+		}
+
+		&__visit-button {
+			margin: 0px 0 0 0px;
+			display: flex;
+			width: 295px;
+			height: 44px;
+			padding: 2px 4px;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+			color: var(--light, #ad7955);
+			font-family: Uto-600;
+			font-size: 16px;
+			border-radius: 8px;
+			border: 1px solid var(--light, #ad7955);
+			background: transparent;
+		}
+
+		&__icon {
+			width: 24px;
+			height: 24px;
+		}
+	}
+}

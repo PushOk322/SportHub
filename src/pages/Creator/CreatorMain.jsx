@@ -26,7 +26,7 @@ const CreatorMain = () => {
     const dispatch = useDispatch();
 
     const videoObj = useSelector(state => state.videos.videos);
-    console.log("🚀 ~ file: CreatorMain.jsx:23 ~ CreatorMain ~ videoobj:", videoObj)
+    //console.log("🚀 ~ file: CreatorMain.jsx:23 ~ CreatorMain ~ videoobj:", videoObj)
 
     useEffect(() => {
         loadVideos();
@@ -35,7 +35,7 @@ const CreatorMain = () => {
 
     const loadVideos = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/videos/?populate=*`);
+            const response = await axios.get(`http://localhost:1337/api/videos/?populate[0]=video_creator&populate[1]=video_creator.user_avatar&populate[2]=video_preview&populate[3]=video_file.video_preview`);
 
             console.log("🚀 ~ file: CreatorMain.jsx:35 ~ loadVideos ~ response:", response)
 
@@ -57,17 +57,17 @@ const CreatorMain = () => {
 
 
 
-    // console.log("🚀 ~ file: CreatorMain.jsx:23 ~ CreatorMain ~ videoobj:", videoObj)
+    // //console.log("🚀 ~ file: CreatorMain.jsx:23 ~ CreatorMain ~ videoobj:", videoObj)
     return (
         <>
 
-            <div class="wrapper">
+            <div className="wrapper">
                 <Header videosButtons={true}></Header>
 
-                <div class="v-p__container">
-                    <div class="v-p">
-                        <div class="v-p__button active">Your video</div>
-                        <div class="v-p__button" onClick={()=>{navigate("/Playlists")}}>Playlists</div>
+                <div className="v-p__container">
+                    <div className="v-p">
+                        <div className="v-p__button active">Your video</div>
+                        <div className="v-p__button" onClick={()=>{navigate("/Playlists")}}>Playlists</div>
                     </div>
                     <div className="v-p__orange-button">
                         <OrangeButton text="Add new video" plus={true} marginTop={0} handleLogin={handleClick} width={180}></OrangeButton>
@@ -78,13 +78,13 @@ const CreatorMain = () => {
                     </div>
                 </div>
 
-                <div class="sort">
-                    <div class={sort === "mind" ? "sort__button active" : " sort__button"} onClick={() => { setSort("mind") }}>Mind</div>
-                    <div class={sort === "body" ? "sort__button active" : " sort__button"} onClick={() => { setSort("body") }}>Body</div>
-                    <div class={sort === "soul" ? "sort__button active" : " sort__button"} onClick={() => { setSort("soul") }}>Soul</div>
+                <div className="sort">
+                    <div className={sort === "mind" ? "sort__button active" : " sort__button"} onClick={() => { setSort("mind") }}>Mind</div>
+                    <div className={sort === "body" ? "sort__button active" : " sort__button"} onClick={() => { setSort("body") }}>Body</div>
+                    <div className={sort === "soul" ? "sort__button active" : " sort__button"} onClick={() => { setSort("soul") }}>Soul</div>
                 </div>
 
-                <div class="video-card-container">
+                <div className="video-card-container">
                     {videoObj.length === 0 ? (
                         // Display a loading message or any other content while loading
                         <p style={{ color: "#fff" }}>Loading...</p>
@@ -95,7 +95,7 @@ const CreatorMain = () => {
                             switch (sort) {
                                 case "mind":
                                     if (videoData.video_type === "mind") {
-                                        console.log(`Rendering VideoCard ${index}`);
+                                        //console.log(`Rendering VideoCard ${index}`);
                                         return (
                                             <VideoCard key={index} videoObj={videoData} videoIndex={index} />
                                         );
@@ -103,7 +103,7 @@ const CreatorMain = () => {
                                     break;
                                 case "soul":
                                     if (videoData.video_type === "soul") {
-                                        console.log(`Rendering VideoCard ${index}`);
+                                        //console.log(`Rendering VideoCard ${index}`);
                                         return (
                                             <VideoCard key={index} videoObj={videoData} videoIndex={index} />
                                         );
@@ -111,7 +111,7 @@ const CreatorMain = () => {
                                     break;
                                 case "body":
                                     if (videoData.video_type === "body") {
-                                        console.log(`Rendering VideoCard ${index}`);
+                                        //console.log(`Rendering VideoCard ${index}`);
                                         return (
                                             <VideoCard key={index} videoObj={videoData} videoIndex={index} />
                                         );
@@ -123,7 +123,7 @@ const CreatorMain = () => {
                         })
                     )}
                 </div>
-                <div class="height"></div>
+                
             </div>
 
         </>

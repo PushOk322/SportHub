@@ -17,12 +17,12 @@ const PlaylistRow = (props) => {
     const navigate = useNavigate();
 
     const currentPlaylist = useSelector(state => state.currentPlaylists.currentPlaylists);
-    console.log("🚀 ~ file: PlaylistRow.jsx:20 ~ PlaylistRow ~ currentPlaylist:", currentPlaylist)
+    //console.log("🚀 ~ file: PlaylistRow.jsx:20 ~ PlaylistRow ~ currentPlaylist:", currentPlaylist)
     const dispatch = useDispatch();
 
-    const handleReroute = () => {
+    console.log("🚀 ~ playlistObj:",props.playlistObj)
+    const handleRerouteView = () => {
         dispatch(addCurrentPlaylist(props.playlistObj));
-        console.log("🚀 ~ file: PlaylistRow.jsx:25 ~ handleReroute ~ playlistObj:",props.playlistObj)
         
         navigate("/PlaylistView")
     }
@@ -35,7 +35,18 @@ const PlaylistRow = (props) => {
                 {
                     props.videoObj.length === 0 ? (
                         // Display a loading message or any other content while loading
-                        <p style={{ color: "#fff" }}>Loading...</p>
+                        <div className="playlist-row">
+                                <div className="playlist-row__head">
+                                    <div className="playlist-row__playlist-name">
+                                        {props.playlistObj.playlist_name}
+                                    </div>
+                                    <div className="playlist-row__view-button" onClick={() => { handleRerouteView() }}>View all</div>
+                                </div>
+                                <div className="playlist-row__videos">
+                                    <p style={{ color: "#fff" , fontFamily: 'Uto-400'}}>The playlist is empty</p>
+                                </div>
+                            </div >
+                        
                     ) : (
                         <>
                             <div className="playlist-row">
@@ -43,17 +54,17 @@ const PlaylistRow = (props) => {
                                     <div className="playlist-row__playlist-name">
                                         {props.playlistObj.playlist_name}
                                     </div>
-                                    <div className="playlist-row__view-button" onClick={() => { handleReroute() }}>View all</div>
+                                    <div className="playlist-row__view-button" onClick={() => { handleRerouteView() }}>View all</div>
                                 </div>
                                 <div className="playlist-row__videos">
                                     {
                                         props.videoObj.slice(0, 7).map((videoData, index) => {
-                                            // console.log("videoObj"+props.videoObj)
+                                            // //console.log("videoObj"+props.videoObj)
                                             // if (index>4) { return };
                                             switch (props.sort) {
                                                 case "mind":
                                                     if (videoData.video_type === "mind") {
-                                                        // console.log(`Rendering VideoCard ${index}`);
+                                                        // //console.log(`Rendering VideoCard ${index}`);
                                                         return (
 
                                                             <VideoCard key={index} videoObj={videoData} videoIndex={index} />
@@ -63,7 +74,7 @@ const PlaylistRow = (props) => {
                                                     break;
                                                 case "soul":
                                                     if (videoData.video_type === "soul") {
-                                                        // console.log(`Rendering VideoCard ${index}`);
+                                                        // //console.log(`Rendering VideoCard ${index}`);
                                                         return (
 
                                                             <VideoCard key={index} videoObj={videoData} videoIndex={index} />
@@ -73,7 +84,7 @@ const PlaylistRow = (props) => {
                                                     break;
                                                 case "body":
                                                     if (videoData.video_type === "body") {
-                                                        // console.log(`Rendering VideoCard ${index}`);
+                                                        // //console.log(`Rendering VideoCard ${index}`);
                                                         return (
 
                                                             <VideoCard key={index} videoObj={videoData} videoIndex={index} />

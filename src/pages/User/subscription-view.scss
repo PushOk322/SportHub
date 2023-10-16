@@ -1,0 +1,277 @@
+.user-subscriptions {
+	// margin: 24px 0 0 0;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 1156px;
+
+	&__cover {
+		margin: 24px 0 0 0;
+		width: 100%;
+		height: 480px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		background: linear-gradient(272deg, rgba(17, 17, 17, 0.8) 1.67%, rgba(17, 17, 17, 0.6) 36.51%, rgba(17, 17, 17, 0) 98.63%);
+		background-size: 100% 100%;
+		border-radius: 20px;
+	}
+
+	&__cover-container {
+		margin: 132px 32px 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	&__account {
+		display: flex;
+		flex-direction: row;
+		gap: 8px;
+		align-items: center;
+	}
+
+	&__account-avatar {
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+	}
+
+	&__account-name {
+		color: var(--3, #fff);
+		font-family: Uto-600;
+		font-size: 32px;
+	}
+
+	&__info-blocks {
+		display: flex;
+		flex-direction: row;
+		gap: 24px;
+	}
+
+	&__info-block {
+		width: 130px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 16px;
+	}
+
+	&__info-icon {
+		width: 44px;
+		height: 44px;
+	}
+
+	&__info-texts {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__info-number {
+		color: var(--3, #fff);
+		font-family: Uto-700;
+		font-size: 18px;
+	}
+
+	&__info-num-text {
+		color: var(--5, #bbb);
+		font-family: Uto-300;
+		font-size: 12px;
+	}
+
+	&__subscribe-button {
+		border-radius: 8px;
+		background: var(--light, #ad7955);
+		display: flex;
+		width: 180px;
+		height: 44px;
+		justify-content: center;
+		align-items: center;
+		color: var(--3, #fff);
+		text-align: center;
+		font-family: Uto-600;
+		font-size: 16px;
+		&.active {
+			border-radius: 8px;
+			background: var(--dark, #653012);
+		}
+	}
+
+	&__content {
+		margin: 24px 0 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+	}
+
+	&__nav {
+		display: flex;
+		flex-direction: row;
+	}
+
+	&__nav-item {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: var(--7, #777);
+		text-align: center;
+		font-family: Uto-600;
+		font-size: 16px;
+		padding: 10px 24.4px;
+		line-height: 24px;
+		cursor: pointer;
+
+		&.active {
+			color: var(--3, #fff);
+			border-bottom: 1px solid var(--light, #ad7955);
+			background: var(--10, #111);
+		}
+	}
+}
+
+@media (max-width: 650px) {
+	.user-subscriptions {
+		// margin: 24px 0 0 0;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+
+		&__cover {
+			margin: 24px 0 220px 0;
+			width: 100%;
+			height: 155.7px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background: linear-gradient(272deg, rgba(17, 17, 17, 0.8) 1.67%, rgba(17, 17, 17, 0.6) 36.51%, rgba(17, 17, 17, 0) 98.63%);
+			background-size: 100% 100%;
+			border-radius: 20px;
+			position: relative;
+		}
+
+		&__cover-container {
+			position: absolute;
+			width: 100%;
+			top: 114px;
+			left: 0;
+			margin: -1px 0px 0 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 17px;
+		}
+
+		&__account {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			align-items: center;
+		}
+
+		&__account-avatar {
+			width: 75.5px;
+			height: 75.5px;
+			border-radius: 50%;
+			border: 6.5px solid #111;
+		}
+
+		&__account-name {
+			margin: -7px 0 0 0;
+			color: var(--3, #fff);
+			font-family: Uto-600;
+			font-size: 24px;
+		}
+
+		&__info-blocks {
+			display: flex;
+			flex-direction: row;
+			gap: 8px;
+			border-radius: 8px;
+			background: var(--9, #222);
+			padding: 8px;
+		}
+
+		&__info-block {
+			width: 103px;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			gap: 16px;
+		}
+
+		&__info-icon {
+			display: none;
+		}
+
+		&__info-texts {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		&__info-number {
+			color: var(--3, #fff);
+			font-family: Uto-700;
+			font-size: 18px;
+		}
+
+		&__info-num-text {
+			color: var(--5, #bbb);
+			font-family: Uto-300;
+			font-size: 12px;
+		}
+
+		&__subscribe-button {
+			border-radius: 8px;
+			background: var(--light, #ad7955);
+			display: flex;
+			width: 343px;
+			height: 44px;
+			justify-content: center;
+			align-items: center;
+			color: var(--3, #fff);
+			text-align: center;
+			font-family: Uto-600;
+			font-size: 16px;
+			&.active {
+				border-radius: 8px;
+				background: var(--dark, #653012);
+			}
+		}
+
+		&__content {
+			margin: 10px 0 0 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 24px;
+		}
+
+		&__nav {
+			display: flex;
+			flex-direction: row;
+		}
+
+		&__nav-item {
+			display: flex;
+			width: 85.75px;
+			height: 37px;
+			justify-content: center;
+			align-items: center;
+			color: var(--7, #777);
+			text-align: center;
+			font-family: Uto-600;
+			font-size: 16px;
+			padding: 0;
+			line-height: 24px;
+			cursor: pointer;
+
+			&.active {
+				color: var(--3, #fff);
+				border-bottom: 1px solid var(--light, #ad7955);
+				background: var(--10, #111);
+			}
+		}
+	}
+}

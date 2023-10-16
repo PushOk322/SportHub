@@ -8,8 +8,8 @@ const currentPlaylistSlice = createSlice({
 	reducers: {
 		addCurrentPlaylist(state, action) {
 			// const { dataPath, index } = action.payload;
-			// console.log("dataPath, index:", dataPath, index);
-			// console.log(dataPath.videos.data[0].video_file.data[0].url);
+			// //console.log("dataPath, index:", dataPath, index);
+			// //console.log(dataPath.videos.data[0].video_file.data[0].url);
 
 			const currentPlaylistVideos = action.payload.playlist_videos.map((videoData) => ({
 				video_obj: videoData.video_obj,
@@ -28,16 +28,17 @@ const currentPlaylistSlice = createSlice({
 				currentPlaylist_name: action.payload.playlist_name,
 				currentPlaylist_type: action.payload.playlist_type,
 				currentPlaylist_description: action.payload.playlist_description,
+				currentPlaylist_id: action.payload.playlist_id,
 				createdAt: action.payload.createdAt
 			});
 
-			console.log("Updated currentPlaylists array:", state.currentPlaylists);
+			//console.log("Updated currentPlaylists array:", state.currentPlaylists);
 		},
 		deleteCurrentPlaylist(state, action) {
 			if (state.currentPlaylists.length > 0) {
 				// Remove the last currentPlaylist from the array
 				state.currentPlaylists.pop();
-				console.log("Deleted currentPlaylist. Updated currentPlaylists array:", state.currentPlaylists);
+				//console.log("Deleted currentPlaylist. Updated currentPlaylists array:", state.currentPlaylists);
 			}
 		},
 		updateCurrentPlaylist(state, action) {
@@ -50,7 +51,7 @@ const currentPlaylistSlice = createSlice({
 					...state.currentPlaylists[currentPlaylistIndex],
 					...updatedcurrentPlaylist
 				};
-				console.log("Updated currentPlaylist. Updated currentPlaylists array:", state.currentPlaylists);
+				//console.log("Updated currentPlaylist. Updated currentPlaylists array:", state.currentPlaylists);
 			}
 		},
 		getcurrentPlaylist(state, action) {

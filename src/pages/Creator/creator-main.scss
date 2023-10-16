@@ -13,6 +13,12 @@
 	flex-direction: row;
 	gap: 0;
 
+	&__title {
+		color: var(--3, #fff);
+		font-family: Uto-500;
+		font-size: 24px;
+	}
+
 	&__container {
 		width: 100%;
 		margin: 24px 0 0 0;
@@ -35,13 +41,14 @@
 			font-family: Uto-500;
 			font-size: 24px;
 		}
+		cursor: pointer;
 	}
 
 	&__button-mobile {
 		display: none;
 	}
 
-	&__orange-button{
+	&__orange-button {
 		margin: 7px 0 0 0;
 	}
 }
@@ -118,8 +125,8 @@
 		}
 
 		&__button-mobile {
-            width: 54px;
-            height: 54px;
+			width: 54px;
+			height: 54px;
 			border-radius: 8px;
 			background: var(--light, #ad7955);
 			position: fixed;
@@ -128,7 +135,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-            z-index: 20;
+			z-index: 20;
 		}
 	}
 

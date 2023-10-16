@@ -63,6 +63,7 @@
 				filter: invert(52%) sepia(9%) saturate(2066%) hue-rotate(342deg) brightness(96%) contrast(83%);
 			}
 		}
+		cursor: pointer;
 	}
 
 	&__dots-icon {
@@ -89,6 +90,7 @@
 		&.white {
 			color: var(--3, #fff);
 		}
+		cursor: pointer;
 	}
 
 	&__upload {
@@ -303,6 +305,7 @@
 					filter: invert(52%) sepia(9%) saturate(2066%) hue-rotate(342deg) brightness(96%) contrast(83%);
 				}
 			}
+			cursor: pointer;
 		}
 
 		&__dots-icon {
@@ -329,6 +332,7 @@
 			&.white {
 				color: var(--3, #fff);
 			}
+			cursor: pointer;
 		}
 
 		&__upload {

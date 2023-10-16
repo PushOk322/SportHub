@@ -22,16 +22,59 @@ const Header = (props) => {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-    const user = useSelector(state => state.users.users[0]);
+    // const user = useSelector(state => state.users.users[0]);
+    const userObj = useSelector(state => state.users.users);
+    // console.log("🚀 ~ file: EditProfile.jsx:89 ~ EditProfile ~ userObj:", userObj)
+
+    // Define the function to get and validate the stored playlist data
+    const getStoredUser = () => {
+        try {
+            // Check if currentUser is available in Redux
+            const currentUser = useSelector(state => state.users.users);
+            if (currentUser && currentUser.length > 0) {
+                // Save currentUser to local storage
+                sessionStorage.setItem(`currentUser`, JSON.stringify(currentUser));
+                return currentUser; // Return the Redux data
+            } else {
+                // If not available in Redux, check local storage
+                const storedUser = sessionStorage.getItem('currentUser');
+                if (storedUser) {
+                    // Parse the stored data
+                    const parsedUser = JSON.parse(storedUser);
+                    // Use the stored playlist
+                    // You can update the Redux state here if needed
+                    return parsedUser;
+                } else {
+                    // If not available in Redux or local storage, return null
+                    return null;
+                }
+            }
+        } catch (error) {
+            // Handle any errors here if needed
+            console.error(error);
+            return null; // Return null in case of an error
+        }
+    };
+
+    // Call the function to get the stored playlist data
+    const storedUser = getStoredUser();
+
+
+
+    const currentProfileRole = storedUser ? storedUser[0].user_role : null;
+    // Now you can access the properties of the stored playlist
+    const currentProfileAvatar = storedUser ? storedUser[0].user_avatar : null;
 
     const handleClick = () => {
-        navigate("/SignUp");
+        navigate("/LogIn");
     }
 
-
-    const [notifications, setNotifications] = useState(true);
-    if (user && user.customer_role === "user") {
-        setNotifications(true)
+    const handleLogoClick = () => {
+        if (currentProfileRole === "user") {
+            navigate("/UserMain");
+        } else {
+            navigate("/Creatormain");
+        }
     }
 
     const [profileDrop, setProfileDrop] = useState(false);
@@ -55,13 +98,13 @@ const Header = (props) => {
                     Store
                 </div>
                 <div className="burger-menu__row">
-                    <img src={userAvatar} alt="" className="burger-menu__icon" />
+                    <img src={`http://localhost:1337${currentProfileAvatar}`} alt="" className="burger-menu__icon" />
                     Profile
                 </div>
                 <div className="burger-menu__row">
                     <div className="header__notifications">
                         <img src={notifyIcon} alt="1" className="header__notifications-icon" />
-                        <div className={notifications ? "header__notifications-number active" : "header__notifications-number"}>4</div>
+                        <div className={props.notifications ? "header__notifications-number active" : "header__notifications-number"}>4</div>
                     </div>
                     Notification
                 </div>
@@ -69,7 +112,7 @@ const Header = (props) => {
             <div className="header">
 
 
-                <img src={siteLogo} alt="" className="header__logo" />
+                <img src={siteLogo} alt="" className="header__logo" onClick={() => { handleLogoClick() }} />
 
                 <div className="header__buttons">
                     <div className="header__search-container">
@@ -78,49 +121,50 @@ const Header = (props) => {
 
                     <div className="header__notifications">
                         <img src={notifyIcon} alt="" className="header__notifications-icon" />
-                        <div className={notifications ? "header__notifications-number active" : "header__notifications-number"}>4</div>
+                        <div className={props.notifications ? "header__notifications-number active" : "header__notifications-number"}>4</div>
                     </div>
 
                     {props.videosButtons && (
                         <div className="header__videos-buttons">
                             <button className={videoButtonActive === 1 ? "header__video-button active" : "header__video-button"} onClick={() => { setVideoButtonActive(1) }}>Video</button>
-                            <button className={videoButtonActive === 2 ? "header__video-button active" : "header__video-button"} onClick={() => { setVideoButtonActive(2) }}>Store</button>
+                            <button className={videoButtonActive === 2 ? "header__video-button active" : "header__video-button"} onClick={() => { setVideoButtonActive(2); navigate("/Stores") }}>Store</button>
                         </div>
                     )}
 
 
-                    {/* {user ?  */}
-                    <div className="header__profile">
-                        <div className={profileDrop ? "header__profile-preview active" : "header__profile-preview"} onClick={() => { setProfileDrop(!profileDrop) }}>
-                            <img src={userAvatar} alt="" className="header__profile-avatar" />
-                            Profile
+                    {currentProfileAvatar === null ?
+                        <OrangeButton width={120} marginTop={0} marginLeft={0} height={40} text="Sign in" handleLogin={handleClick}></OrangeButton>
+
+                        :
+                        <div className="header__profile">
+                            <div className={profileDrop ? "header__profile-preview active" : "header__profile-preview"} onClick={() => { setProfileDrop(!profileDrop) }}>
+                                <img src={`http://localhost:1337${currentProfileAvatar}`} alt="" className="header__profile-avatar" />
+                                Profile
+                            </div>
+                            <div className={profileDrop ? "header__profile-dropdown active" : "header__profile-dropdown"}>
+                                <Link to="/EditProfile">
+                                    <div className="header__profile-row" onClick={() => { navigate("/EditProfile") }}>
+                                        <img src={editIcon} alt="" className="header__profile-row-icon" />
+                                        <div className="header__profile-row-text">Edit profile</div>
+                                    </div>
+                                </Link>
+                                <Link to="/LogIn" onClick={() => { dispatch(logoutUser()) }}>
+                                    <div className="header__profile-row">
+                                        <img src={diamondIcon} alt="" className="header__profile-row-icon" />
+                                        <div className="header__profile-row-text">Switch to <br />business account</div>
+                                    </div>
+                                </Link>
+                                <div className="header__profile-line"></div>
+                                <Link to="/LogIn" onClick={() => { dispatch(logoutUser()) }}>
+                                    <div className="header__profile-row">
+                                        <img src={logoutIcon} alt="" className="header__profile-row-icon" />
+                                        <div className="header__profile-row-text">Log out</div>
+                                    </div>
+                                </Link>
+                            </div>
                         </div>
-                        <div className={profileDrop ? "header__profile-dropdown active" : "header__profile-dropdown"}>
-                            <Link to="/EditProfile">
-                                <div className="header__profile-row">
-                                    <img src={editIcon} alt="" className="header__profile-row-icon" />
-                                    <div className="header__profile-row-text">Edit profile</div>
-                                </div>
-                            </Link>
-                            <Link to="/LogIn" onClick={() => { dispatch(logoutUser()) }}>
-                                <div className="header__profile-row">
-                                    <img src={diamondIcon} alt="" className="header__profile-row-icon" />
-                                    <div className="header__profile-row-text">Switch to <br />business account</div>
-                                </div>
-                            </Link>
-                            <div className="header__profile-line"></div>
-                            <Link to="/LogIn" onClick={() => { dispatch(logoutUser()) }}>
-                                <div className="header__profile-row">
-                                    <img src={logoutIcon} alt="" className="header__profile-row-icon" />
-                                    <div className="header__profile-row-text">Log out</div>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                    {/* :
-                            <OrangeButton width={120} marginTop={0} marginLeft={0} height={40} text="Sign in" handleLogin={handleClick}></OrangeButton>
-                        }
-                    </div> */}
+                    }
+
                 </div>
 
 

@@ -54,6 +54,84 @@
 		}
 	}
 
+	&.user-view {
+		width: 368px;
+		height: 288px;
+		.video-card__menu-button {
+			margin: 8.96px 8.96px 0 0;
+			width: 35.83px;
+			height: 35.83px;
+		}
+
+		.video-card__menu-dropdown {
+			right: 7.21px;
+			top: 45px;
+			position: absolute;
+			border-radius: 7.212px;
+			background: rgba(0, 0, 0, 0.4);
+			backdrop-filter: blur(1.803108811378479px);
+			padding: 7.21px;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		.video-card__play-button {
+			margin: 50px 0px 0 0;
+			align-self: center;
+			width: 50.5px;
+			height: 36px;
+			border-radius: 7.212px;
+			background: rgba(0, 0, 0, 0.6);
+			backdrop-filter: blur(1.803108811378479px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+		.video-card__length {
+			margin: 46px 8px 0 0;
+			align-self: flex-end;
+			width: 50px;
+			height: 24px;
+
+			border-radius: 7.212px;
+			background: rgba(0, 0, 0, 0.4);
+			backdrop-filter: blur(1.803108811378479px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--3, #fff);
+			font-family: Uto-400;
+			font-size: 12px;
+		}
+
+		.video-card__video {
+			width: 368px;
+			height: 208.5px;
+		}
+
+		.video-card__texts {
+			margin: 7.5px 8px 0px 8px;
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+		}
+
+		.video-card__video-name {
+			color: var(--3, #fff);
+			font-family: Uto-500;
+			font-size: 16px;
+			line-height: 18px; /* 112.5% */
+			max-width: 352px;
+		}
+
+		.video-card__video-post-time {
+			color: var(--6, #999);
+			font-family: Uto-400;
+			font-size: 14px;
+		}
+	}
+
 	&:hover {
 		.video-card__custom-controls {
 			display: flex;
@@ -109,10 +187,11 @@
 		color: var(--6, #999);
 		font-family: Uto-400;
 		font-size: 12.622px;
+		cursor: pointer;
 	}
 
 	&__play-button {
-		margin: 39.67px 0px 0 0;
+		margin: 49.26px 0px 0 0;
 		align-self: center;
 		width: 50.5px;
 		height: 36px;
@@ -162,6 +241,40 @@
 		max-width: 327px;
 	}
 
+	&__video-info {
+		margin: 4px 0 0 0;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__author {
+		margin: -5px 0 0 0;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 8px;
+	}
+
+	&__author-avatar {
+		width: 24px;
+		height: 24px;
+	}
+
+	&__author-name {
+		color: var(--6, #999);
+		font-family: Uto-400;
+		font-size: 14px;
+	}
+
+	&__time {
+		margin: -5px 0 0 0;
+		color: var(--6, #999);
+		font-family: Uto-400;
+		font-size: 14px;
+	}
+
 	&__video-post-time {
 		color: var(--6, #999);
 		font-family: Uto-400;
@@ -196,14 +309,14 @@
 				position: relative;
 			}
 			.video-card__play-button {
-				margin: 39.67px 0px 0 0;
+				margin: -150px 0px 0 0;
 				align-self: center;
 				width: 50.5px;
 				height: 36px;
 				border-radius: 7.212px;
 				background: rgba(0, 0, 0, 0.6);
 				backdrop-filter: blur(1.803108811378479px);
-				display: none;
+				display: flex;
 				align-items: center;
 				justify-content: center;
 				cursor: pointer;
@@ -235,6 +348,91 @@
 				display: flex;
 				flex-direction: column;
 				gap: 6.42px;
+			}
+
+			.video-card__video-name {
+				color: var(--3, #fff);
+				font-family: Uto-500;
+				font-size: 14px;
+				line-height: 16.228px; /* 112.5% */
+				max-width: 287px;
+			}
+
+			.video-card__video-post-time {
+				color: var(--6, #999);
+				font-family: Uto-400;
+				font-size: 12.622px;
+			}
+		}
+
+		&.user-view {
+			width: 343px;
+			height: 270px;
+			background: transparent;
+			.video-card__menu-button {
+				margin: 201px 8px 0 0;
+				align-self: flex-end;
+				width: 32px;
+				height: 32px;
+				border-radius: 8px;
+				background: rgba(0, 0, 0, 0.4);
+				backdrop-filter: blur(1.8641303777694702px);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				pointer-events: all;
+				position: relative;
+			}
+			.video-card__menu-dropdown {
+				right: 7.21px;
+				top: 235px;
+				position: absolute;
+				border-radius: 7.212px;
+				background: rgba(0, 0, 0, 0.4);
+				backdrop-filter: blur(1.803108811378479px);
+				padding: 7.21px;
+			}
+			.video-card__play-button {
+				margin: -150px 0px 0 0;
+				align-self: center;
+				width: 50.5px;
+				height: 36px;
+				border-radius: 7.212px;
+				background: rgba(0, 0, 0, 0.6);
+				backdrop-filter: blur(1.803108811378479px);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+			}
+			.video-card__length {
+				margin: 43px 8px 0 0;
+				align-self: flex-end;
+				width: 50px;
+				height: 24px;
+
+				border-radius: 7.212px;
+				background: rgba(0, 0, 0, 0.4);
+				backdrop-filter: blur(1.803108811378479px);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: var(--3, #fff);
+				font-family: Uto-400;
+				font-size: 12px;
+			}
+
+			.video-card__video {
+				width: 343px;
+				height: 192.5px;
+			}
+
+			.video-card__texts {
+				margin: 9px 7.21px 0px 8px;
+				display: flex;
+				flex-direction: column;
+				gap: 4.42px;
 			}
 
 			.video-card__video-name {
@@ -306,14 +504,14 @@
 		}
 
 		&__play-button {
-			margin: 39.67px 0px 0 0;
+			margin: -150px 0px 0 0;
 			align-self: center;
 			width: 50.5px;
 			height: 36px;
 			border-radius: 7.212px;
 			background: rgba(0, 0, 0, 0.6);
 			backdrop-filter: blur(1.803108811378479px);
-			display: none;
+			display: flex;
 			align-items: center;
 			justify-content: center;
 			cursor: pointer;
@@ -323,7 +521,7 @@
 		}
 
 		&__length {
-			margin: -72px 8px 0 0;
+			margin: 43px 8px 0 0;
 			align-self: flex-end;
 			width: 50px;
 			height: 24px;
@@ -357,6 +555,44 @@
 			font-size: 14px;
 			line-height: 16.228px; /* 112.5% */
 			max-width: 287px;
+		}
+
+		&__video-info {
+			margin: 4px 0 0 0;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			max-width: 287px;
+		}
+
+		&__author {
+			display: flex;
+			flex-direction: row;
+			gap: 8px;
+		}
+
+		&__author-avatar {
+			width: 24px;
+			height: 24px;
+		}
+
+		&__author-name {
+			color: var(--6, #999);
+			font-family: Uto-400;
+			font-size: 14px;
+		}
+
+		&__time {
+			color: var(--6, #999);
+			font-family: Uto-400;
+			font-size: 12.622px;
+		}
+
+		&__video-post-time {
+			color: var(--6, #999);
+			font-family: Uto-400;
+			font-size: 12.622px;
 		}
 
 		&__video-post-time {

@@ -21,6 +21,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+		cursor: pointer;
 	}
 
 	&__arrow {
@@ -39,5 +40,6 @@
 	}
 
 	&__custom-dropdown-option {
+		cursor: pointer;
 	}
 }

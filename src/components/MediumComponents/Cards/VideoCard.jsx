@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import './video-card.scss';
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from 'react-redux';
 
 import threeDots from '../../../img/dots-icon.svg';
 import playIcon from '../../../img/play-icon.svg';
 
+
+import { useDispatch } from 'react-redux';
+import { addCurrentVideo } from '../../../data/store/currentVideoSlice';
 const VideoCard = (props) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [menuVisible, setMenuVisible] = useState(false);
 
@@ -17,12 +21,16 @@ const VideoCard = (props) => {
         setMenuVisible(false);
     };
 
+
+    const currentVideoObj = useSelector(state => state.currentVideos.currentVideos);
+    
     const handlePlayClick = () => {
-        // Add your play logic here
-        // For example, you can navigate to a video player page
-        // using react-router
-        // history.push(`/video/${props.videoObj[props.videoIndex].id}`);
-        navigate("/VideoPlayer");
+        
+        
+        console.log("🚀 ~ file: VideoCard.jsx:31 ~ handlePlayClick ~ props.videoObj:", props.videoObj)
+        dispatch(addCurrentVideo(props.videoObj));
+        navigate("/VideoPage");
+        window.location.reload()
     };
 
 
@@ -37,11 +45,12 @@ const VideoCard = (props) => {
     const currentTime = new Date();
     const timeDifference = Math.floor((currentTime - createdAt) / (1000 * 60 * 60)); // in hours
 
-    
+    // console.log("🚀 ~ file: VideoCard.jsx:86 ~ VideoCard ~ props.videoObj:", props.videoObj)
+
 
     return (
-        <div className={props.cardSize==="big" ? "video-card big":"video-card"}>
-            <div className={props.showControls==="no" ? "video-card__custom-controls hidden":"video-card__custom-controls"}>
+        <div className={`video-card ${props.cardSize === "big" ? "big" : ""}${props.userCard ? "user-view" : ""}`}>
+            <div className={props.showControls === "no" ? "video-card__custom-controls hidden" : "video-card__custom-controls"}>
 
                 <div
                     className="video-card__menu-button"
@@ -49,12 +58,25 @@ const VideoCard = (props) => {
                 >
                     <img src={threeDots} alt="" className="video-card__three-dots-icon" />
                 </div>
-                {menuVisible && (
-                    <div className="video-card__menu-dropdown">
-                        <div className="video-card__menu-item" onClick={handleDeleteClick}>
-                            Delete
+                {props.userView ? (
+                    menuVisible && (
+                        <div className="video-card__menu-dropdown">
+                            <div className="video-card__menu-item" onClick={() => { props.handleViewLater(props.videoObj.video_id); setMenuVisible(false) }}>
+                                View later
+                            </div>
+                            <div className="video-card__menu-item" onClick={() => { props.handleNotInterested(props.videoObj.video_id); setMenuVisible(false) }}>
+                                Not interested
+                            </div>
                         </div>
-                    </div>
+                    )
+                ) : (
+                    menuVisible && (
+                        <div className="video-card__menu-dropdown">
+                            <div className="video-card__menu-item" onClick={() => { handleDeleteClick }}>
+                                Delete
+                            </div>
+                        </div>
+                    )
                 )}
 
 
@@ -78,8 +100,19 @@ const VideoCard = (props) => {
                     {props.videoObj.video_name}
                 </div>
                 <div className="video-card__video-post-time">
-                    {`${timeDifference} hours ago`} {/* Display the time difference */}
+                    {props.userView ?
+                        <>
+                            <div className="video-card__video-info">
+                                <div className="video-card__author">
+                                    <img src={"http://localhost:1337" + props.videoObj.video_creator_avatar} alt="" className="video-card__author-avatar" />
+                                    <div className="video-card__author-name">{props.videoObj.video_creator_username}</div>
+                                </div>
+                                <div className="video-card__time">{`${timeDifference} hours ago`}</div>
+                            </div>
+                        </>
+                        : `${timeDifference} hours ago`}
                 </div>
+
             </div>
 
 

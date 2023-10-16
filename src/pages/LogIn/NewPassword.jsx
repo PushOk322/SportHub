@@ -22,7 +22,7 @@ const NewPassword = () => {
     // Extract the "code" parameter from the URL fragment
     const queryParams = new URLSearchParams(location.search);
     const fragmentCode = queryParams.get('code');
-    console.log(fragmentCode)
+    //console.log(fragmentCode)
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
 
@@ -36,7 +36,7 @@ const NewPassword = () => {
 
             navigate("/LogIn");
         } catch (error) {
-            console.log('Password reset error:', error);
+            //console.log('Password reset error:', error);
         }
     };
 

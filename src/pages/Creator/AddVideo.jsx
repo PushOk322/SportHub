@@ -71,11 +71,11 @@ const AddVideo = () => {
     const [videoFieldsVisible, setVideoFieldsVisible] = useState(false);
 
     const [videoFile, setVideoFile] = useState(null);
-    // console.log("🚀 ~ file: AddVideo.jsx:56 ~ AddVideo ~ selectedVideo:", videoFile)
+    // //console.log("🚀 ~ file: AddVideo.jsx:56 ~ AddVideo ~ selectedVideo:", videoFile)
     const [selectedImage, setSelectedImage] = useState(null);
     const [videoTitle, setVideoTitle] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
-    console.log("🚀 ~ file: AddVideo.jsx:104 ~ AddVideo ~ selectedOption:", selectedOption)
+    //console.log("🚀 ~ file: AddVideo.jsx:104 ~ AddVideo ~ selectedOption:", selectedOption)
 
     const [videoDescription, setVideoDescription] = useState('');
     const [videoShopLink, setVideoShopLink] = useState('');
@@ -85,7 +85,7 @@ const AddVideo = () => {
 
 
     const handleUpload = async () => {
-        console.log("pressed");
+        //console.log("pressed");
         const formData = new FormData();
         formData.append('files', videoFile);
 
@@ -93,7 +93,7 @@ const AddVideo = () => {
 
         try {
             const responseVideo = await axios.post("http://localhost:1337/api/upload", formData);
-            console.log("upload of the Video is successful");
+            //console.log("upload of the Video is successful");
             videoId = responseVideo.data[0].id; // Assign the value here
 
             const formPreviewData = new FormData();
@@ -101,10 +101,14 @@ const AddVideo = () => {
 
             try {
                 const responsePreview = await axios.post("http://localhost:1337/api/upload", formPreviewData);
-                console.log("upload of the Preview is successful");
+                //console.log("upload of the Preview is successful");
                 const previewId = responsePreview.data[0].id;
 
                 try {
+
+
+
+
                     const responseInfo = await axios.post("http://localhost:1337/api/videos", {
                         data: {
                             video_file: videoId,
@@ -116,15 +120,16 @@ const AddVideo = () => {
                             video_shop_link: videoShopLink,
                         }
                     });
-                    console.log("info creation success");
+                    //console.log("info creation success");
+                    navigate("/CreatorMain");
                 } catch (error) {
-                    console.log("info creation error: ", error);
+                    //console.log("info creation error: ", error);
                 }
             } catch (error) {
-                console.log("preview upload error: ", error);
+                //console.log("preview upload error: ", error);
             }
         } catch (error) {
-            console.log("video upload error: ", error);
+            //console.log("video upload error: ", error);
         }
     };
 
@@ -261,7 +266,7 @@ const AddVideo = () => {
                     </div>
                 )}
             </div>
-            <div className="height"></div>
+            
         </div >
     );
 };

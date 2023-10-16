@@ -7,34 +7,48 @@ const userSlice = createSlice({
 	},
 	reducers: {
 		loginUser(state, action) {
-			console.log("🚀 ~ file: userSlice.js:10 ~ loginUser ~ action:", action);
-			console.log("🚀 ~ file: userSlice.js:10 ~ loginUser ~ state:", state);
-
-			state.users.push({
-				blocked: action.payload.user.blocked,
-				confirmed: action.payload.user.confirmed,
-				createdAt: action.payload.user.createdAt,
-				customer_role: action.payload.user.customer_role,
-				date_of_birth: action.payload.user.date_of_birth,
-				email: action.payload.user.email, 
-				id: action.payload.user.id,
-				provider: action.payload.user.provider,
-				updatedAt: action.payload.user.updatedAt,
-				user_gender: action.payload.user.user_gender,
-				user_avatar: action.payload.user.user_avatar,
-				username: action.payload.user.username,
-
-				jwt: action.payload.jwt
-			});
-
-			// console.log("🚀 ~ file: userSlice.js:7 ~ users:", users)
-		},
-		logoutUser(state, action) {
+			// console.log("🚀 ~ file: userSlice.js:10 ~ loginUser ~ action:", action);
+			// console.log("🚀 ~ file: userSlice.js:10 ~ loginUser ~ state:", state);
 			if (state.users.length > 0) {
 				// Remove the last user from the array
 				state.users.pop();
-				console.log("🚀 ~ file: userSlice.js:30 ~ logoutUser ~ state.users:", state.users);
+				// console.log("🚀 ~ file: userSlice.js:30 ~ logoutUser ~ state.users:", state.users);
+				
 			}
+			state.users.push({
+				blocked: action.payload.blocked,
+				confirmed: action.payload.confirmed,
+				createdAt: action.payload.createdAt,
+				customer_role: action.payload.customer_role,
+				date_of_birth: action.payload.date_of_birth,
+				email: action.payload.email, 
+				id: action.payload.id,
+				provider: action.payload.provider,
+				updatedAt: action.payload.updatedAt,
+				user_gender: action.payload.user_gender,
+				username: action.payload.username,
+
+				
+				user_avatar: action.payload.user_avatar.url,
+
+				user_cover: action.payload.user_cover.url,
+				user_first_name: action.payload.user_first_name,
+				user_last_name: action.payload.user_last_name,
+				user_address: action.payload.user_address,
+				user_LLC: action.payload.user_LLC,
+				user_description: action.payload.user_description,
+				user_vimeo: action.payload.user_vimeo,
+				user_instagram: action.payload.user_instagram,
+				user_facebook: action.payload.user_facebook,
+				user_twitter: action.payload.user_twitter,
+
+
+				jwt: action.payload.jwt
+			});
+			
+		},
+		logoutUser(state, action) {
+			
 		},
 		updateUser(state, action) {
 			const updatedUser = action.payload; // Assuming action.payload contains the updated user data

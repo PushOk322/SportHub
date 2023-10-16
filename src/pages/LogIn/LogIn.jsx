@@ -28,42 +28,57 @@ const LogIn = () => {
     // const { login } = useAuth(); // Use the signUp function directly from AuthContext
 
     const users = useSelector(state => state.users.users);
-    console.log("🚀 ~ file: LogIn.jsx:33 ~ LogIn ~ users:", users)
+
+    //console.log("🚀 ~ file: LogIn.jsx:33 ~ LogIn ~ users:", users)
     const dispatch = useDispatch();
 
     // const loginUser = () => {
-        
+
     // }
 
 
 
-   
+
 
 
     const handleLogin = async () => {
-        console.log("pressed");
+        //console.log("pressed");
         try {
-            const response = await axios.post('http://localhost:1337/api/auth/local', {
+            const response = await axios.post('http://localhost:1337/api/auth/local?populate=*', {
                 identifier: email,
                 password: password,
             });
-            // Handle successful login here
             console.log('Logged in:', response.data);
 
 
-            console.log('User Avatar', response.data.user_avatar);
+            try {
+                const responseImg = await axios.get(`http://localhost:1337/api/users/${response.data.user.id}?populate=*`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${response.data.jwt}`, // Include the JWT token in the headers
+                        },
+                    }
+                );
+                console.log('get', responseImg);
+
+                responseImg.data.jwt = response.data.jwt;
+                console.log("🚀 ~ file: LogIn.jsx:65 ~ handleLogin ~ responseImg.data.jwt:", responseImg.data.jwt)
+
+                dispatch(loginUser(responseImg.data));
 
 
+                if (response.data.user.customer_role === "user") {
+                    navigate("/UserMain");
+                } else if (response.data.user.customer_role === "creator") {
+                    navigate("/CreatorMain");
+                }
 
-            dispatch(loginUser(response.data));
-
-
-
-            if (response.data.user.customer_role === "user") {
-                navigate("/UserMain");
-            } else if (response.data.user.customer_role === "creator") {
-                navigate("/CreatorMain");
+            } catch (error) {
+                // Handle login error here
+                console.error('Get user error:', error);
             }
+
+
         } catch (error) {
             // Handle login error here
             console.error('Login error:', error);
@@ -109,7 +124,7 @@ const LogIn = () => {
 
                 </div>
 
-                {/* <div className="height"></div> */}
+                {/*  */}
             </div>
         </>
     );

@@ -83,6 +83,96 @@
     },
     "date_of_birth": {
       "type": "date"
+    },
+    "store": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::store.store",
+      "mappedBy": "users_permissions_user"
+    },
+    "user_cover": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "user_first_name": {
+      "type": "string"
+    },
+    "user_last_name": {
+      "type": "string"
+    },
+    "user_address": {
+      "type": "string"
+    },
+    "user_LLC": {
+      "type": "string"
+    },
+    "user_description": {
+      "type": "text"
+    },
+    "user_vimeo": {
+      "type": "string"
+    },
+    "user_instagram": {
+      "type": "string"
+    },
+    "user_facebook": {
+      "type": "string"
+    },
+    "user_twitter": {
+      "type": "string"
+    },
+    "user_subscriptions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "user_subscripteds"
+    },
+    "user_subscripteds": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_subscriptions"
+    },
+    "user_view_later": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video.video"
+    },
+    "user_latest": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video.video"
+    },
+    "created_videos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video.video",
+      "mappedBy": "video_creator"
+    },
+    "user_stores": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::store.store",
+      "mappedBy": "store_author"
+    },
+    "user_playlists": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::playlist.playlist",
+      "mappedBy": "playlists_user"
+    },
+    "user_comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "comment_author"
     }
   }
 }

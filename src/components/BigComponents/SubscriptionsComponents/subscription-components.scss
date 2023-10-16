@@ -1,0 +1,203 @@
+.subscription-videos-box {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 24px;
+}
+
+.subscription-info {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	gap: 24px;
+	&__info {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	&__head {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		gap: 48px;
+	}
+
+	&__info-box {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		width: 100%;
+		&.first {
+			max-width: 377px;
+		}
+	}
+
+	&__box-title {
+		color: var(--5, #bbb);
+		font-family: Uto-400;
+		font-size: 12px;
+	}
+
+	&__box-text {
+		color: var(--3, #fff);
+		font-family: Uto-500;
+		font-size: 16px;
+	}
+
+	&__links {
+		width: 100%;
+		max-width: 330px;
+		display: flex;
+		flex-direction: column;
+		padding: 24px;
+		gap: 24px;
+		border-radius: 8px;
+		background: var(--9, #222);
+	}
+
+	&__links-title {
+		color: var(--3, #fff);
+		font-family: Uto-600;
+		font-size: 18px;
+		color: var(--3, #fff);
+		font-family: Uto-600;
+		font-size: 18px;
+	}
+
+	&__links-list {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	&__links-item {
+		color: var(--5, #bbb);
+		font-family: Uto-400;
+		font-size: 14px;
+		display: flex;
+		flex-direction: row;
+		gap: 8px;
+		align-items: center;
+	}
+
+	&__link-icon {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+.subscription-stores{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 24px;
+}
+
+
+@media(max-width: 650px){
+	.subscription-videos-box {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 24px;
+	}
+	
+	.subscription-info {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 24px;
+		&__info {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 24px;
+		}
+	
+		&__head {
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			gap: 48px;
+		}
+	
+		&__info-box {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			width: 100%;
+			&.first {
+				max-width: 377px;
+			}
+		}
+	
+		&__box-title {
+			color: var(--5, #bbb);
+			font-family: Uto-400;
+			font-size: 12px;
+		}
+	
+		&__box-text {
+			color: var(--3, #fff);
+			font-family: Uto-500;
+			font-size: 16px;
+		}
+	
+		&__links {
+			width: 100%;
+			max-width: 330px;
+			display: flex;
+			flex-direction: column;
+			padding: 24px;
+			gap: 24px;
+			border-radius: 8px;
+			background: var(--9, #222);
+		}
+	
+		&__links-title {
+			color: var(--3, #fff);
+			font-family: Uto-600;
+			font-size: 18px;
+			color: var(--3, #fff);
+			font-family: Uto-600;
+			font-size: 18px;
+		}
+	
+		&__links-list {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+		}
+	
+		&__links-item {
+			color: var(--5, #bbb);
+			font-family: Uto-400;
+			font-size: 14px;
+			display: flex;
+			flex-direction: row;
+			gap: 8px;
+			align-items: center;
+		}
+	
+		&__link-icon {
+			width: 24px;
+			height: 24px;
+		}
+	}
+	
+	.subscription-stores{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 24px;
+	}
+}

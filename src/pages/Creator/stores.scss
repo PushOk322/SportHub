@@ -1,0 +1,40 @@
+.stores__head{
+    margin: -7px 0 0 0;
+    width: 100%;
+    max-width: 920px;
+    .v-p__title{
+        margin: 13px 0 0 0;
+    }
+}
+.stores-container{
+    margin: 24px 0 0 0;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    width: 100%;
+    max-width: 920px;
+    flex-wrap: wrap;
+}
+@media(max-width: 1440px){
+    .stores__head{
+        width: 100%;
+        max-width: 920px;
+        .v-p__title{
+            margin: 10px 0 0 -14px;
+            font-size: 18px;
+        }
+    }
+    .stores-container{
+        margin: 42px 0 0 0;
+        display: flex;
+        flex-direction: row;
+        gap: 24px;
+        width: 100%;
+        max-width: 920px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+@media(max-width: 650px){
+
+}

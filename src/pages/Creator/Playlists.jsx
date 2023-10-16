@@ -27,7 +27,7 @@ const Playlists = () => {
    
 
     const playlistObj = useSelector(state => state.playlists.playlists);
-    console.log("🚀 playlistobj:", playlistObj)
+    //console.log("🚀 playlistobj:", playlistObj)
 
     useEffect(() => {
         loadVideos();
@@ -38,7 +38,7 @@ const Playlists = () => {
         try {
             const response = await axios.get(`http://localhost:1337/api/playlists?populate[videos][populate][0]=video_file&populate[videos][populate][1]=video_preview`);
 
-            console.log("🚀 response:", response)
+            //console.log("🚀 response:", response)
 
             const dispatchPromises = response.data.data.map((playlistData, index) => {
                 return dispatch(addPlaylist({ dataPath: playlistData, index }));
@@ -58,7 +58,7 @@ const Playlists = () => {
 
 
 
-    // console.log("🚀 ~ file: CreatorMain.jsx:23 ~ CreatorMain ~ videoobj:", videoObj)
+    // //console.log("🚀 ~ file: CreatorMain.jsx:23 ~ CreatorMain ~ videoobj:", videoObj)
     return (
         <>
 
@@ -67,10 +67,10 @@ const Playlists = () => {
 
                 <div className="v-p__container">
                     <div className="v-p">
-                        <div className="v-p__button ">Your video</div>
+                        <div className="v-p__button " onClick={()=>{navigate("/CreatorMain")}}>Your video</div>
                         <div className="v-p__button active">Playlists</div>
                     </div>
-                    <div className="v-p__orange-button">
+                    <div className="v-p__orange-button" onClick={()=>{navigate("/AddPlaylist")}}>
                         <OrangeButton text="Create new playlist" plus={true} marginTop={0} handleLogin={handleClick} width={217} maxWidth={217}></OrangeButton>
                     </div>
 
@@ -96,8 +96,8 @@ const Playlists = () => {
                             switch (sort) {
                                 case "mind":
                                     if (playlistData.playlist_type === "mind") {
-                                        // console.log(`Rendering Playlist ${index}`);
-                                        // console.log("🚀 ~ file: Playlists.jsx:102 ~ playlistObj.map ~ playlistObj.playlist_videos:", playlistObj)
+                                        // //console.log(`Rendering Playlist ${index}`);
+                                        // //console.log("🚀 ~ file: Playlists.jsx:102 ~ playlistObj.map ~ playlistObj.playlist_videos:", playlistObj)
                                         return (
                                             <PlaylistRow key={index} videoObj={playlistData.playlist_videos} playlistObj={playlistData} videoIndex={index} sort="mind"/>
                                             
@@ -106,7 +106,7 @@ const Playlists = () => {
                                     break;
                                 case "soul":
                                     if (playlistData.playlist_type === "soul") {
-                                        // console.log(`Rendering Playlist ${index}`);
+                                        // //console.log(`Rendering Playlist ${index}`);
                                         return (
                                             <PlaylistRow key={index} videoObj={playlistData.playlist_videos} playlistObj={playlistData} videoIndex={index} sort="soul"/>
                                         );
@@ -114,7 +114,7 @@ const Playlists = () => {
                                     break;
                                 case "body":
                                     if (playlistData.playlist_type === "body") {
-                                        // console.log(`Rendering Playlist ${index}`);
+                                        // //console.log(`Rendering Playlist ${index}`);
                                         return (
                                             <PlaylistRow key={index} videoObj={playlistData.playlist_videos} playlistObj={playlistData} videoIndex={index} sort="body" />
                                         );
@@ -126,7 +126,7 @@ const Playlists = () => {
                         })
                     )}
                 </div>
-                <div className="height"></div>
+                
             </div>
 
         </>

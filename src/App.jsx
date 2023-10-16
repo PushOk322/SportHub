@@ -15,14 +15,18 @@ import ForgotPassword from "./pages/LogIn/ForgotPassword";
 import NewPassword from "./pages/LogIn/NewPassword";
 import SignUp from "./pages/LogIn/SignUp";
 import PersonalInfo from "./pages/LogIn/PersonalInfo";
-import UserMain from "./pages/User/UserMain";
 import CreatorMain from "./pages/Creator/CreatorMain";
 import AddVideo from "./pages/Creator/AddVideo.jsx";
 import Playlists from "./pages/Creator/Playlists.jsx";
 import AddPlaylist from "./pages/Creator/AddPlaylist.jsx";
 import PlaylistView from "./pages/Creator/PlaylistView.jsx";
 import EditPlaylist from "./pages/Creator/EditPlaylist.jsx";
-
+import Stores from "./pages/Creator/Stores.jsx";
+import AddStore from "./pages/Creator/AddStore.jsx";
+import EditProfile from "./pages/Creator/EditProfile.jsx";
+import UserMain from "./pages/User/UserMain";
+import SubscriptionView from "./pages/User/SubscriptionView.jsx";
+import VideoPage from "./pages/User/VideoPage.jsx";
 
 const App = () => {
     return (
@@ -41,6 +45,12 @@ const App = () => {
                     <Link to="/AddPlaylist">AddPlaylist</Link>
                     <Link to="/PlaylistView">PlaylistView</Link>
                     <Link to="/EditPlaylist">EditPlaylist</Link>
+                    <Link to="/Stores">Stores</Link>
+                    <Link to="/AddStore">AddStore</Link>
+                    <Link to="/EditProfile">EditProfile</Link>
+                    <Link to="/UserMain">UserMain</Link>
+                    <Link to="/SubscriptionView">SubscriptionView</Link>
+                    <Link to="/VideoPage">VideoPage</Link>
                 </nav>
                 <Routes>
                     <Route
@@ -144,6 +154,54 @@ const App = () => {
                         element={
                             <React.Suspense>
                                 <EditPlaylist />
+                            </React.Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="/Stores"
+                        element={
+                            <React.Suspense>
+                                <Stores />
+                            </React.Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="/AddStore"
+                        element={
+                            <React.Suspense>
+                                <AddStore />
+                            </React.Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="/EditProfile"
+                        element={
+                            <React.Suspense>
+                                <EditProfile />
+                            </React.Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="/UserMain"
+                        element={
+                            <React.Suspense>
+                                <UserMain />
+                            </React.Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="/SubscriptionView"
+                        element={
+                            <React.Suspense>
+                                <SubscriptionView />
+                            </React.Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="/VideoPage"
+                        element={
+                            <React.Suspense>
+                                <VideoPage />
                             </React.Suspense>
                         }
                     ></Route>

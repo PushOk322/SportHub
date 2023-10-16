@@ -1,0 +1,143 @@
+.comment-component {
+	width: 100%;
+	width: 1392px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 24px 0 30px 0;
+	&__title {
+		margin: 6.5px 0;
+		color: var(--3, #fff);
+		font-family: Uto-500;
+		font-size: 24px;
+	}
+
+	&__comments {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	&__loader {
+		color: var(--3, #fff);
+		font-family: Uto-500;
+		font-size: 24px;
+	}
+
+	&__comment {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		&.reply {
+			padding: 0 0 0 48px;
+		}
+	}
+
+	&__comment-head {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__author {
+		display: flex;
+		flex-direction: row;
+		gap: 16px;
+	}
+
+	&__comment-avatar {
+		width: 32px;
+		height: 32px;
+	}
+
+	&__author-name {
+		color: var(--3, #fff);
+		font-family: Uto-600;
+		font-size: 16px;
+		line-height: 18px; /* 112.5% */
+	}
+
+	&__menu-icon {
+		width: 24px;
+		height: 24px;
+		cursor: pointer;
+	}
+
+	&__text {
+		margin: 4px 0 0 48px;
+		width: 100%;
+		color: var(--3, #fff);
+		font-family: Uto-400;
+		font-size: 16px;
+		max-width: 1056px;
+	}
+
+	&__buttons {
+		margin: 12px 0 0 48px;
+		display: flex;
+		flex-direction: row;
+		gap: 24px;
+	}
+
+	&__likes-container {
+		display: flex;
+		flex-direction: row;
+		gap: 4px;
+	}
+
+	&__likes-block {
+		display: flex;
+		flex-direction: row;
+		gap: 4px;
+		align-items: center;
+		cursor: pointer;
+	}
+
+	&__like-icon {
+		width: 24px;
+		height: 24px;
+		opacity: 0.7;
+		&.dis {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__likes-count {
+		color: var(--3, #fff);
+		font-family: Uto-500;
+		font-size: 12px;
+	}
+
+	&__likes-line {
+	}
+
+	&__replies-button {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 4px;
+		color: var(--3, #fff);
+		font-family: Uto-500;
+		font-size: 12px;
+		cursor: pointer;
+	}
+
+	&__replies-icon {
+	}
+
+	&__reply {
+		margin: 24px 0 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+	}
+
+	&__hide-reply-button {
+		color: var(--light, #ad7955);
+		font-family: Uto-400;
+		font-size: 16px;
+        margin: 21.5px 0 0 48px;
+        cursor: pointer;
+	}
+}

@@ -18,6 +18,7 @@ import { addVideo } from '../../data/store/videoSlice';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { addCurrentPlaylist } from '../../data/store/currentPlaylistSlice';
 
 import plusIcon from '../../img/plus-icon.svg';
 
@@ -32,11 +33,11 @@ const PlaylistView = () => {
             const currentPlaylist = useSelector(state => state.currentPlaylists.currentPlaylists);
             if (currentPlaylist && currentPlaylist.length > 0) {
                 // Save currentPlaylist to local storage
-                localStorage.setItem('currentPlaylist', JSON.stringify(currentPlaylist));
+                sessionStorage.setItem(`currentPlaylist`, JSON.stringify(currentPlaylist));
                 return currentPlaylist; // Return the Redux data
             } else {
                 // If not available in Redux, check local storage
-                const storedPlaylist = localStorage.getItem('currentPlaylist');
+                const storedPlaylist = sessionStorage.getItem('currentPlaylist');
                 if (storedPlaylist) {
                     // Parse the stored data
                     const parsedPlaylist = JSON.parse(storedPlaylist);
@@ -54,6 +55,11 @@ const PlaylistView = () => {
             return null; // Return null in case of an error
         }
     };
+
+    const currentPlaylist = useSelector(state => state.currentPlaylists.currentPlaylists);
+    const dispatch = useDispatch();
+
+    
 
     // Call the function to get the stored playlist data
     const storedPlaylist = getStoredPlaylist();
@@ -92,13 +98,14 @@ const PlaylistView = () => {
     const [videoMenu, setVideoMenu] = useState();
 
 
-    // console.log("🚀 ~ file: CreatorMain.jsx:23 ~ CreatorMain ~ videoobj:", videoObj)
+    // //console.log("🚀 ~ file: CreatorMain.jsx:23 ~ CreatorMain ~ videoobj:", videoObj)
     return (
         <>
 
             <div class="wrapper">
                 <Header videosButtons={true}></Header>
                 <div class="playlist-view">
+
 
                     <div class="add-video__head">
                         <div class="add-video__head-title">
@@ -110,7 +117,7 @@ const PlaylistView = () => {
                             </div>
                             {videoMenu && (
                                 <div class="add-video__drop-menu">
-                                    <div class="add-video__drop-menu-option">Edit playlist</div>
+                                    <div class="add-video__drop-menu-option" onClick={() => { navigate("/EditPlaylist") }}>Edit playlist</div>
                                     <div class="add-video__drop-menu-option white" onClick={() => { window.location.reload(); }}>Delete</div>
                                 </div>
                             )}

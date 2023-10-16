@@ -21,18 +21,18 @@ const ForgotPassword = () => {
 
     const [email, setEmail] = useState('');
     const handlePass = async () => {
-        console.log("pressed");
+        //console.log("pressed");
         try {
             const response = await axios.post('http://localhost:1337/api/auth/forgot-password', {
                 email: email,
             });
 
             //tishkovets.pavlo@gmail.com
-            console.log(response)
+            //console.log(response)
 
             setStep(2);
         } catch (error) {
-            console.log(email)
+            //console.log(email)
             // Handle login error here
             alert('Login error:', error.response);
         }
