@@ -4,6 +4,9 @@
 	"homepage": "https://PushOk322.github.io/react-gh-pages",
 	"description": "",
 	"main": "index.js",
+	"engines": {
+  		"node": ">=16.0.0 <19.0.0"
+	},
 	"scripts": {
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build",
