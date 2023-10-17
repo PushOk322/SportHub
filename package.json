@@ -81,6 +81,7 @@
 	"dependencies": {
 		"@emotion/react": "^11.11.1",
 		"@loadable/component": "^5.15.3",
+		"@strapi/provider-upload-cloudinary": "^4.14.4",
 		"antd": "^5.8.6",
 		"babel-preset-es2015": "^6.24.1",
 		"date-fns": "^2.30.0",

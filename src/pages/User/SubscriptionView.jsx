@@ -225,7 +225,7 @@ const SubscriptionView = () => {
 
 
                 <div className="user-main-container">
-                    <div className={sideBar === "Show sidebar" ?  "user-main-container__sidebar ": "user-main-container__sidebar active"} >
+                    <div className={sideBar === "Show sidebar" ? "user-main-container__sidebar " : "user-main-container__sidebar active"} >
                         <div className="user-main-container__videos-buttons" onClick={() => { handleHome() }}>
                             <div className="user-main-container__button" >Home</div>
                             <div className="user-main-container__button">Latest</div>
@@ -332,7 +332,7 @@ const SubscriptionView = () => {
 
 
 
-                
+
             </div>
 
         </>
