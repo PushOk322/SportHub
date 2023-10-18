@@ -1,0 +1,73 @@
+{
+  "kind": "collectionType",
+  "collectionName": "videos",
+  "info": {
+    "singularName": "video",
+    "pluralName": "videos",
+    "displayName": "Video",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "video_file": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "video_name": {
+      "type": "string"
+    },
+    "video_length": {
+      "type": "biginteger",
+      "required": false
+    },
+    "video_preview": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "video_type": {
+      "type": "string",
+      "required": false,
+      "default": "Mind"
+    },
+    "video_description": {
+      "type": "text"
+    },
+    "video_shop_link": {
+      "type": "string"
+    },
+    "video_creator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "created_videos"
+    },
+    "video_likes": {
+      "type": "integer",
+      "default": 1
+    },
+    "video_dislikes": {
+      "type": "integer",
+      "default": 1
+    },
+    "video_views": {
+      "type": "integer"
+    },
+    "video_comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "comment_video"
+    }
+  }
+}
