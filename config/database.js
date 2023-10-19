@@ -93,13 +93,15 @@
 
 module.exports = ({ env }) => ({
   connection: {
-    client: 'postgres',
-    host: env('DATABASE_HOST'),
-      port: env.int('DATABASE_PORT'),
-      database: env('DATABASE_NAME'),
-      user: env('DATABASE_USERNAME'),
-      password: env('DATABASE_PASSWORD'),
-      ssl: env.bool('DATABASE_SSL', true),
-  }
+    client: "postgres",
+    host: env(
+      "DATABASE_HOST",
+      "dpg-cknanbqcpf3c73aocp8g-a.frankfurt-postgres.render.com"
+    ),
+    port: env.int("DATABASE_PORT", "5432"),
+    database: env("DATABASE_NAME", "sample_7kpw"),
+    user: env("DATABASE_USERNAME", "admin"),
+    password: env("DATABASE_PASSWORD", "MlvliNBSZMMjKLZnNReHe3qWVOvx5tqk"),
+    ssl: env.bool("DATABASE_SSL", true),
+  },
 });
-

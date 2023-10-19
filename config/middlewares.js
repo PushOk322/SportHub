@@ -1,10 +1,10 @@
 module.exports = [
-  'strapi::errors',
-  'strapi::security',
-  'strapi::cors',
-  'strapi::poweredBy',
-  'strapi::logger',
-  'strapi::query',
+  "strapi::errors",
+  "strapi::security",
+  "strapi::cors",
+  "strapi::poweredBy",
+  "strapi::logger",
+  "strapi::query",
   {
     name: "strapi::body",
     config: {
@@ -16,7 +16,7 @@ module.exports = [
       },
     },
   },
-  'strapi::session',
-  'strapi::favicon',
-  'strapi::public',
+  "strapi::session",
+  "strapi::favicon",
+  "strapi::public",
 ];
