@@ -149,7 +149,7 @@ const EditProfile = () => {
             formPreviewData.append('files', profilePreview);
 
             try {
-                const responsePreview = await axios.post("http://localhost:1337/api/upload", formPreviewData);
+                const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
                 const previewId = responsePreview.data[0].id;
                 // Only append user_avatar if profilePreview is not empty
                 formData.append('user_avatar', previewId);
@@ -164,7 +164,7 @@ const EditProfile = () => {
             formCoverData.append('files', profileCover);
 
             try {
-                const responseCover = await axios.post("http://localhost:1337/api/upload", formCoverData);
+                const responseCover = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formCoverData);
                 const coverId = responseCover.data[0].id;
                 // Only append user_cover if profileCover is not empty
                 formData.append('user_cover', coverId);
@@ -173,7 +173,7 @@ const EditProfile = () => {
             }
         }
         // try {
-        //     const responsePreview = await axios.post("http://localhost:1337/api/upload", formPreviewData);
+        //     const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
         //     //console.log("upload of the Preview is successful");
         //     const previewId = responsePreview.data[0].id;
 
@@ -181,7 +181,7 @@ const EditProfile = () => {
         //     formCoverData.append('files', profileCover);
 
         //     try {
-        // const responseCover = await axios.post("http://localhost:1337/api/upload", formCoverData);
+        // const responseCover = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formCoverData);
         // //console.log("upload of the Cover is successful");
         // const coverId = responseCover.data[0].id;
 
@@ -203,7 +203,7 @@ const EditProfile = () => {
 
 
         try {
-            const responseInfo = await axios.put(`http://localhost:1337/api/users/${userObj[0].id}`,
+            const responseInfo = await axios.put(`https://paul-sporthub-app.onrender.com/api/users/${userObj[0].id}`,
                 formData,
                 {
                     headers: {
@@ -258,7 +258,7 @@ const EditProfile = () => {
                                 ) : (
                                     <div
                                         className="edit-profile__preview-image"
-                                        style={{ backgroundImage: `url(http://localhost:1337${currentProfilePreview})` }}
+                                        style={{ backgroundImage: `url(https://paul-sporthub-app.onrender.com${currentProfilePreview})` }}
                                     ></div>
                                 )}
 
@@ -303,7 +303,7 @@ const EditProfile = () => {
                                     ) : (
                                         <div
                                             className="edit-profile__preview-image cover"
-                                            style={{ backgroundImage: `url(http://localhost:1337${currentProfileCover})` }}
+                                            style={{ backgroundImage: `url(https://paul-sporthub-app.onrender.com${currentProfileCover})` }}
                                         ></div>
                                     )}
 

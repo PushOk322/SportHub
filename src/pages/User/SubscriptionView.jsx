@@ -120,7 +120,7 @@ const SubscriptionView = () => {
 
     const loadSubscriptedUser = async () => {
         try {
-            const responseUser = await axios.get(`http://localhost:1337/api/users/${storedCurrentSubscriptionObj[0].id}?populate[0]=user_avatar&populate[1]=user_subscripteds&populate[2]=user_cover&populate[3]=created_videos&populate[4]=created_videos.video_file&populate[5]=created_videos.video_preview&populate[6]=user_stores&populate[7]=user_stores.store_name&populate[8]=user_stores.store_description&populate[9]=user_stores.store_preview&populate[10]=user_playlists&populate[11]=user_playlists.playlist_name&populate[12]=user_playlists.playlist_type&populate[13]=user_playlists.videos&populate[14]=user_playlists.videos.video_file&populate[15]=user_playlists.videos.video_name&populate[16]=user_playlists.videos.video_preview&populate[17]=user_playlists.videos`,
+            const responseUser = await axios.get(`https://paul-sporthub-app.onrender.com/api/users/${storedCurrentSubscriptionObj[0].id}?populate[0]=user_avatar&populate[1]=user_subscripteds&populate[2]=user_cover&populate[3]=created_videos&populate[4]=created_videos.video_file&populate[5]=created_videos.video_preview&populate[6]=user_stores&populate[7]=user_stores.store_name&populate[8]=user_stores.store_description&populate[9]=user_stores.store_preview&populate[10]=user_playlists&populate[11]=user_playlists.playlist_name&populate[12]=user_playlists.playlist_type&populate[13]=user_playlists.videos&populate[14]=user_playlists.videos.video_file&populate[15]=user_playlists.videos.video_name&populate[16]=user_playlists.videos.video_preview&populate[17]=user_playlists.videos`,
                 // {
                 //     headers: {
                 //         Authorization: `Bearer ${storedUserObj[0].jwt}`, // Include the JWT token in the headers
@@ -173,7 +173,7 @@ const SubscriptionView = () => {
 
     const loadVideos = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/videos/?populate[0]=video_creator&populate[1]=user_subscripteds&populate[2]=video_creator.user_avatar&populate[3]=video_preview&populate[4]=video_file.video_preview`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/videos/?populate[0]=video_creator&populate[1]=user_subscripteds&populate[2]=video_creator.user_avatar&populate[3]=video_preview&populate[4]=video_file.video_preview`);
             console.log("🚀 ~ file: CreatorMain.jsx:35 ~ loadVideos ~ response:", response)
 
             const dispatchPromises = response.data.data.map((videoData, index) => {
@@ -239,12 +239,12 @@ const SubscriptionView = () => {
                             {sideBar}
                         </button>
                         <div className="user-subscriptions__cover" style={{
-                            backgroundImage: `url(${subscriptionObj.user_cover && ("http://localhost:1337" + subscriptionObj.user_cover.url)})`,
+                            backgroundImage: `url(${subscriptionObj.user_cover && ("https://paul-sporthub-app.onrender.com" + subscriptionObj.user_cover.url)})`,
                         }}
                         >
                             <div className="user-subscriptions__cover-container">
                                 <div className="user-subscriptions__account">
-                                    <img src={(subscriptionObj.user_avatar && ("http://localhost:1337" + subscriptionObj.user_avatar.url))} alt="" className="user-subscriptions__account-avatar" />
+                                    <img src={(subscriptionObj.user_avatar && ("https://paul-sporthub-app.onrender.com" + subscriptionObj.user_avatar.url))} alt="" className="user-subscriptions__account-avatar" />
                                     <div className="user-subscriptions__account-name">
                                         {
                                             subscriptionObj.username

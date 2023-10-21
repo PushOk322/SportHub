@@ -35,7 +35,7 @@ const Stores = () => {
 
     const loadStores = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/stores/?populate=*`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/stores/?populate=*`);
 
             //console.log("🚀 response:", response)
 

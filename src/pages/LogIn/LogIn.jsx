@@ -44,7 +44,7 @@ const LogIn = () => {
     const handleLogin = async () => {
         //console.log("pressed");
         try {
-            const response = await axios.post('http://localhost:1337/api/auth/local?populate=*', {
+            const response = await axios.post('https://paul-sporthub-app.onrender.com/api/auth/local?populate=*', {
                 identifier: email,
                 password: password,
             });
@@ -52,7 +52,7 @@ const LogIn = () => {
 
 
             try {
-                const responseImg = await axios.get(`http://localhost:1337/api/users/${response.data.user.id}?populate=*`,
+                const responseImg = await axios.get(`https://paul-sporthub-app.onrender.com/api/users/${response.data.user.id}?populate=*`,
                     {
                         headers: {
                             Authorization: `Bearer ${response.data.jwt}`, // Include the JWT token in the headers

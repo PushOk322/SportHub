@@ -77,8 +77,8 @@ const UserMain = () => {
 
     const loadVideos = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/videos/?populate[0]=video_creator&populate[1]=video_creator.user_avatar&populate[2]=video_preview&populate[3]=video_file.video_preview`);
-            console.log("🚀 ~ file: CreatorMain.jsx:35 ~ loadVideos ~ response:", response)
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/videos/?populate[0]=video_creator&populate[1]=video_creator.user_avatar&populate[2]=video_preview&populate[3]=video_file.video_preview`);
+            console.log("🚀 loadVideos ~ response:", response)
 
             const dispatchPromises = response.data.data.map((videoData, index) => {
                 return dispatch(addVideo({ data: videoData, index }));
@@ -94,7 +94,7 @@ const UserMain = () => {
     // console.log("ViewLaterObj:", userViewLaterObj)
     const loadVideosViewLater = async () => {
         try {
-            const responseViewLater = await axios.get(`http://localhost:1337/api/users/${storedUserObj[0].id}?populate[0]=user_view_later&populate[1]=user_view_later.video_file&populate[2]=user_view_later.video_preview&populate[3]=user_view_later.video_creator.user_avatar`,
+            const responseViewLater = await axios.get(`https://paul-sporthub-app.onrender.com/api/users/${storedUserObj[0].id}?populate[0]=user_view_later&populate[1]=user_view_later.video_file&populate[2]=user_view_later.video_preview&populate[3]=user_view_later.video_creator.user_avatar`,
                 {
                     headers: {
                         Authorization: `Bearer ${storedUserObj[0].jwt}`, // Include the JWT token in the headers
@@ -116,7 +116,7 @@ const UserMain = () => {
     // console.log("LatestObj:", userLatestObj)
     const loadVideosLatest = async () => {
         try {
-            const responseLatest = await axios.get(`http://localhost:1337/api/users/${storedUserObj[0].id}?populate[0]=user_latest&populate[1]=user_latest.video_file&populate[2]=user_latest.video_preview&populate[3]=user_latest.video_creator.user_avatar`,
+            const responseLatest = await axios.get(`https://paul-sporthub-app.onrender.com/api/users/${storedUserObj[0].id}?populate[0]=user_latest&populate[1]=user_latest.video_file&populate[2]=user_latest.video_preview&populate[3]=user_latest.video_creator.user_avatar`,
                 {
                     headers: {
                         Authorization: `Bearer ${storedUserObj[0].jwt}`, // Include the JWT token in the headers
@@ -157,7 +157,7 @@ const UserMain = () => {
     const handleViewLaterClick = async (id) => {
         console.log("🚀 ~ file: UserMain.jsx:158 ~ handleViewLaterClick ~ id:", id)
         try {
-            const responseRelation = await axios.put(`http://localhost:1337/api/users/${storedUserObj[0].id}`,
+            const responseRelation = await axios.put(`https://paul-sporthub-app.onrender.com/api/users/${storedUserObj[0].id}`,
                 {
                     data: {
                         user_view_later: {

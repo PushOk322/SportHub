@@ -31,7 +31,7 @@ const SignUp = () => {
     const handleLogin = async () => {
         //console.log("pressed");
         try {
-            const response = await axios.post('http://localhost:1337/api/auth/local/register', {
+            const response = await axios.post('https://paul-sporthub-app.onrender.com/api/auth/local/register', {
                 username: username,
                 email: email,
                 password: password,

@@ -10,7 +10,7 @@ const UserSubscriptions = (props) => {
     const navigate = useNavigate();
 
     const [userSubs, setUserSubs] = useState([]);
-    // console.log("🚀 ~ file: UserSubscriptions.jsx:13 ~ UserSubscriptions ~ userSubs:", userSubs)
+    console.log("🚀 ~ file: UserSubscriptions.jsx:13 ~ UserSubscriptions ~ userSubs:", userSubs)
 
     useEffect(() => {
         loadVideos();
@@ -18,7 +18,7 @@ const UserSubscriptions = (props) => {
 
     const loadVideos = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/users/${props.userObj[0].id}?populate[0]=user_subscriptions&populate[1]=user_subscriptions.user_avatar`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/users/${props.userObj[0].id}?populate[0]=user_subscriptions&populate[1]=user_subscriptions.user_avatar`);
 
             console.log("🚀 response:", response)
 
@@ -56,7 +56,7 @@ const UserSubscriptions = (props) => {
                                 handleSubClick(subData);
                                 if (props.fetchFunc) { props.fetchFunc() }
                             }}>
-                                <img src={"http://localhost:1337" + subData.user_avatar.url} alt="" className="subs__avatar" />
+                                <img src={ subData.user_avatar.url} alt="" className="subs__avatar" />
                                 <div className="subs__sub-name">
                                     {subData.username}
 

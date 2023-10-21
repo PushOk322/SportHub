@@ -92,7 +92,7 @@ const AddVideo = () => {
         let videoId; // Declare videoId here so it's accessible throughout the function
 
         try {
-            const responseVideo = await axios.post("http://localhost:1337/api/upload", formData);
+            const responseVideo = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formData);
             //console.log("upload of the Video is successful");
             videoId = responseVideo.data[0].id; // Assign the value here
 
@@ -100,7 +100,7 @@ const AddVideo = () => {
             formPreviewData.append('files', selectedImage);
 
             try {
-                const responsePreview = await axios.post("http://localhost:1337/api/upload", formPreviewData);
+                const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
                 //console.log("upload of the Preview is successful");
                 const previewId = responsePreview.data[0].id;
 
@@ -109,7 +109,7 @@ const AddVideo = () => {
 
 
 
-                    const responseInfo = await axios.post("http://localhost:1337/api/videos", {
+                    const responseInfo = await axios.post("https://paul-sporthub-app.onrender.com/api/videos", {
                         data: {
                             video_file: videoId,
                             video_name: videoTitle,

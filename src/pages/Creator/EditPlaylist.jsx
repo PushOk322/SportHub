@@ -76,7 +76,7 @@ const EditPlaylist = () => {
 
     const loadVideos = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/videos/?populate=*`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/videos/?populate=*`);
             const dispatchPromises = response.data.data.map((videoData, index) => {
                 return dispatch(addVideo({ data: videoData, index }));
             });
@@ -141,7 +141,7 @@ const EditPlaylist = () => {
     const handleUpload = async () => {
 
         try {
-            const response = await axios.put(`http://localhost:1337/api/playlists/${currentPlaylistId}`, {
+            const response = await axios.put(`https://paul-sporthub-app.onrender.com/api/playlists/${currentPlaylistId}`, {
                 data: {
                     playlist_name: playlistNameInput,
                     playlist_description: playlistDescriptionInput,
@@ -154,7 +154,7 @@ const EditPlaylist = () => {
             console.log("🚀 ~ file: EditPlaylist.jsx:152 ~ handleUpload ~ videoIds:", videoIds)
 
             try {
-                const responseRelation = await axios.put(`http://localhost:1337/api/playlists/${playlistId}`, {
+                const responseRelation = await axios.put(`https://paul-sporthub-app.onrender.com/api/playlists/${playlistId}`, {
                     data: {
                         videos: {
                             set: videoIds,

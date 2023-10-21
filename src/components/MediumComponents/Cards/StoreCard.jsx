@@ -13,7 +13,7 @@ const StoreCard = (props) => {
     return (
         <div className="store-card">
             <div className="store-card__top-container">
-                <img src={"http://localhost:1337" + props.storeObj.store_preview} alt="" className="store-card__store-avatar" />
+                <img src={ props.storeObj.store_preview} alt="" className="store-card__store-avatar" />
                 <div className="store-card__main">
                     <div className="store-card__title">
                         {props.storeObj.store_name}

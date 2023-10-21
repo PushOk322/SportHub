@@ -36,7 +36,7 @@ const Playlists = () => {
 
     const loadVideos = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/playlists?populate[videos][populate][0]=video_file&populate[videos][populate][1]=video_preview`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/playlists?populate[videos][populate][0]=video_file&populate[videos][populate][1]=video_preview`);
 
             //console.log("🚀 response:", response)
 

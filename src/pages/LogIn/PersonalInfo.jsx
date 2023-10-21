@@ -46,7 +46,7 @@ const PersonalInfo = () => {
         formPreviewData.append('files', backgroundImage);
 
         try {
-            const responsePreview = await axios.post("http://localhost:1337/api/upload", formPreviewData);
+            const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
             //console.log("upload of the Preview is successful");
             const previewId = responsePreview.data[0].id;
 
@@ -55,7 +55,7 @@ const PersonalInfo = () => {
 
 
 
-                const responseInfo = await axios.put(`http://localhost:1337/api/users/${userSign.user_id}`, {
+                const responseInfo = await axios.put(`https://paul-sporthub-app.onrender.com/api/users/${userSign.user_id}`, {
                     data: {
                         user_gender: gender,
                         user_avatar: previewId,

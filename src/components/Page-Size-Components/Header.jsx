@@ -64,6 +64,7 @@ const Header = (props) => {
     const currentProfileRole = storedUser ? storedUser[0].user_role : null;
     // Now you can access the properties of the stored playlist
     const currentProfileAvatar = storedUser ? storedUser[0].user_avatar : null;
+    console.log("🚀 ~ file: Header.jsx:67 ~ Header ~ currentProfileAvatar:", currentProfileAvatar)
 
     const handleClick = () => {
         navigate("/LogIn");
@@ -98,7 +99,7 @@ const Header = (props) => {
                     Store
                 </div>
                 <div className="burger-menu__row">
-                    <img src={`http://localhost:1337${currentProfileAvatar}`} alt="" className="burger-menu__icon" />
+                    <img src={`${currentProfileAvatar}`} alt="" className="burger-menu__icon" />
                     Profile
                 </div>
                 <div className="burger-menu__row">
@@ -138,7 +139,7 @@ const Header = (props) => {
                         :
                         <div className="header__profile">
                             <div className={profileDrop ? "header__profile-preview active" : "header__profile-preview"} onClick={() => { setProfileDrop(!profileDrop) }}>
-                                <img src={`http://localhost:1337${currentProfileAvatar}`} alt="" className="header__profile-avatar" />
+                                <img src={`${currentProfileAvatar}`} alt="" className="header__profile-avatar" />
                                 Profile
                             </div>
                             <div className={profileDrop ? "header__profile-dropdown active" : "header__profile-dropdown"}>

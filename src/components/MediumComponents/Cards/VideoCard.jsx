@@ -91,8 +91,8 @@ const VideoCard = (props) => {
 
             <video
                 className="video-card__video"
-                src={"http://localhost:1337" + props.videoObj.video_url}
-                poster={"http://localhost:1337" + props.videoObj.video_preview}
+                src={ props.videoObj.video_url}
+                poster={ props.videoObj.video_preview}
             ></video>
 
             <div className="video-card__texts">
@@ -104,7 +104,7 @@ const VideoCard = (props) => {
                         <>
                             <div className="video-card__video-info">
                                 <div className="video-card__author">
-                                    <img src={"http://localhost:1337" + props.videoObj.video_creator_avatar} alt="" className="video-card__author-avatar" />
+                                    <img src={ props.videoObj.video_creator_avatar} alt="" className="video-card__author-avatar" />
                                     <div className="video-card__author-name">{props.videoObj.video_creator_username}</div>
                                 </div>
                                 <div className="video-card__time">{`${timeDifference} hours ago`}</div>

@@ -70,14 +70,14 @@ const Comment = (props) => {
             // If not liked, set liked to true and disliked to false
             if (disliked[likedId]) {
                 // Toggle dislikes if already disliked
-                await axios.put(`http://localhost:1337/api/comments/${commentId}`, {
+                await axios.put(`https://paul-sporthub-app.onrender.com/api/comments/${commentId}`, {
                     data: {
                         comment_dislikes: commentsObj[0].comment_dislikes - 1
                     }
                 });
             }
             // Toggle likes for the specific comment
-            await axios.put(`http://localhost:1337/api/comments/${commentId}`, {
+            await axios.put(`https://paul-sporthub-app.onrender.com/api/comments/${commentId}`, {
                 data: {
                     comment_likes: commentsObj[0].comment_likes + 1
                 }
@@ -92,7 +92,7 @@ const Comment = (props) => {
             console.log("disliked" + disliked);
         } else {
             // If already liked, toggle back to neutral
-            await axios.put(`http://localhost:1337/api/comments/${commentId}`, {
+            await axios.put(`https://paul-sporthub-app.onrender.com/api/comments/${commentId}`, {
                 data: {
                     comment_likes: commentsObj[0].comment_likes - 1
                 }
@@ -108,14 +108,14 @@ const Comment = (props) => {
             // If not disliked, set disliked to true and liked to false
             if (liked[dislikedId]) {
                 // Toggle likes if already liked
-                await axios.put(`http://localhost:1337/api/comments/${commentId}`, {
+                await axios.put(`https://paul-sporthub-app.onrender.com/api/comments/${commentId}`, {
                     data: {
                         comment_likes: commentsObj[0].comment_likes - 1
                     }
                 });
             }
             // Toggle dislikes for the specific comment
-            await axios.put(`http://localhost:1337/api/comments/${commentId}`, {
+            await axios.put(`https://paul-sporthub-app.onrender.com/api/comments/${commentId}`, {
                 data: {
                     comment_dislikes: commentsObj[0].comment_dislikes + 1
                 }
@@ -126,7 +126,7 @@ const Comment = (props) => {
             setDislikeIconSrc(prevDislikedSrc => ({ ...prevDislikedSrc, [dislikedId]: likeIconActive }));
         } else {
             // If already disliked, toggle back to neutral
-            await axios.put(`http://localhost:1337/api/comments/${commentId}`, {
+            await axios.put(`https://paul-sporthub-app.onrender.com/api/comments/${commentId}`, {
                 data: {
                     comment_dislikes: commentsObj[0].comment_dislikes - 1
                 }
@@ -165,7 +165,7 @@ const Comment = (props) => {
                 <div className="comment-component__comment" key={index}>
                     <div className="comment-component__comment-head">
                         <div className="comment-component__author">
-                            <img src={"http://localhost:1337" + commentData.comment_author_avatar} alt="" className="comment-component__comment-avatar" />
+                            <img src={ commentData.comment_author_avatar} alt="" className="comment-component__comment-avatar" />
                             <div className="comment-component__author-name">{commentData.comment_author_name}</div>
                         </div>
                         <img src={videoMenuIcon} alt="" className="comment-component__menu-icon" />
@@ -210,7 +210,7 @@ const Comment = (props) => {
                                 <div className="comment-component__comment reply" key={replyIndex}>
                                     <div className="comment-component__comment-head">
                                         <div className="comment-component__author">
-                                            <img src={"http://localhost:1337" + replyData.attributes.comment_author.data.attributes.user_avatar.data.attributes.url} alt="" className="comment-component__comment-avatar" />
+                                            <img src={ replyData.attributes.comment_author.data.attributes.user_avatar.data.attributes.url} alt="" className="comment-component__comment-avatar" />
                                             <div className="comment-component__author-name">{replyData.attributes.comment_author.data.attributes.username}</div>
                                         </div>
                                         <img src={videoMenuIcon} alt="" className="comment-component__menu-icon" />
@@ -279,7 +279,7 @@ const Comment = (props) => {
                                             <div className="comment-component__comment" key={index}>
                                                 <div className="comment-component__comment-head">
                                                     <div className="comment-component__author">
-                                                        <img src={"http://localhost:1337" + commentData.comment_author_avatar} alt="" className="comment-component__comment-avatar" />
+                                                        <img src={ commentData.comment_author_avatar} alt="" className="comment-component__comment-avatar" />
                                                         <div className="comment-component__author-name">{commentData.comment_author_name}</div>
                                                     </div>
                                                     <img src={videoMenuIcon} alt="" className="comment-component__menu-icon" />
@@ -320,7 +320,7 @@ const Comment = (props) => {
                                                                 <div className="comment-component__comment reply" key={replyIndex}>
                                                                     <div className="comment-component__comment-head">
                                                                         <div className="comment-component__author">
-                                                                            <img src={"http://localhost:1337" + replyData.attributes.comment_author.data.attributes.user_avatar.data.attributes.url} alt="" className="comment-component__comment-avatar" />
+                                                                            <img src={ replyData.attributes.comment_author.data.attributes.user_avatar.data.attributes.url} alt="" className="comment-component__comment-avatar" />
                                                                             <div className="comment-component__author-name">{replyData.attributes.comment_author.data.attributes.username}</div>
                                                                         </div>
                                                                         <img src={videoMenuIcon} alt="" className="comment-component__menu-icon" />

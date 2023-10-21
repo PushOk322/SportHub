@@ -23,7 +23,7 @@ const ForgotPassword = () => {
     const handlePass = async () => {
         //console.log("pressed");
         try {
-            const response = await axios.post('http://localhost:1337/api/auth/forgot-password', {
+            const response = await axios.post('https://paul-sporthub-app.onrender.com/api/auth/forgot-password', {
                 email: email,
             });
 

@@ -35,7 +35,7 @@ const CreatorMain = () => {
 
     const loadVideos = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/videos/?populate[0]=video_creator&populate[1]=video_creator.user_avatar&populate[2]=video_preview&populate[3]=video_file.video_preview`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/videos/?populate[0]=video_creator&populate[1]=video_creator.user_avatar&populate[2]=video_preview&populate[3]=video_file.video_preview`);
 
             console.log("🚀 ~ file: CreatorMain.jsx:35 ~ loadVideos ~ response:", response)
 

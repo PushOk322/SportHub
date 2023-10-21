@@ -28,7 +28,7 @@ const NewPassword = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:1337/api/auth/reset-password', {
+            const response = await axios.post('https://paul-sporthub-app.onrender.com/api/auth/reset-password', {
                 code: fragmentCode,
                 password: password,
                 passwordConfirmation: passwordConfirm,

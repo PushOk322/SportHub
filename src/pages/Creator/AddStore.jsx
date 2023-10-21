@@ -49,12 +49,12 @@ const AddStore = () => {
         formPreviewData.append('files', selectedImage);
 
         try {
-            const responsePreview = await axios.post("http://localhost:1337/api/upload", formPreviewData);
+            const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
             //console.log("upload of the Preview is successful");
             const previewId = responsePreview.data[0].id;
 
             try {
-                const responseInfo = await axios.post("http://localhost:1337/api/stores", {
+                const responseInfo = await axios.post("https://paul-sporthub-app.onrender.com/api/stores", {
                     data: {
                         store_name: storeTitle,
                         store_preview: previewId,

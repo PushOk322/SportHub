@@ -47,7 +47,7 @@ const VideoPage = () => {
         if (!liked) {
             // If not liked, set liked to true and disliked to false
             if (disliked) {
-                await axios.put(`http://localhost:1337/api/videos/${storedVideoObj[0].video_id}`, {
+                await axios.put(`https://paul-sporthub-app.onrender.com/api/videos/${storedVideoObj[0].video_id}`, {
                     data: {
                         video_dislikes: storedVideoObj[0].video_dislikes - 1
                     }
@@ -55,14 +55,14 @@ const VideoPage = () => {
             }
             setLiked(true);
             setDisliked(false);
-            await axios.put(`http://localhost:1337/api/videos/${storedVideoObj[0].video_id}`, {
+            await axios.put(`https://paul-sporthub-app.onrender.com/api/videos/${storedVideoObj[0].video_id}`, {
                 data: {
                     video_likes: storedVideoObj[0].video_likes + 1
                 }
             });
         } else {
             // If already liked, toggle back to neutral
-            await axios.put(`http://localhost:1337/api/videos/${storedVideoObj[0].video_id}`, {
+            await axios.put(`https://paul-sporthub-app.onrender.com/api/videos/${storedVideoObj[0].video_id}`, {
                 data: {
                     video_likes: storedVideoObj[0].video_likes - 1
                 }
@@ -78,7 +78,7 @@ const VideoPage = () => {
         if (!disliked) {
             // If not disliked, set disliked to true and liked to false
             if (liked) {
-                await axios.put(`http://localhost:1337/api/videos/${storedVideoObj[0].video_id}`, {
+                await axios.put(`https://paul-sporthub-app.onrender.com/api/videos/${storedVideoObj[0].video_id}`, {
                     data: {
                         video_likes: storedVideoObj[0].video_likes - 1
                     }
@@ -86,14 +86,14 @@ const VideoPage = () => {
             }
             setDisliked(true);
             setLiked(false);
-            await axios.put(`http://localhost:1337/api/videos/${storedVideoObj[0].video_id}`, {
+            await axios.put(`https://paul-sporthub-app.onrender.com/api/videos/${storedVideoObj[0].video_id}`, {
                 data: {
                     video_dislikes: storedVideoObj[0].video_dislikes + 1
                 }
             });
         } else {
             // If already disliked, toggle back to neutral
-            await axios.put(`http://localhost:1337/api/videos/${storedVideoObj[0].video_id}`, {
+            await axios.put(`https://paul-sporthub-app.onrender.com/api/videos/${storedVideoObj[0].video_id}`, {
                 data: {
                     video_dislikes: storedVideoObj[0].video_dislikes - 1
                 }
@@ -183,7 +183,7 @@ const VideoPage = () => {
 
     const loadVideos = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/videos/?populate[0]=video_creator&populate[1]=video_creator.user_avatar&populate[2]=video_preview&populate[3]=video_file.video_preview`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/videos/?populate[0]=video_creator&populate[1]=video_creator.user_avatar&populate[2]=video_preview&populate[3]=video_file.video_preview`);
             // console.log("🚀 ~ file: CreatorMain.jsx:35 ~ loadVideos ~ response:", response)
 
             const dispatchPromises = response.data.data.map((videoData, index) => {
@@ -210,7 +210,7 @@ const VideoPage = () => {
     const handleSubClick = async () => {
 
         try {
-            const response = await axios.get(`http://localhost:1337/api/users/${storedVideoObj[0].video_creator_id}?populate[0]=user_avatar&populate[1]=user_cover`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/users/${storedVideoObj[0].video_creator_id}?populate[0]=user_avatar&populate[1]=user_cover`);
             console.log("🚀get creator response:", response)
             const temporaryObject = {
                 blocked: response.data.blocked,
@@ -253,7 +253,7 @@ const VideoPage = () => {
 
     const loadComments = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/videos/${storedVideoObj[0].video_id}?populate[0]=video_comments&populate[1]=video_comments.comment_author&populate[2]=video_comments.comment_author.user_avatar&populate[3]=video_comments.comment_replies&populate[4]=video_comments.comment_replies.comment_author&populate[5]=video_comments.comment_replies.comment_author.user_avatar`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/videos/${storedVideoObj[0].video_id}?populate[0]=video_comments&populate[1]=video_comments.comment_author&populate[2]=video_comments.comment_author.user_avatar&populate[3]=video_comments.comment_replies&populate[4]=video_comments.comment_replies.comment_author&populate[5]=video_comments.comment_replies.comment_author.user_avatar`);
 
             console.log("🚀 response:", response)
 
@@ -298,7 +298,7 @@ const VideoPage = () => {
                                 <img src={backArrow} alt="" className="video__back-arrow" />
                             </div>
                             <div className="video__author" onClick={() => { handleSubClick() }}>
-                                <img src={"http://localhost:1337" + storedVideoObj[0].video_creator_avatar} alt="" className="video__author-avatar" />
+                                <img src={storedVideoObj[0].video_creator_avatar} alt="" className="video__author-avatar" />
                                 <div className="video__author-info">
                                     <div className="video__author-name">
                                         {storedVideoObj[0].video_creator_username}
@@ -323,8 +323,8 @@ const VideoPage = () => {
 
                     <video
                         className="video__video-player"
-                        src={"http://localhost:1337" + storedVideoObj[0].video_url}
-                        poster={"http://localhost:1337" + storedVideoObj[0].video_preview}
+                        src={storedVideoObj[0].video_url}
+                        poster={storedVideoObj[0].video_preview}
                         controls
                     ></video>
 
