@@ -32,7 +32,7 @@ const App = () => {
     return (
         <>
             <AuthProvider>
-                <nav className="site-nav">
+                {/* <nav className="site-nav">
                     <Link to="/">Home</Link>
                     <Link to="/LogIn">LogIn</Link>
                     <Link to="/ForgotPassword">ForgotPassword</Link>
@@ -51,13 +51,13 @@ const App = () => {
                     <Link to="/UserMain">UserMain</Link>
                     <Link to="/SubscriptionView">SubscriptionView</Link>
                     <Link to="/VideoPage">VideoPage</Link>
-                </nav>
+                </nav> */}
                 <Routes>
                     <Route
                         path="/"
                         element={
                             <React.Suspense>
-                                <Main />
+                                <LogIn />
                             </React.Suspense>
                         }
                     ></Route>
