@@ -24,7 +24,6 @@ import videoFileAsset from '../../img/videos/video.mp4';
 import videoPreview from '../../img/video-preview-2.png';
 
 const EditProfile = () => {
-    const [successErrorState, setSuccessErrorState] = useState(0);
 
     const handleImageInputChange = (event) => {
         const file = event.target.files[0];
@@ -98,16 +97,13 @@ const EditProfile = () => {
                 }
             }
         } catch (error) {
-            setSuccessErrorState(2);
-            setTimeout(() => {
-                setSuccessErrorState(0);
-            }, 2000);
-            return null; // Return null in case of an error
+
         }
     };
 
     // Call the function to get the stored playlist data
     const storedUser = getStoredUser();
+    console.log("🚀 ~ file: EditProfile.jsx:106 ~ EditProfile ~ storedUser:", storedUser)
 
     // Now you can access the properties of the stored playlist
     const currentProfilePreview = storedUser ? storedUser[0].user_avatar : "No info";
@@ -146,45 +142,43 @@ const EditProfile = () => {
     const handleUpload = async () => {
         //console.log("pressed");
 
-        const formPreviewData = new FormData();
-        formPreviewData.append('files', profilePreview);
+        // const formPreviewData = new FormData();
+        // formPreviewData.append('files', profilePreview);
 
-        if (profilePreview !== '') {
-            const formPreviewData = new FormData();
-            formPreviewData.append('files', profilePreview);
+        // if (profilePreview !== '') {
+        //     const formPreviewData = new FormData();
+        //     formPreviewData.append('files', profilePreview);
 
-            try {
-                const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
-                const previewId = responsePreview.data[0].id;
-                // Only append user_avatar if profilePreview is not empty
-                formData.append('user_avatar', previewId);
-            } catch (error) {
-                setSuccessErrorState(2);
-                setTimeout(() => {
-                    setSuccessErrorState(0);
-                    console.log("preview upload error: ", error);
-                }, 2000);
-            }
-        }
+        //     try {
+        //         const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
+        //         const previewId = responsePreview.data[0].id;
+        //         // Only append user_avatar if profilePreview is not empty
+        //         formData.append('user_avatar', previewId);
+        //     } catch (error) {
 
-        // Check if profileCover is not empty
-        if (profileCover !== '') {
-            const formCoverData = new FormData();
-            formCoverData.append('files', profileCover);
+        //         console.log("preview upload error: ", error);
+        //     }
+        // }
 
-            try {
-                const responseCover = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formCoverData);
-                const coverId = responseCover.data[0].id;
-                // Only append user_cover if profileCover is not empty
-                formData.append('user_cover', coverId);
-            } catch (error) {
-                setSuccessErrorState(2);
-                setTimeout(() => {
-                    setSuccessErrorState(0);
-                    console.log("cover upload error: ", error);
-                }, 2000);
-            }
-        }
+        // // Check if profileCover is not empty
+        // if (profileCover !== '') {
+        //     const formCoverData = new FormData();
+        //     formCoverData.append('files', profileCover);
+
+        //     try {
+        //         const responseCover = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formCoverData);
+        //         const coverId = responseCover.data[0].id;
+        //         // Only append user_cover if profileCover is not empty
+        //         formData.append('user_cover', coverId);
+        //     } catch (error) {
+        //         console.log("cover upload error: ", error);
+        //     }
+        // }
+
+
+
+
+
         // try {
         //     const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
         //     //console.log("upload of the Preview is successful");
@@ -205,7 +199,7 @@ const EditProfile = () => {
         // formData.append('user_cover', coverId);
         formData.append('user_first_name', profileFirstName);
         formData.append('user_last_name', profileLastName);
-        formData.append('date_of_birth', profileDate);
+        // formData.append('date_of_birth', profileDate);
         formData.append('user_address', profileAddress);
         formData.append('user_LLC', profileLLC);
         formData.append('user_description', profileDescription);
@@ -216,28 +210,19 @@ const EditProfile = () => {
 
 
         try {
-            const responseInfo = await axios.put(`https://paul-sporthub-app.onrender.com/api/users/${userObj[0].id}`,
+            const responseInfo = await axios.put(`https://paul-sporthub-app.onrender.com/api/users/${storedUser[0].id}`,
                 formData,
                 {
                     headers: {
-                        Authorization: `Bearer ${userObj[0].jwt}`, // Include the JWT token in the headers
+                        Authorization: `Bearer ${storedUser[0].jwt}`, // Include the JWT token in the headers
                     },
                 }
             );
             console.log("info update success", responseInfo);
-            setSuccessErrorState(1);
 
-            setTimeout(() => {
-                setSuccessErrorState(0);
-
-
-                navigate("/Playlists");
-            }, 1000);
+            navigate("/Playlists");
         } catch (error) {
-            setSuccessErrorState(2);
-            setTimeout(() => {
-                setSuccessErrorState(0);
-            }, 2000);
+            console.log("info upload error: ", error);
         }
         //     } catch (error) {
         //         console.log("cover upload error: ", error);
@@ -251,7 +236,6 @@ const EditProfile = () => {
 
     return (
         <>
-            <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
             <div className="wrapper" style={{ color: "white" }}>
                 <Header videosButtons={true} />
                 <div className="edit-profile">
