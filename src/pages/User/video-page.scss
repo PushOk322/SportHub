@@ -241,6 +241,13 @@
 	width: 100%;
 	display: flex;
 	justify-content: center;
+
+}
+.comments{
+	&__container{
+		width: 100%;
+		max-width: 1392px;
+	}
 }
 
 .video-list {
@@ -276,6 +283,12 @@
 			// width: 5px;
 			// height: 5px;
 		}
+	}
+}
+
+@media (max-width: 1440px) {
+	.video {
+		padding: 0 0px 0 16px;
 	}
 }
 
@@ -381,6 +394,7 @@
 			margin: 12.5px 0 0 0;
 			display: flex;
 			flex-direction: column;
+			width: 100%;
 		}
 
 		&__video-name {

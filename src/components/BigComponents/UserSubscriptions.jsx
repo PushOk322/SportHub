@@ -48,7 +48,7 @@ const UserSubscriptions = (props) => {
                 <div className="subs__list">
                     {userSubs.length === 0 ? (
                         // Display a loading message or any other content while loading
-                        <p style={{ color: "#fff" }}>Loading...</p>
+                        <p style={{ color: "#fff" }}>You are not subscribed to anyone</p>
                     ) : (
                         // Render VideoCard components when videoObj is not empty
                         userSubs.map((subData, index) => (

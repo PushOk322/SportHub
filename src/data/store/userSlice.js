@@ -13,25 +13,26 @@ const userSlice = createSlice({
 				// Remove the last user from the array
 				state.users.pop();
 				// console.log("🚀 ~ file: userSlice.js:30 ~ logoutUser ~ state.users:", state.users);
-				
 			}
+			const userAvatar = action.payload.user_avatar ? action.payload.user_avatar.url : "https://res.cloudinary.com/dykvs6jfa/image/upload/v1697813673/creator_avatar_10_e071638019.svg";
+
+			// Check if user_cover is null or undefined, and provide a default image URL
+			const userCover = action.payload.user_cover ? action.payload.user_cover.url : "https://res.cloudinary.com/dykvs6jfa/image/upload/v1697813824/video_preview_3_5a16fbd1d5.png";
+
 			state.users.push({
 				blocked: action.payload.blocked,
 				confirmed: action.payload.confirmed,
 				createdAt: action.payload.createdAt,
 				customer_role: action.payload.customer_role,
 				date_of_birth: action.payload.date_of_birth,
-				email: action.payload.email, 
+				email: action.payload.email,
 				id: action.payload.id,
 				provider: action.payload.provider,
 				updatedAt: action.payload.updatedAt,
 				user_gender: action.payload.user_gender,
 				username: action.payload.username,
-
-				
-				user_avatar: action.payload.user_avatar.url,
-
-				user_cover: action.payload.user_cover.url,
+				user_avatar: userAvatar,
+				user_cover: userCover,
 				user_first_name: action.payload.user_first_name,
 				user_last_name: action.payload.user_last_name,
 				user_address: action.payload.user_address,
@@ -41,15 +42,10 @@ const userSlice = createSlice({
 				user_instagram: action.payload.user_instagram,
 				user_facebook: action.payload.user_facebook,
 				user_twitter: action.payload.user_twitter,
-
-
 				jwt: action.payload.jwt
 			});
-			
 		},
-		logoutUser(state, action) {
-			
-		},
+		logoutUser(state, action) {},
 		updateUser(state, action) {
 			const updatedUser = action.payload; // Assuming action.payload contains the updated user data
 			const userIndex = state.users.findIndex((user) => user.id === updatedUser.id);

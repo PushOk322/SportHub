@@ -27,7 +27,7 @@ const Playlists = () => {
    
 
     const playlistObj = useSelector(state => state.playlists.playlists);
-    //console.log("🚀 playlistobj:", playlistObj)
+    console.log("🚀 playlistobj:", playlistObj)
 
     useEffect(() => {
         loadVideos();
@@ -38,7 +38,7 @@ const Playlists = () => {
         try {
             const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/playlists?populate[videos][populate][0]=video_file&populate[videos][populate][1]=video_preview`);
 
-            //console.log("🚀 response:", response)
+            console.log("🚀 response:", response)
 
             const dispatchPromises = response.data.data.map((playlistData, index) => {
                 return dispatch(addPlaylist({ dataPath: playlistData, index }));

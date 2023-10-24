@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../data/store/userSlice';
 
 
+import SuccessErrorCard from '../../components/MediumComponents/Cards/SuccessErrorCard';
+
 import LogInput from '../../components/SmallComponents/Inputs/LogInput';
 import PasswordInput from '../../components/SmallComponents/Inputs/PasswordInput';
 import OrangeButton from '../../components/SmallComponents/Buttons/OrangeButton';
@@ -37,7 +39,7 @@ const LogIn = () => {
     // }
 
 
-
+    const [successErrorState, setSuccessErrorState] = useState(0);
 
 
 
@@ -48,7 +50,7 @@ const LogIn = () => {
                 identifier: email,
                 password: password,
             });
-            console.log('Logged in:', response.data);
+            // console.log('Logged in:', response.data);
 
 
             try {
@@ -59,35 +61,48 @@ const LogIn = () => {
                         },
                     }
                 );
-                console.log('get', responseImg);
+                // console.log('get', responseImg);
 
                 responseImg.data.jwt = response.data.jwt;
-                console.log("🚀 ~ file: LogIn.jsx:65 ~ handleLogin ~ responseImg.data.jwt:", responseImg.data.jwt)
+                // console.log("🚀 ~ file: LogIn.jsx:65 ~ handleLogin ~ responseImg.data.jwt:", responseImg.data.jwt)
 
                 dispatch(loginUser(responseImg.data));
+                sessionStorage.setItem(`currentUser`, JSON.stringify(responseImg.data));
 
 
-                if (response.data.user.customer_role === "user") {
-                    navigate("/UserMain");
-                } else if (response.data.user.customer_role === "creator") {
-                    navigate("/CreatorMain");
-                }
+                setSuccessErrorState(1);
+
+                setTimeout(() => {
+                    setSuccessErrorState(0);
+
+                    if (response.data.user.customer_role === "user") {
+                        navigate("/UserMain");
+                    } else if (response.data.user.customer_role === "creator") {
+                        navigate("/CreatorMain");
+                    }
+                }, 1000);
 
             } catch (error) {
-                // Handle login error here
-                console.error('Get user error:', error);
+
             }
 
 
         } catch (error) {
-            // Handle login error here
-            console.error('Login error:', error);
+            setSuccessErrorState(2);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
         }
     };
+
+    // useEffect(() => {
+    //     setSuccessStateForTwoSeconds();
+    //   }, []);
 
 
     return (
         <>
+            <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
             <div className="wrapper">
                 <div className="background-elipse log-1"></div>
                 <div className="background-elipse log-2"></div>

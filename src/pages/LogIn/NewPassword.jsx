@@ -11,6 +11,7 @@ import LogInput from '../../components/SmallComponents/Inputs/LogInput';
 import PasswordInput from '../../components/SmallComponents/Inputs/PasswordInput';
 import OrangeButton from '../../components/SmallComponents/Buttons/OrangeButton';
 import LogSideContent from '../../components/BigComponents/LogInComponents/LogSideContent';
+import SuccessErrorCard from '../../components/MediumComponents/Cards/SuccessErrorCard';
 
 import siteLogo from '../../img/site-logo.svg';
 
@@ -33,15 +34,26 @@ const NewPassword = () => {
                 password: password,
                 passwordConfirmation: passwordConfirm,
             });
+            setSuccessErrorState(1);
 
-            navigate("/LogIn");
+                setTimeout(() => {
+                    setSuccessErrorState(0);
+
+                    
+                    navigate("/LogIn");
+                }, 1000);
+
         } catch (error) {
-            //console.log('Password reset error:', error);
+            setSuccessErrorState(2);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
         }
     };
 
     return (
         <>
+            <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
             <div className="wrapper">
                 <div className="background-elipse log-1"></div>
                 <div className="background-elipse log-2"></div>

@@ -1,0 +1,35 @@
+.success-card {
+	position: absolute;
+	z-index: 100;
+	border-radius: 10px;
+	top: 140px;
+	left: 50%;
+	transform: translate(-50%);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 10px 16px;
+	width: 125px;
+
+	border-radius: 8px;
+	background: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(1px);
+
+	color: var(--3, #fff);
+	font-family: Uto-500;
+	font-size: 16px;
+	line-height: 18px; /* 112.5% */
+
+
+    &.unactive{
+        display: none;
+    }
+    &.success{
+        background: rgba(92, 193, 34, 0.4);
+    }
+    &.error{
+        background: rgba(172, 78, 27, 0.4);
+    }
+}

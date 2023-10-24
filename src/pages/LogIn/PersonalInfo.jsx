@@ -45,10 +45,13 @@ const PersonalInfo = () => {
         const formPreviewData = new FormData();
         formPreviewData.append('files', backgroundImage);
 
+        let previewId;
+
         try {
             const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
-            //console.log("upload of the Preview is successful");
-            const previewId = responsePreview.data[0].id;
+            console.log("upload of the Preview is successful", responsePreview);
+            previewId = responsePreview.data[0].id;
+            console.log("🚀 ~ file: PersonalInfo.jsx:54 ~ handleLogin ~ previewId:", previewId)
 
             try {
 
@@ -66,7 +69,8 @@ const PersonalInfo = () => {
                         headers: {
                             Authorization: `Bearer ${userSign.jwt}`, // Include the JWT token in the headers
                         },
-                    });
+                    }
+                );
                 //console.log("info creation success");
                 navigate("/LogIn");
             } catch (error) {

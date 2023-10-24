@@ -7,6 +7,7 @@ import { addVideo } from '../../data/store/videoSlice';
 
 import Header from '../../components/Page-Size-Components/Header';
 import VideoCard from '../../components/MediumComponents/Cards/VideoCard';
+import SuccessErrorCard from '../../components/MediumComponents/Cards/SuccessErrorCard';
 
 import OrangeButton from '../../components/SmallComponents/Buttons/OrangeButton';
 import LogInput from '../../components/SmallComponents/Inputs/LogInput';
@@ -85,6 +86,8 @@ const AddPlaylist = () => {
     const [playlistName, setPlaylistName] = useState('');
     const [playlistDescription, setPlaylistDescription] = useState('');
 
+    const [successErrorState, setSuccessErrorState] = useState(0);
+
     const handleUpload = async () => {
 
         try {
@@ -108,12 +111,22 @@ const AddPlaylist = () => {
                     }
                 });
                 ////console.log("info creation success");
-                navigate("/Playlists");
+
+
+                setSuccessErrorState(1);
+
+                setTimeout(() => {
+                    setSuccessErrorState(0);
+                    navigate("/Playlists");
+                }, 1000);
             } catch (error) {
                 ////console.log("info creation error: ", error);
             }
         } catch (error) {
-            ////console.log("info creation error: ", error);
+            setSuccessErrorState(2);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
         }
     };
 
@@ -123,107 +136,110 @@ const AddPlaylist = () => {
     const maxDisplayedVideos = 3; // Change this number as needed
 
     return (
-        <div className="wrapper" style={{ color: "white" }}>
-            <Header videosButtons={true} />
-            <div className="add-playlist">
-                <div className="add-video__head">
-                    <div className="add-video__head-title">
-                        Create new playlist
-                    </div>
-                    <div className="add-video__head-buttons">
-                        <button className="add-video__publish-button active" onClick={() => { handleUpload() }}>Save</button>
-                        <div className="add-video__menu-button active" onClick={() => { setVideoMenu(!videoMenu) }}>
-                            <img src={threeDots} alt="" className="add-video__dots-icon" />
+        <>
+            <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
+            <div className="wrapper" style={{ color: "white" }}>
+                <Header videosButtons={true} />
+                <div className="add-playlist">
+                    <div className="add-video__head">
+                        <div className="add-video__head-title">
+                            Create new playlist
                         </div>
-                        {videoMenu && (
-                            <div className="add-video__drop-menu">
-                                <div className="add-video__drop-menu-option">Save as draft</div>
-                                <div className="add-video__drop-menu-option white" onClick={() => { window.location.reload(); }}>Delete</div>
+                        <div className="add-video__head-buttons">
+                            <button className="add-video__publish-button active" onClick={() => { handleUpload() }}>Save</button>
+                            <div className="add-video__menu-button active" onClick={() => { setVideoMenu(!videoMenu) }}>
+                                <img src={threeDots} alt="" className="add-video__dots-icon" />
                             </div>
-                        )}
-                    </div>
-                </div>
-                <div className="add-playlist__main">
-                    <div className={`add-playlist__inputs ${window.innerWidth < 650 ? (showAddVideoContainer ? 'hidden' : 'visible') : ''}`}>
-                        <LogInput question={true} placeholder="Enter playlist name" type="email" label="Playlist name" id="email-input" setInputValue={setPlaylistName} maxWidth={430}></LogInput>
-                        <LogInput textarea={true} question={true} placeholder="Description" type="email" label="Description" id="email-input" setInputValue={setPlaylistDescription} maxWidth={430}></LogInput>
-                        <GreyDrop id="custom-dropdown"
-                            label="Category"
-                            selectedOption={selectedCategory}
-                            setSelectedOption={setSelectedCategory}
-                            options={options}
-                            question={false}>
-                        </GreyDrop>
-                        {window.innerWidth > 650 && addedVideos.length > 0 && (
-                            <div className="add-playlist__added-videos">
-                                <div className="add-playlist__add-video-heading">Selected</div>
-                                <div className="add-playlist__added-videos-container">
-                                    {addedVideos.slice(0, maxDisplayedVideos).map((addedVideo, index) => (
-                                        <div className="add-playlist__added-video" key={index}>
-                                            {addedVideo.video_name}
-                                            <img src={removeIcon} className="add-playlist__remove-video" onClick={() => removeFromPlaylist(addedVideo)} />
-                                        </div>
-                                    ))}
+                            {videoMenu && (
+                                <div className="add-video__drop-menu">
+                                    <div className="add-video__drop-menu-option">Save as draft</div>
+                                    <div className="add-video__drop-menu-option white" onClick={() => { window.location.reload(); }}>Delete</div>
                                 </div>
-                            </div>
-                        )}
-                    </div>
-                    {window.innerWidth < 650 && (
-                        <div className="add-playlist__show-more"onClick={() => setShowAddVideoContainer(!showAddVideoContainer)}>
-                            <button >
-                                {showAddVideoContainer ? 'Hide selection' : 'Select video'}
-                            </button>
-                        </div>
-                    )}
-                    {window.innerWidth < 650 && addedVideos.length > 0 && (
-                        <div className="add-playlist__added-videos mobile">
-                            <div className="add-playlist__add-video-heading mobile">Selected</div>
-                            <div className="add-playlist__added-videos-container mobile">
-                                {": "+ addedVideos.length}
-                            </div>
-                        </div>
-                    )}
-                    <div
-                        className={`add-playlist__add-video-container ${window.innerWidth < 650 ? (showAddVideoContainer ? 'visible' : 'hidden') : ''}`}
-                    >
-                        <div
-                            className='search active'
-                            onClick={() => setInputVisible(true)}
-                        >
-                            <img src={searchIcon} alt="" className="search__icon" />
-                            <input
-                                type="text"
-                                className='search__input active'
-                                value={inputValue}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="add-playlist__videos">
-                            {filteredVideos.length === 0 ? (
-                                <p style={{ color: "#fff" }}>No matching videos found</p>
-                            ) : (
-                                filteredVideos.map((videoData, index) => {
-                                    const isAdded = addedVideos.some(addedVideo => addedVideo.video_id === videoData.video_id);
-                                    return (
-                                        <div className={`add-playlist__video-card-container ${isAdded ? 'added' : ''}`} key={index} onClick={() => { if (addedVideos.some(addedVideo => addedVideo.video_id === videoData.video_id)) { removeFromPlaylist(videoData) } else { addToPlaylist(videoData) } }}>
-                                            <img src={videoActiveIcon} alt="" className={`add-playlist__video-active ${isAdded ? 'added' : ''}`} />
-                                            <VideoCard
-                                                key={index}
-                                                videoObj={videoData}
-                                                videoIndex={index}
-                                                cardSize="big"
-                                                showControls="no"
-                                            />
-                                        </div>
-                                    );
-                                })
                             )}
                         </div>
                     </div>
+                    <div className="add-playlist__main">
+                        <div className={`add-playlist__inputs ${window.innerWidth < 650 ? (showAddVideoContainer ? 'hidden' : 'visible') : ''}`}>
+                            <LogInput question={true} placeholder="Enter playlist name" type="email" label="Playlist name" id="email-input" setInputValue={setPlaylistName} maxWidth={430}></LogInput>
+                            <LogInput textarea={true} question={true} placeholder="Description" type="email" label="Description" id="email-input" setInputValue={setPlaylistDescription} maxWidth={430}></LogInput>
+                            <GreyDrop id="custom-dropdown"
+                                label="Category"
+                                selectedOption={selectedCategory}
+                                setSelectedOption={setSelectedCategory}
+                                options={options}
+                                question={false}>
+                            </GreyDrop>
+                            {window.innerWidth > 650 && addedVideos.length > 0 && (
+                                <div className="add-playlist__added-videos">
+                                    <div className="add-playlist__add-video-heading">Selected</div>
+                                    <div className="add-playlist__added-videos-container">
+                                        {addedVideos.slice(0, maxDisplayedVideos).map((addedVideo, index) => (
+                                            <div className="add-playlist__added-video" key={index}>
+                                                {addedVideo.video_name}
+                                                <img src={removeIcon} className="add-playlist__remove-video" onClick={() => removeFromPlaylist(addedVideo)} />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        {window.innerWidth < 650 && (
+                            <div className="add-playlist__show-more" onClick={() => setShowAddVideoContainer(!showAddVideoContainer)}>
+                                <button >
+                                    {showAddVideoContainer ? 'Hide selection' : 'Select video'}
+                                </button>
+                            </div>
+                        )}
+                        {window.innerWidth < 650 && addedVideos.length > 0 && (
+                            <div className="add-playlist__added-videos mobile">
+                                <div className="add-playlist__add-video-heading mobile">Selected</div>
+                                <div className="add-playlist__added-videos-container mobile">
+                                    {": " + addedVideos.length}
+                                </div>
+                            </div>
+                        )}
+                        <div
+                            className={`add-playlist__add-video-container ${window.innerWidth < 650 ? (showAddVideoContainer ? 'visible' : 'hidden') : ''}`}
+                        >
+                            <div
+                                className='search active'
+                                onClick={() => setInputVisible(true)}
+                            >
+                                <img src={searchIcon} alt="" className="search__icon" />
+                                <input
+                                    type="text"
+                                    className='search__input active'
+                                    value={inputValue}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div className="add-playlist__videos">
+                                {filteredVideos.length === 0 ? (
+                                    <p style={{ color: "#fff" }}>No matching videos found</p>
+                                ) : (
+                                    filteredVideos.map((videoData, index) => {
+                                        const isAdded = addedVideos.some(addedVideo => addedVideo.video_id === videoData.video_id);
+                                        return (
+                                            <div className={`add-playlist__video-card-container ${isAdded ? 'added' : ''}`} key={index} onClick={() => { if (addedVideos.some(addedVideo => addedVideo.video_id === videoData.video_id)) { removeFromPlaylist(videoData) } else { addToPlaylist(videoData) } }}>
+                                                <img src={videoActiveIcon} alt="" className={`add-playlist__video-active ${isAdded ? 'added' : ''}`} />
+                                                <VideoCard
+                                                    key={index}
+                                                    videoObj={videoData}
+                                                    videoIndex={index}
+                                                    cardSize="big"
+                                                    showControls="no"
+                                                />
+                                            </div>
+                                        );
+                                    })
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-        </div >
+
+            </div >
+        </>
     );
 };
 

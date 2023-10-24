@@ -11,6 +11,7 @@ import LogInput from '../../components/SmallComponents/Inputs/LogInput';
 import PasswordInput from '../../components/SmallComponents/Inputs/PasswordInput';
 import OrangeButton from '../../components/SmallComponents/Buttons/OrangeButton';
 import LogSideContent from '../../components/BigComponents/LogInComponents/LogSideContent';
+import SuccessErrorCard from '../../components/MediumComponents/Cards/SuccessErrorCard';
 
 import siteLogo from '../../img/site-logo.svg';
 
@@ -20,6 +21,7 @@ const ForgotPassword = () => {
 
 
     const [email, setEmail] = useState('');
+    const [successErrorState, setSuccessErrorState] = useState(0);
     const handlePass = async () => {
         //console.log("pressed");
         try {
@@ -27,14 +29,19 @@ const ForgotPassword = () => {
                 email: email,
             });
 
-            //tishkovets.pavlo@gmail.com
-            //console.log(response)
+            setSuccessErrorState(1);
 
-            setStep(2);
+                setTimeout(() => {
+                    setSuccessErrorState(0);
+
+                    
+                    setStep(2);
+                }, 1000);
         } catch (error) {
-            //console.log(email)
-            // Handle login error here
-            alert('Login error:', error.response);
+            setSuccessErrorState(2);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
         }
     };
 
@@ -44,6 +51,7 @@ const ForgotPassword = () => {
 
     return (
         <>
+            <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
             <div className="wrapper">
                 <div className="background-elipse log-1"></div>
                 <div className="background-elipse log-2"></div>

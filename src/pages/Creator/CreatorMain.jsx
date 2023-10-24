@@ -67,13 +67,14 @@ const CreatorMain = () => {
                 <div className="v-p__container">
                     <div className="v-p">
                         <div className="v-p__button active">Your video</div>
-                        <div className="v-p__button" onClick={()=>{navigate("/Playlists")}}>Playlists</div>
+                        <div className="v-p__button" onClick={() => { navigate("/Playlists") }}>Playlists</div>
+                        <div className="v-p__button" onClick={() => { navigate("/UserMain") }}>User main</div>
                     </div>
                     <div className="v-p__orange-button">
                         <OrangeButton text="Add new video" plus={true} marginTop={0} handleLogin={handleClick} width={180}></OrangeButton>
                     </div>
 
-                    <div className="v-p__button-mobile">
+                    <div className="v-p__button-mobile" onClick={() => { navigate("/AddVideo") }}>
                         <img src={plusIcon} alt="" className="v-p__plus-icon" />
                     </div>
                 </div>

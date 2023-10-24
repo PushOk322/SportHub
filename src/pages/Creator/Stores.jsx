@@ -71,11 +71,11 @@ const Stores = () => {
                         </div>
 
 
-                        <div className="v-p__orange-button" onClick={() => { navigate("/AddPlaylist") }}>
+                        <div className="v-p__orange-button" onClick={() => { navigate("/AddStore") }}>
                             <OrangeButton text="Add new" plus={true} marginTop={0} handleLogin={handleClick} width={180} maxWidth={180}></OrangeButton>
                         </div>
 
-                        <div className="v-p__button-mobile">
+                        <div className="v-p__button-mobile" onClick={() => { navigate("/AddStore") }}>
                             <img src={plusIcon} alt="" className="v-p__plus-icon" />
                         </div>
                     </div>

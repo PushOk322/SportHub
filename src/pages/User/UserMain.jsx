@@ -210,7 +210,7 @@ const UserMain = () => {
                                 <img src={userCard3} alt="" className="user-main-container__user-card" onClick={() => { navigate("/CreatorMain") }} />
                             </div>
                             <div className="video-card-container-user">
-                                <div className="video-card-container-user__video-list-heading">Video List</div>
+                                <div className="video-card-container-user__video-list-heading" onClick={()=>{navigate("/CreatorMain")}}>Video List</div>
                                 <div className="video-card-container-user__videos-box">
                                     {videoObj.length === 0 ? (
                                         // Display a loading message or any other content while loading

@@ -58,13 +58,14 @@ const Header = (props) => {
 
     // Call the function to get the stored playlist data
     const storedUser = getStoredUser();
+    // console.log("🚀 ~ file: Header.jsx:61 ~ Header ~ storedUser:", storedUser)
 
 
 
-    const currentProfileRole = storedUser ? storedUser[0].user_role : null;
+    const currentProfileRole = storedUser ? storedUser[0].customer_role : null;
     // Now you can access the properties of the stored playlist
     const currentProfileAvatar = storedUser ? storedUser[0].user_avatar : null;
-    console.log("🚀 ~ file: Header.jsx:67 ~ Header ~ currentProfileAvatar:", currentProfileAvatar)
+    // console.log("🚀 ~ file: Header.jsx:67 ~ Header ~ currentProfileAvatar:", currentProfileAvatar)
 
     const handleClick = () => {
         navigate("/LogIn");
@@ -92,15 +93,21 @@ const Header = (props) => {
                 <span></span>
             </div>
             <div className={burgerMenuActive ? "burger-menu__menu active" : "burger-menu__menu"}>
-                <div className="burger-menu__row">
+                <div className="burger-menu__row" onClick={()=>{navigate("/CreatorMain")}}>
                     Video
                 </div>
-                <div className="burger-menu__row">
+                <div className="burger-menu__row" onClick={()=>{navigate("/Stores")}}>
                     Store
                 </div>
                 <div className="burger-menu__row">
                     <img src={`${currentProfileAvatar}`} alt="" className="burger-menu__icon" />
                     Profile
+                </div>
+                <div className="burger-menu__row" onClick={()=>{navigate("/EditProfile")}}>
+                    Edit profile
+                </div>
+                <div className="burger-menu__row" onClick={() => { navigate("/LogIn"); dispatch(logoutUser())}}>
+                    Logout
                 </div>
                 <div className="burger-menu__row">
                     <div className="header__notifications">

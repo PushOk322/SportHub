@@ -11,6 +11,7 @@ import Header from '../../components/Page-Size-Components/Header';
 import OrangeButton from '../../components/SmallComponents/Buttons/OrangeButton';
 import LogInput from '../../components/SmallComponents/Inputs/LogInput';
 import GreyDrop from '../../components/SmallComponents/DropDowns/GreyDrop';
+import SuccessErrorCard from '../../components/MediumComponents/Cards/SuccessErrorCard';
 
 import uploadIcon from '../../img/upload-big-icon.svg';
 import uploadIconBrown from '../../img/upload-icon-brown.svg';
@@ -23,6 +24,8 @@ import videoFileAsset from '../../img/videos/video.mp4';
 import videoPreview from '../../img/video-preview-2.png';
 
 const EditProfile = () => {
+    const [successErrorState, setSuccessErrorState] = useState(0);
+
     const handleImageInputChange = (event) => {
         const file = event.target.files[0];
         setProfilePreview(file); // Store the image URL
@@ -95,8 +98,10 @@ const EditProfile = () => {
                 }
             }
         } catch (error) {
-            // Handle any errors here if needed
-            console.error(error);
+            setSuccessErrorState(2);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
             return null; // Return null in case of an error
         }
     };
@@ -154,7 +159,11 @@ const EditProfile = () => {
                 // Only append user_avatar if profilePreview is not empty
                 formData.append('user_avatar', previewId);
             } catch (error) {
-                console.log("preview upload error: ", error);
+                setSuccessErrorState(2);
+                setTimeout(() => {
+                    setSuccessErrorState(0);
+                    console.log("preview upload error: ", error);
+                }, 2000);
             }
         }
 
@@ -169,7 +178,11 @@ const EditProfile = () => {
                 // Only append user_cover if profileCover is not empty
                 formData.append('user_cover', coverId);
             } catch (error) {
-                console.log("cover upload error: ", error);
+                setSuccessErrorState(2);
+                setTimeout(() => {
+                    setSuccessErrorState(0);
+                    console.log("cover upload error: ", error);
+                }, 2000);
             }
         }
         // try {
@@ -212,9 +225,19 @@ const EditProfile = () => {
                 }
             );
             console.log("info update success", responseInfo);
-            navigate("/Playlists");
+            setSuccessErrorState(1);
+
+            setTimeout(() => {
+                setSuccessErrorState(0);
+
+
+                navigate("/Playlists");
+            }, 1000);
         } catch (error) {
-            console.log("info creation error: ", error);
+            setSuccessErrorState(2);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
         }
         //     } catch (error) {
         //         console.log("cover upload error: ", error);
@@ -227,182 +250,185 @@ const EditProfile = () => {
 
 
     return (
-        <div className="wrapper" style={{ color: "white" }}>
-            <Header videosButtons={true} />
-            <div className="edit-profile">
-                <div className="edit-profile__head">
-                    <div className="edit-profile__head-title">
-                        Edit profile
-                    </div>
-                    <div className="edit-profile__save-button">
-                        <OrangeButton text="Save" plus={false} marginTop={0} handleLogin={handleUpload} width={180}></OrangeButton>
-                    </div>
-                </div>
-                <div className="edit-profile__line"></div>
-                <div className="edit-profile__fields">
-                    <div className="edit-profile__img-row">
-                        <div className="edit-profile__preview">
-                            <div className="edit-profile__preview-container">
-                                <input
-                                    type="file"
-                                    className="edit-profile__preview-input preview"
-                                    accept="image/*"
-                                    onChange={handleImageInputChange}
-                                />
-
-                                {profilePreview ? (
-                                    <div
-                                        className="edit-profile__preview-image"
-                                        style={{ backgroundImage: `url(${URL.createObjectURL(profilePreview)})` }}
-                                    ></div>
-                                ) : (
-                                    <div
-                                        className="edit-profile__preview-image"
-                                        style={{ backgroundImage: `url(https://paul-sporthub-app.onrender.com${currentProfilePreview})` }}
-                                    ></div>
-                                )}
-
-                            </div>
-                            {profilePreview ? (
-                                <div className="edit-profile__when-chosen">
-                                    <div className="edit-profile__when-chosen-container">
-                                        <div className="edit-profile__when-chosen-file-name">
-                                            <img src={checkIcon} alt="" className="edit-profile__when-chosen-check-icon" />
-                                            {profilePreview.name}
-                                        </div>
-                                        <button className="edit-profile__when-chosen-cheange-button" onClick={changeImagePreview}>Change File</button>
-                                    </div>
-                                    <button className="edit-profile__when-chosen-delete-button" onClick={deleteImagePreview}>
-                                        <img src={trashIcon} alt="" className="edit-profile__when-chosen-trash-icon" />
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="edit-profile__preview-texts" id="imagePreviewTexts">
-                                    <div className="edit-profile__preview-texts-title">Information about adding photo</div>
-                                    <div className="edit-profile__preview-texts-description">
-                                        Information about adding photo. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                                    </div>
-                                </div>
-                            )}
+        <>
+            <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
+            <div className="wrapper" style={{ color: "white" }}>
+                <Header videosButtons={true} />
+                <div className="edit-profile">
+                    <div className="edit-profile__head">
+                        <div className="edit-profile__head-title">
+                            Edit profile
                         </div>
-                        <div className="edit-profile__preview">
-                            <div className="edit-profile__preview-container">
-                                <input
-                                    type="file"
-                                    className="edit-profile__preview-input cover"
-                                    accept="image/*"
-                                    onChange={handleCoverInputChange}
-                                />
+                        <div className="edit-profile__save-button">
+                            <OrangeButton text="Save" plus={false} marginTop={0} handleLogin={handleUpload} width={180}></OrangeButton>
+                        </div>
+                    </div>
+                    <div className="edit-profile__line"></div>
+                    <div className="edit-profile__fields">
+                        <div className="edit-profile__img-row">
+                            <div className="edit-profile__preview">
+                                <div className="edit-profile__preview-container">
+                                    <input
+                                        type="file"
+                                        className="edit-profile__preview-input preview"
+                                        accept="image/*"
+                                        onChange={handleImageInputChange}
+                                    />
 
-                                <div className="edit-profile__cover-template">
-                                    {profileCover ? (
+                                    {profilePreview ? (
                                         <div
-                                            className="edit-profile__preview-image cover"
-                                            style={{ backgroundImage: `url(${URL.createObjectURL(profileCover)})` }}
+                                            className="edit-profile__preview-image"
+                                            style={{ backgroundImage: `url(${URL.createObjectURL(profilePreview)})` }}
                                         ></div>
                                     ) : (
                                         <div
-                                            className="edit-profile__preview-image cover"
-                                            style={{ backgroundImage: `url(https://paul-sporthub-app.onrender.com${currentProfileCover})` }}
+                                            className="edit-profile__preview-image"
+                                            style={{ backgroundImage: `url(${currentProfilePreview})` }}
                                         ></div>
                                     )}
 
-
-
-                                    <div className={`edit-profile__cover-line ${profileCover && "active"}`}>
-
-                                    </div>
-                                    <div className="edit-profile__cover-line-container">
-                                        <div className={`edit-profile__cover-line small ${profileCover && "active"}`}>
-
-                                        </div>
-                                        <div className={`edit-profile__cover-line small ${profileCover && "active"}`}>
-
-                                        </div>
-                                        <div className={`edit-profile__cover-line small ${profileCover && "active"}`}>
-
-                                        </div>
-                                    </div>
                                 </div>
+                                {profilePreview ? (
+                                    <div className="edit-profile__when-chosen">
+                                        <div className="edit-profile__when-chosen-container">
+                                            <div className="edit-profile__when-chosen-file-name">
+                                                <img src={checkIcon} alt="" className="edit-profile__when-chosen-check-icon" />
+                                                {profilePreview.name}
+                                            </div>
+                                            <button className="edit-profile__when-chosen-cheange-button" onClick={changeImagePreview}>Change File</button>
+                                        </div>
+                                        <button className="edit-profile__when-chosen-delete-button" onClick={deleteImagePreview}>
+                                            <img src={trashIcon} alt="" className="edit-profile__when-chosen-trash-icon" />
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="edit-profile__preview-texts" id="imagePreviewTexts">
+                                        <div className="edit-profile__preview-texts-title">Information about adding photo</div>
+                                        <div className="edit-profile__preview-texts-description">
+                                            Information about adding photo. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                            {profileCover ? (
-                                <div className="edit-profile__when-chosen">
-                                    <div className="edit-profile__when-chosen-container">
-                                        <div className="edit-profile__when-chosen-file-name">
-                                            <img src={checkIcon} alt="" className="edit-profile__when-chosen-check-icon" />
-                                            {profileCover.name}
+                            <div className="edit-profile__preview">
+                                <div className="edit-profile__preview-container">
+                                    <input
+                                        type="file"
+                                        className="edit-profile__preview-input cover"
+                                        accept="image/*"
+                                        onChange={handleCoverInputChange}
+                                    />
+
+                                    <div className="edit-profile__cover-template">
+                                        {profileCover ? (
+                                            <div
+                                                className="edit-profile__preview-image cover"
+                                                style={{ backgroundImage: `url(${URL.createObjectURL(profileCover)})` }}
+                                            ></div>
+                                        ) : (
+                                            <div
+                                                className="edit-profile__preview-image cover"
+                                                style={{ backgroundImage: `url(${currentProfileCover})` }}
+                                            ></div>
+                                        )}
+
+
+
+                                        <div className={`edit-profile__cover-line ${profileCover && "active"}`}>
+
                                         </div>
-                                        <button className="edit-profile__when-chosen-cheange-button" onClick={changeImage}>Change File</button>
-                                    </div>
-                                    <button className="edit-profile__when-chosen-delete-button" onClick={deleteImage}>
-                                        <img src={trashIcon} alt="" className="edit-profile__when-chosen-trash-icon" />
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="edit-profile__preview-texts" id="imagePreviewTexts">
-                                    <div className="edit-profile__preview-texts-title">Information about adding cover</div>
-                                    <div className="edit-profile__preview-texts-description">
-                                        Information about adding photo. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                                    </div>
-                                </div>
+                                        <div className="edit-profile__cover-line-container">
+                                            <div className={`edit-profile__cover-line small ${profileCover && "active"}`}>
 
-                            )}
+                                            </div>
+                                            <div className={`edit-profile__cover-line small ${profileCover && "active"}`}>
 
-                        </div>
-                    </div>
+                                            </div>
+                                            <div className={`edit-profile__cover-line small ${profileCover && "active"}`}>
 
-
-
-                    <div className="edit-profile__inputs">
-                        <div className="edit-profile__input-row">
-                            <LogInput value={profileFirstName} setInputValue={setProfileFirstName} question={false} placeholder="Your First Name" type="text" label="First Name" id="store-name-input" maxWidth={436} width={100}></LogInput>
-                            <div className="edit-profile__gender-box">
-                                <div className="edit-profile__gender-label">
-                                    Gender
-                                </div>
-                                <div className="edit-profile__gender-container">
-                                    <div className="edit-profile__gender-item" onClick={() => { setProfileGender("male") }}>
-                                        <div className={profileGender === "male" ? 'edit-profile__gender-radio active' : 'edit-profile__gender-radio'}></div>
-                                        <div className="edit-profile__gender-text">Male</div>
-                                    </div>
-                                    <div className="edit-profile__gender-item" onClick={() => { setProfileGender("female") }}>
-                                        <div className={profileGender === "female" ? 'edit-profile__gender-radio active' : 'edit-profile__gender-radio'}></div>
-                                        <div className="edit-profile__gender-text">Female</div>
-                                    </div>
-                                    <div className="edit-profile__gender-item" onClick={() => { setProfileGender("none") }}>
-                                        <div className={profileGender === "none" ? 'edit-profile__gender-radio active' : 'edit-profile__gender-radio'} ></div>
-                                        <div className="edit-profile__gender-text">None</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                {profileCover ? (
+                                    <div className="edit-profile__when-chosen">
+                                        <div className="edit-profile__when-chosen-container">
+                                            <div className="edit-profile__when-chosen-file-name">
+                                                <img src={checkIcon} alt="" className="edit-profile__when-chosen-check-icon" />
+                                                {profileCover.name}
+                                            </div>
+                                            <button className="edit-profile__when-chosen-cheange-button" onClick={changeImage}>Change File</button>
+                                        </div>
+                                        <button className="edit-profile__when-chosen-delete-button" onClick={deleteImage}>
+                                            <img src={trashIcon} alt="" className="edit-profile__when-chosen-trash-icon" />
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="edit-profile__preview-texts" id="imagePreviewTexts">
+                                        <div className="edit-profile__preview-texts-title">Information about adding cover</div>
+                                        <div className="edit-profile__preview-texts-description">
+                                            Information about adding photo. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
+                                        </div>
+                                    </div>
+
+                                )}
+
                             </div>
+                        </div>
 
+
+
+                        <div className="edit-profile__inputs">
+                            <div className="edit-profile__input-row">
+                                <LogInput value={profileFirstName} setInputValue={setProfileFirstName} question={false} placeholder="Your First Name" type="text" label="First Name" id="store-name-input" maxWidth={436} width={100}></LogInput>
+                                <div className="edit-profile__gender-box">
+                                    <div className="edit-profile__gender-label">
+                                        Gender
+                                    </div>
+                                    <div className="edit-profile__gender-container">
+                                        <div className="edit-profile__gender-item" onClick={() => { setProfileGender("male") }}>
+                                            <div className={profileGender === "male" ? 'edit-profile__gender-radio active' : 'edit-profile__gender-radio'}></div>
+                                            <div className="edit-profile__gender-text">Male</div>
+                                        </div>
+                                        <div className="edit-profile__gender-item" onClick={() => { setProfileGender("female") }}>
+                                            <div className={profileGender === "female" ? 'edit-profile__gender-radio active' : 'edit-profile__gender-radio'}></div>
+                                            <div className="edit-profile__gender-text">Female</div>
+                                        </div>
+                                        <div className="edit-profile__gender-item" onClick={() => { setProfileGender("none") }}>
+                                            <div className={profileGender === "none" ? 'edit-profile__gender-radio active' : 'edit-profile__gender-radio'} ></div>
+                                            <div className="edit-profile__gender-text">None</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className="edit-profile__input-row">
+                                <LogInput value={profileLastName} setInputValue={setProfileLastName} question={false} placeholder="Your Last Name" type="text" label="Last Name" id="store-name-input" maxWidth={436} width={100}></LogInput>
+                                <LogInput value={profileDate} setInputValue={setProfileDate} placeholder="MM.DD.YYYY" type="date" label="Date of birthday" id="email-input" maxWidth={436} width={100}></LogInput>
+                            </div>
+                            <div className="edit-profile__input-row">
+                                <LogInput value={profileAddress} setInputValue={setProfileAddress} question={false} placeholder="Your Address" type="text" label="Address" id="store-name-input" maxWidth={436} width={100}></LogInput>
+                                <LogInput value={profileLLC} setInputValue={setProfileLLC} question={false} placeholder="Your LLC" type="text" label="LLC" id="store-name-input" maxWidth={436} width={100}></LogInput>
+                            </div>
+                            <div className="edit-profile__input-row">
+                                <LogInput value={profileDescription} setInputValue={setProfileDescription} question={false} placeholder="Your Description" type="text" label="Description" id="store-name-input" maxWidth={920} width={100}></LogInput>
+                            </div>
+                            <div className="edit-profile__input-row">
+                                <LogInput value={profileVimeo} setInputValue={setProfileVimeo} question={false} placeholder="Add your Vimeo account" type="text" label="Vimeo account" id="store-name-input" maxWidth={436} width={100}></LogInput>
+                                <LogInput value={profileInstagram} setInputValue={setProfileInstagram} question={false} placeholder="Add your Instagram account" type="text" label="Instagram account" id="store-name-input" maxWidth={436} width={100}></LogInput>
+                            </div>
+                            <div className="edit-profile__input-row">
+                                <LogInput value={profileFacebook} setInputValue={setProfileFacebook} question={false} placeholder="Add your Facebook  account" type="text" label="Facebook  account" id="store-name-input" maxWidth={436} width={100}></LogInput>
+                                <LogInput value={profileTwitter} setInputValue={setProfileTwitter} question={false} placeholder="Add your Twitter account" type="text" label="Twitter account" id="store-name-input" maxWidth={436} width={100}></LogInput>
+                            </div>
                         </div>
-                        <div className="edit-profile__input-row">
-                            <LogInput value={profileLastName} setInputValue={setProfileLastName} question={false} placeholder="Your Last Name" type="text" label="Last Name" id="store-name-input" maxWidth={436} width={100}></LogInput>
-                            <LogInput value={profileDate} setInputValue={setProfileDate} placeholder="MM.DD.YYYY" type="date" label="Date of birthday" id="email-input" maxWidth={436} width={100}></LogInput>
-                        </div>
-                        <div className="edit-profile__input-row">
-                            <LogInput value={profileAddress} setInputValue={setProfileAddress} question={false} placeholder="Your Address" type="text" label="Address" id="store-name-input" maxWidth={436} width={100}></LogInput>
-                            <LogInput value={profileLLC} setInputValue={setProfileLLC} question={false} placeholder="Your LLC" type="text" label="LLC" id="store-name-input" maxWidth={436} width={100}></LogInput>
-                        </div>
-                        <div className="edit-profile__input-row">
-                            <LogInput value={profileDescription} setInputValue={setProfileDescription} question={false} placeholder="Your Description" type="text" label="Description" id="store-name-input" maxWidth={920} width={100}></LogInput>
-                        </div>
-                        <div className="edit-profile__input-row">
-                            <LogInput value={profileVimeo} setInputValue={setProfileVimeo} question={false} placeholder="Add your Vimeo account" type="text" label="Vimeo account" id="store-name-input" maxWidth={436} width={100}></LogInput>
-                            <LogInput value={profileInstagram} setInputValue={setProfileInstagram} question={false} placeholder="Add your Instagram account" type="text" label="Instagram account" id="store-name-input" maxWidth={436} width={100}></LogInput>
-                        </div>
-                        <div className="edit-profile__input-row">
-                            <LogInput value={profileFacebook} setInputValue={setProfileFacebook} question={false} placeholder="Add your Facebook  account" type="text" label="Facebook  account" id="store-name-input" maxWidth={436} width={100}></LogInput>
-                            <LogInput value={profileTwitter} setInputValue={setProfileTwitter} question={false} placeholder="Add your Twitter account" type="text" label="Twitter account" id="store-name-input" maxWidth={436} width={100}></LogInput>
-                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
-            
-        </div >
+            </div >
+        </>
     );
 };
 

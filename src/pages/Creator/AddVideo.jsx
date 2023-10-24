@@ -11,6 +11,7 @@ import Header from '../../components/Page-Size-Components/Header';
 import OrangeButton from '../../components/SmallComponents/Buttons/OrangeButton';
 import LogInput from '../../components/SmallComponents/Inputs/LogInput';
 import GreyDrop from '../../components/SmallComponents/DropDowns/GreyDrop';
+import SuccessErrorCard from '../../components/MediumComponents/Cards/SuccessErrorCard';
 
 import uploadIcon from '../../img/upload-big-icon.svg';
 import threeDots from '../../img/dots-icon.svg';
@@ -21,6 +22,10 @@ import videoPreview from '../../img/video-preview-2.png';
 
 const AddVideo = () => {
     const navigate = useNavigate();
+
+    const storedUser = sessionStorage.getItem('currentUser');
+    const parsedUser = JSON.parse(storedUser);
+    // console.log("🚀 parsedUser:", parsedUser)
 
 
     const handleFileInputClick = () => {
@@ -81,7 +86,7 @@ const AddVideo = () => {
     const [videoShopLink, setVideoShopLink] = useState('');
 
 
-
+    const [successErrorState, setSuccessErrorState] = useState(0);
 
 
     const handleUpload = async () => {
@@ -116,12 +121,22 @@ const AddVideo = () => {
                             video_length: 1000,
                             video_type: selectedOption,
                             video_preview: previewId,
-                            video_description: videoDescription,
+                            video_descripion: videoDescription,
                             video_shop_link: videoShopLink,
+                            video_creator: {
+                                set: [parsedUser[0].id]
+                            }
                         }
                     });
                     //console.log("info creation success");
-                    navigate("/CreatorMain");
+                    setSuccessErrorState(1);
+
+                    setTimeout(() => {
+                        setSuccessErrorState(0);
+
+
+                        navigate("/CreatorMain");
+                    }, 1000);
                 } catch (error) {
                     //console.log("info creation error: ", error);
                 }
@@ -129,11 +144,16 @@ const AddVideo = () => {
                 //console.log("preview upload error: ", error);
             }
         } catch (error) {
-            //console.log("video upload error: ", error);
+            setSuccessErrorState(2);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
         }
     };
 
     return (
+        <>
+        <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
         <div className="wrapper" style={{ color: "white" }}>
             <Header videosButtons={true} />
             <div className="add-video">
@@ -266,8 +286,9 @@ const AddVideo = () => {
                     </div>
                 )}
             </div>
-            
-        </div >
+
+            </div >
+        </>
     );
 };
 
