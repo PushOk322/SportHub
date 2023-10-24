@@ -29,11 +29,16 @@ const AddPlaylist = () => {
 
     const loadVideos = async () => {
         try {
-            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/videos/?populate=*`);
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/videos/?populate[0]=video_creator&populate[1]=video_creator.user_avatar&populate[2]=video_preview&populate[3]=video_file.video_preview`);
+
+            console.log("🚀 ~ file: CreatorMain.jsx:35 ~ loadVideos ~ response:", response)
+
             const dispatchPromises = response.data.data.map((videoData, index) => {
                 return dispatch(addVideo({ data: videoData, index }));
             });
-            await Promise.all(dispatchPromises);
+
+            await Promise.all(dispatchPromises.filter(Boolean)); // Filter out null promises
+
         } catch (error) {
             console.error('An error occurred:', error);
         }
@@ -87,6 +92,17 @@ const AddPlaylist = () => {
     const [playlistDescription, setPlaylistDescription] = useState('');
 
     const [successErrorState, setSuccessErrorState] = useState(0);
+
+    const checkFill = () => {
+        if (addedVideos && selectedCategory != '' && playlistName != '' && playlistDescription != '') {
+            handleUpload();
+        } else {
+            setSuccessErrorState(3);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
+        }
+    };
 
     const handleUpload = async () => {
 
@@ -146,7 +162,7 @@ const AddPlaylist = () => {
                             Create new playlist
                         </div>
                         <div className="add-video__head-buttons">
-                            <button className="add-video__publish-button active" onClick={() => { handleUpload() }}>Save</button>
+                            <button className="add-video__publish-button active" onClick={() => { checkFill() }}>Save</button>
                             <div className="add-video__menu-button active" onClick={() => { setVideoMenu(!videoMenu) }}>
                                 <img src={threeDots} alt="" className="add-video__dots-icon" />
                             </div>

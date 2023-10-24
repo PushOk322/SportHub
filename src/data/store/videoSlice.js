@@ -13,6 +13,7 @@ const videoSlice = createSlice({
 			// Check if a video with the same video_id already exists in state
 			const existingVideo = state.videos.find((video) => video.video_id === videoIdToAdd);
 
+			const userAvatar = data.attributes.video_creator.data.attributes.user_avatar.data ? data.attributes.video_creator.data.attributes.user_avatar.data.attributes.url : "https://res.cloudinary.com/dykvs6jfa/image/upload/v1697813673/creator_avatar_10_e071638019.svg";
 			if (!existingVideo) {
 				state.videos.push({
 					video_obj: data.attributes.video_file,
@@ -28,7 +29,7 @@ const videoSlice = createSlice({
 					video_shop_link: data.attributes.video_shop_link,
 					video_id: data.id,
 					createdAt: data.attributes.createdAt,
-					video_creator_avatar: data.attributes.video_creator.data.attributes.user_avatar.data.attributes.url,
+					video_creator_avatar: userAvatar,
 					video_creator_username: data.attributes.video_creator.data.attributes.username,
 					video_creator_id: data.attributes.video_creator.data.id
 				});

@@ -76,17 +76,26 @@ const AddVideo = () => {
     const [videoFieldsVisible, setVideoFieldsVisible] = useState(false);
 
     const [videoFile, setVideoFile] = useState(null);
-    // //console.log("🚀 ~ file: AddVideo.jsx:56 ~ AddVideo ~ selectedVideo:", videoFile)
     const [selectedImage, setSelectedImage] = useState(null);
     const [videoTitle, setVideoTitle] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
-    //console.log("🚀 ~ file: AddVideo.jsx:104 ~ AddVideo ~ selectedOption:", selectedOption)
-
     const [videoDescription, setVideoDescription] = useState('');
     const [videoShopLink, setVideoShopLink] = useState('');
 
 
     const [successErrorState, setSuccessErrorState] = useState(0);
+
+
+    const checkFill = () => {
+        if (videoFile != null && selectedImage != null && videoTitle != '' && selectedOption != '' && videoDescription != '' && videoShopLink != '' ) {
+            handleUpload();
+        } else {
+            setSuccessErrorState(3);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
+        }
+    };
 
 
     const handleUpload = async () => {
@@ -131,6 +140,8 @@ const AddVideo = () => {
                     //console.log("info creation success");
                     setSuccessErrorState(1);
 
+
+
                     setTimeout(() => {
                         setSuccessErrorState(0);
 
@@ -153,139 +164,139 @@ const AddVideo = () => {
 
     return (
         <>
-        <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
-        <div className="wrapper" style={{ color: "white" }}>
-            <Header videosButtons={true} />
-            <div className="add-video">
-                <div className="add-video__head">
-                    <div className="add-video__head-title">
-                        Adding a new video
-                    </div>
-
-                    <div className="add-video__head-buttons">
-                        <button className={video ? "add-video__publish-button active" : "add-video__publish-button "} onClick={() => { handleUpload() }}>Publish</button>
-                        <div className={video ? "add-video__menu-button active" : "add-video__menu-button"} onClick={() => { setVideoMenu(!videoMenu) }}>
-                            <img src={threeDots} alt="" className="add-video__dots-icon" />
+            <SuccessErrorCard popUpState={successErrorState} wait={true}></SuccessErrorCard>
+            <div className="wrapper" style={{ color: "white" }}>
+                <Header videosButtons={true} />
+                <div className="add-video">
+                    <div className="add-video__head">
+                        <div className="add-video__head-title">
+                            Adding a new video
                         </div>
-                        {videoMenu && (
-                            <div className="add-video__drop-menu">
-                                <div className="add-video__drop-menu-option">Save as draft</div>
-                                <div className="add-video__drop-menu-option white" onClick={() => { window.location.reload(); }}>Delete</div>
+
+                        <div className="add-video__head-buttons">
+                            <button className={video ? "add-video__publish-button active" : "add-video__publish-button "} onClick={() => { checkFill(); setVideo(false); }}>Publish</button>
+                            <div className={video ? "add-video__menu-button active" : "add-video__menu-button"} onClick={() => { setVideoMenu(!videoMenu) }}>
+                                <img src={threeDots} alt="" className="add-video__dots-icon" />
                             </div>
-                        )}
+                            {videoMenu && (
+                                <div className="add-video__drop-menu">
+                                    <div className="add-video__drop-menu-option">Save as draft</div>
+                                    <div className="add-video__drop-menu-option white" onClick={() => { window.location.reload(); }}>Delete</div>
+                                </div>
+                            )}
+                        </div>
+
+
+
                     </div>
 
-
-
-                </div>
-
-                {!videoFieldsVisible ? ( // Display upload area if no video selected
-                    <div className="add-video__upload">
+                    {!videoFieldsVisible ? ( // Display upload area if no video selected
                         <div className="add-video__upload">
-                            <input
-                                type="file"
-                                className="add-video__upload-input"
-                                accept="video/*"
-                                onChange={handleVideoInputChange}
-                                ref={fileInputRef} // Attach the ref to the file input
-                                style={{ display: 'none' }} // Hide the file input
-                            />
-                            <div className="add-video__upload-statics">
-                                <img src={uploadIcon} className="add-video__upload-static-img" alt="Upload Icon" />
-                                <div className="add-video__upload-static-title">
-                                    Drag and drop videos to upload
-                                </div>
-                                <div className="add-video__upload-static-button">
-                                    <OrangeButton
-                                        text="Or choose files"
-                                        plus={false}
-                                        marginTop={0}
-                                        handleLogin={handleFileInputClick} // Pass the click handler here
-                                        width={180}
-                                    />
-                                </div>
-                                <div className="add-video__upload-static-title mobile">
-                                    New video
-                                </div>
-                                <div className="add-video__upload-static-button mobile">
-                                    <OrangeButton
-                                        text="Choose files"
-                                        plus={false}
-                                        marginTop={0}
-                                        handleLogin={handleFileInputClick} // Pass the click handler here
-                                        width={180}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="add-video__player-container">
-
-                        <video
-                            controls
-                            className="add-video__video-player"
-                            src={URL.createObjectURL(videoFile)}
-
-                        >
-                            Your browser does not support the video tag.
-                        </video>
-
-
-                        <div className="add-video__fields">
-                            <div className="add-video__inputs">
-                                <LogInput question={true} placeholder="Video Name" type="email" label="Title" id="email-input" setInputValue={setVideoTitle} maxWidth={430}></LogInput>
-                                <GreyDrop id="custom-dropdown"
-                                    label="Category"
-                                    selectedOption={selectedOption}
-                                    setSelectedOption={setSelectedOption}
-                                    options={options}
-                                    question={false}></GreyDrop>
-                                <LogInput textarea={true} question={true} placeholder="Description" type="email" label="Description" id="email-input" setInputValue={setVideoDescription} maxWidth={430}></LogInput>
-                                <LogInput question={true} placeholder="Add link on product" type="email" label="Add Shopify link" id="email-input" setInputValue={setVideoShopLink} maxWidth={430}></LogInput>
-                            </div>
-                            <div className="add-video__preview-container">
+                            <div className="add-video__upload">
                                 <input
                                     type="file"
-                                    className="add-video__preview-input"
-                                    accept="image/*"
-                                    ref={filePreviewRef}
-                                    onChange={handleImageInputChange}
+                                    className="add-video__upload-input"
+                                    accept="video/*"
+                                    onChange={handleVideoInputChange}
+                                    ref={fileInputRef} // Attach the ref to the file input
+                                    style={{ display: 'none' }} // Hide the file input
                                 />
-                                {!selectedImage ? (
-                                    <div className="add-video__preview-static" >
-                                        <img src={uploadIcon} alt="Upload Icon" className="add-video__preview-static-icon" />
-                                        <div className="add-video__preview-static-title">Drag and drop photo to upload</div>
-                                        <div className="add-video__preview-static-text">
-                                            Information about adding a photo. Amet minim mollit non deserunt ullamco est sit
-                                        </div>
-
-                                        <div className="add-video__preview-static-title mobile">
-                                            Upload the image preview
-                                        </div>
-
-                                        <div className="add-video__preview-button">
-                                            <OrangeButton
-                                                text="Choose files"
-                                                plus={false}
-                                                marginTop={0}
-                                                handleLogin={handlePreviewInputClick} // Pass the click handler here
-                                                width={180}
-                                            />
-                                        </div>
+                                <div className="add-video__upload-statics">
+                                    <img src={uploadIcon} className="add-video__upload-static-img" alt="Upload Icon" />
+                                    <div className="add-video__upload-static-title">
+                                        Drag and drop videos to upload
                                     </div>
-                                ) : null}
-                                {selectedImage && (
-                                    <div
-                                        className="add-video__preview-image"
-                                        style={{ backgroundImage: `url(${URL.createObjectURL(selectedImage)})` }}
-                                    ></div>
-                                )}
+                                    <div className="add-video__upload-static-button">
+                                        <OrangeButton
+                                            text="Or choose files"
+                                            plus={false}
+                                            marginTop={0}
+                                            handleLogin={handleFileInputClick} // Pass the click handler here
+                                            width={180}
+                                        />
+                                    </div>
+                                    <div className="add-video__upload-static-title mobile">
+                                        New video
+                                    </div>
+                                    <div className="add-video__upload-static-button mobile">
+                                        <OrangeButton
+                                            text="Choose files"
+                                            plus={false}
+                                            marginTop={0}
+                                            handleLogin={handleFileInputClick} // Pass the click handler here
+                                            width={180}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
-            </div>
+                    ) : (
+                        <div className="add-video__player-container">
+
+                            <video
+                                controls
+                                className="add-video__video-player"
+                                src={URL.createObjectURL(videoFile)}
+
+                            >
+                                Your browser does not support the video tag.
+                            </video>
+
+
+                            <div className="add-video__fields">
+                                <div className="add-video__inputs">
+                                    <LogInput question={true} placeholder="Video Name" type="email" label="Title" id="email-input" setInputValue={setVideoTitle} maxWidth={430}></LogInput>
+                                    <GreyDrop id="custom-dropdown"
+                                        label="Category"
+                                        selectedOption={selectedOption}
+                                        setSelectedOption={setSelectedOption}
+                                        options={options}
+                                        question={false}></GreyDrop>
+                                    <LogInput textarea={true} question={true} placeholder="Description" type="email" label="Description" id="email-input" setInputValue={setVideoDescription} maxWidth={430}></LogInput>
+                                    <LogInput question={true} placeholder="Add link on product" type="email" label="Add Shopify link" id="email-input" setInputValue={setVideoShopLink} maxWidth={430}></LogInput>
+                                </div>
+                                <div className="add-video__preview-container">
+                                    <input
+                                        type="file"
+                                        className="add-video__preview-input"
+                                        accept="image/*"
+                                        ref={filePreviewRef}
+                                        onChange={handleImageInputChange}
+                                    />
+                                    {!selectedImage ? (
+                                        <div className="add-video__preview-static" >
+                                            <img src={uploadIcon} alt="Upload Icon" className="add-video__preview-static-icon" />
+                                            <div className="add-video__preview-static-title">Drag and drop photo to upload</div>
+                                            <div className="add-video__preview-static-text">
+                                                Information about adding a photo. Amet minim mollit non deserunt ullamco est sit
+                                            </div>
+
+                                            <div className="add-video__preview-static-title mobile">
+                                                Upload the image preview
+                                            </div>
+
+                                            <div className="add-video__preview-button">
+                                                <OrangeButton
+                                                    text="Choose files"
+                                                    plus={false}
+                                                    marginTop={0}
+                                                    handleLogin={handlePreviewInputClick} // Pass the click handler here
+                                                    width={180}
+                                                />
+                                            </div>
+                                        </div>
+                                    ) : null}
+                                    {selectedImage && (
+                                        <div
+                                            className="add-video__preview-image"
+                                            style={{ backgroundImage: `url(${URL.createObjectURL(selectedImage)})` }}
+                                        ></div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
 
             </div >
         </>

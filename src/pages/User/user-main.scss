@@ -116,7 +116,7 @@
 			gap: 35px;
 			padding: 24px;
 
-			position: fixed;
+			position: absolute;
 			top: 150px;
 			left: -1000px;
 			z-index: 20;
@@ -198,6 +198,8 @@
 		width: 100%;
 		padding: 0 16px;
 
+		min-height: 700px;
+
 		&__sidebar-button {
 			margin: 16px 0 0 0;
 			max-width: fit-content;
@@ -217,10 +219,11 @@
 			gap: 35px;
 			padding: 24px;
 
-			position: fixed;
-			top: 120px;
+			position: absolute;
+			top: 110px;
 			left: -1000px;
 			z-index: 20;
+			border: 1px solid var(--light, #AD7955);
 			&.active {
 				left: 0px;
 				background: var(--10, #111);

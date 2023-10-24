@@ -9,16 +9,20 @@ const storeSlice = createSlice({
 		addStore(state, action) {
 			const { dataPath, index } = action.payload;
 			// console.log("data, index:", dataPath, index);
-			
+			const storeIdToAdd = data.id;
 
-			state.stores.push({
-                store_preview: dataPath.attributes.store_preview.data[0].attributes.url,
-				store_name: dataPath.attributes.store_name,
-				store_description: dataPath.attributes.store_description,
-				store_shop_link: dataPath.attributes.store_shop_link,
-				store_id: dataPath.attributes.id,
-				createdAt: dataPath.attributes.createdAt
-			});
+			// Check if a video with the same video_id already exists in state
+			const existingStore = state.stores.find((store) => store.store_id === storeIdToAdd);
+			if (!existingStore) {
+				state.stores.push({
+					store_preview: dataPath.attributes.store_preview.data[0].attributes.url,
+					store_name: dataPath.attributes.store_name,
+					store_description: dataPath.attributes.store_description,
+					store_shop_link: dataPath.attributes.store_shop_link,
+					store_id: dataPath.attributes.id,
+					createdAt: dataPath.attributes.createdAt
+				});
+			}
 		},
 		deleteStore(state, action) {
 			if (state.stores.length > 0) {

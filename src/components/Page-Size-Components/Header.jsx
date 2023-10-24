@@ -99,7 +99,7 @@ const Header = (props) => {
                 <div className="burger-menu__row" onClick={()=>{navigate("/Stores")}}>
                     Store
                 </div>
-                <div className="burger-menu__row">
+                <div className="burger-menu__row" onClick={()=>{navigate("/EditProfile")}}>
                     <img src={`${currentProfileAvatar}`} alt="" className="burger-menu__icon" />
                     Profile
                 </div>
@@ -109,7 +109,7 @@ const Header = (props) => {
                 <div className="burger-menu__row" onClick={() => { navigate("/LogIn"); dispatch(logoutUser())}}>
                     Logout
                 </div>
-                <div className="burger-menu__row">
+                <div className="burger-menu__row" onClick={()=>{navigate("/CreatorMain")}}> 
                     <div className="header__notifications">
                         <img src={notifyIcon} alt="1" className="header__notifications-icon" />
                         <div className={props.notifications ? "header__notifications-number active" : "header__notifications-number"}>4</div>

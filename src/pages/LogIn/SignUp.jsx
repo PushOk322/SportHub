@@ -11,12 +11,14 @@ import LogInput from '../../components/SmallComponents/Inputs/LogInput';
 import PasswordInput from '../../components/SmallComponents/Inputs/PasswordInput';
 import OrangeButton from '../../components/SmallComponents/Buttons/OrangeButton';
 import LogSideContent from '../../components/BigComponents/LogInComponents/LogSideContent';
+import SuccessErrorCard from '../../components/MediumComponents/Cards/SuccessErrorCard';
 
 import siteLogo from '../../img/site-logo.svg';
 
 const SignUp = () => {
 
     const navigate = useNavigate();
+    const [successErrorState, setSuccessErrorState] = useState(0);
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -27,6 +29,18 @@ const SignUp = () => {
     const users = useSelector(state => state.users.users);
     //console.log("🚀 ~ file: LogIn.jsx:33 ~ LogIn ~ users:", users)
     const dispatch = useDispatch();
+
+
+    const checkFill = () => {
+        if (firstName != '' && lastName != '' && email != '' && password != '') {
+            handleLogin();
+        } else {
+            setSuccessErrorState(3);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
+        }
+    };
 
     const handleLogin = async () => {
         //console.log("pressed");
@@ -40,15 +54,25 @@ const SignUp = () => {
             dispatch(loginUserSign(response.data));
 
 
-            navigate('/PersonalInfo');
+            setSuccessErrorState(1);
+
+            setTimeout(() => {
+                setSuccessErrorState(0);
+
+                navigate('/PersonalInfo');
+            }, 1000);
+
+
+
         } catch (error) {
-           console.log("🚀 ~ file: SignUp.jsx:45 ~ handleLogin ~ error:", error)
-           
+            console.log("🚀 ~ file: SignUp.jsx:45 ~ handleLogin ~ error:", error)
+
         }
     };
 
     return (
         <>
+            <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
             <div className="wrapper">
                 <div className="background-elipse log-1"></div>
                 <div className="background-elipse log-2"></div>
@@ -71,7 +95,7 @@ const SignUp = () => {
                             <PasswordInput placeholder="Your password" label="Password" id="password-input" setInputValue={setPassword} forgot={false}></PasswordInput>
                         </div>
 
-                        <OrangeButton text="Sign up" marginTop={0} handleLogin={handleLogin}></OrangeButton>
+                        <OrangeButton text="Sign up" marginTop={0} handleLogin={() => { checkFill() }}></OrangeButton>
 
                         <div className="login__registration-link">
                             Already have an account?

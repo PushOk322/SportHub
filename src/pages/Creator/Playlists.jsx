@@ -74,7 +74,7 @@ const Playlists = () => {
                         <OrangeButton text="Create new playlist" plus={true} marginTop={0} handleLogin={handleClick} width={217} maxWidth={217}></OrangeButton>
                     </div>
 
-                    <div className="v-p__button-mobile">
+                    <div className="v-p__button-mobile" onClick={()=>{navigate("/AddPlaylist")}}>
                         <img src={plusIcon} alt="" className="v-p__plus-icon" />
                     </div>
                 </div>
