@@ -15,11 +15,13 @@ import LogInput from '../../components/SmallComponents/Inputs/LogInput';
 import PasswordInput from '../../components/SmallComponents/Inputs/PasswordInput';
 import OrangeButton from '../../components/SmallComponents/Buttons/OrangeButton';
 import LogSideContent from '../../components/BigComponents/LogInComponents/LogSideContent';
+import SuccessErrorCard from '../../components/MediumComponents/Cards/SuccessErrorCard';
 
 import siteLogo from '../../img/site-logo.svg';
 import imgUploadIcon from '../../img/img-upload-icon.svg';
 
 const PersonalInfo = () => {
+    const [successErrorState, setSuccessErrorState] = useState(0);
 
     const dispatch = useDispatch();
 
@@ -27,7 +29,7 @@ const PersonalInfo = () => {
 
 
     const userSign = useSelector(state => state.userSign.userSign[0]);
-    console.log("🚀 ~ file: PersonalInfo.jsx:30 ~ PersonalInfo ~ userSign:", userSign)
+    // console.log("🚀 ~ file: PersonalInfo.jsx:30 ~ PersonalInfo ~ userSign:", userSign)
     //console.log("🚀 ~ file: PersonalInfo.jsx:32 ~ PersonalInfo ~  token:", user)
 
 
@@ -37,10 +39,15 @@ const PersonalInfo = () => {
     //console.log("🚀 ~ file: PersonalInfo.jsx:37 ~ PersonalInfo ~ backgroundImage:", backgroundImage)
     const [gender, setGender] = useState('');
     const [date, setDate] = useState('');
-    // //console.log("🚀 ~ file: PersonalInfo.jsx:39 ~ PersonalInfo ~ date:", date)
+    console.log("🚀 ~ file: PersonalInfo.jsx:40 ~ PersonalInfo ~ date:", date)
+
 
 
     const handleLogin = async () => {
+        const parts = date.split('-');
+
+        const newDateVar = `${parts[1]}-${parts[2]}-${parts[0]}`;
+        console.log("🚀newDateVar:", newDateVar);
 
         const formPreviewData = new FormData();
         formPreviewData.append('files', backgroundImage);
@@ -49,41 +56,44 @@ const PersonalInfo = () => {
 
         try {
             const responsePreview = await axios.post("https://paul-sporthub-app.onrender.com/api/upload", formPreviewData);
-            console.log("upload of the Preview is successful", responsePreview);
+            //   console.log("upload of the Preview is successful", responsePreview);
             previewId = responsePreview.data[0].id;
-            console.log("🚀 ~ file: PersonalInfo.jsx:54 ~ handleLogin ~ previewId:", previewId)
+            //   console.log("🚀 ~ file: PersonalInfo.jsx:54 ~ handleLogin ~ previewId:", previewId);
+            const formDataInfo = new FormData();
+
+            // formData.append('user_avatar', previewId);
+            // formData.append('user_cover', coverId);
+            formDataInfo.append('date_of_birth', date);
+            formDataInfo.append('user_gender', gender);
 
             try {
+                const responseInfo = await axios.put(`https://paul-sporthub-app.onrender.com/api/users/${userSign.user_id}`,formDataInfo , {
+                    headers: {
+                        Authorization: `Bearer ${userSign.jwt}`,
+                    },
+                });
+                setSuccessErrorState(1);
 
-
-
-
-                const responseInfo = await axios.put(`https://paul-sporthub-app.onrender.com/api/users/${userSign.user_id}`, {
-                    data: {
-                        user_gender: gender,
-                        user_avatar: previewId,
-                        date_of_birth: date,
-                    }
-                },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${userSign.jwt}`, // Include the JWT token in the headers
-                        },
-                    }
-                );
-                //console.log("info creation success");
-                navigate("/LogIn");
+                setTimeout(() => {
+                    setSuccessErrorState(0);
+                    navigate("/LogIn");
+                }, 1000);
             } catch (error) {
-                //console.log("info creation error: ", error);
+                console.error("info creation error: ", error);
             }
         } catch (error) {
-            //console.log("preview upload error: ", error);
+            setSuccessErrorState(2);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+                console.error("preview upload error: ", error);
+            }, 2000);
         }
     };
 
 
-
-
+    const handleBack = () => { 
+        navigate(-1);
+    }
 
 
 
@@ -93,7 +103,7 @@ const PersonalInfo = () => {
     }
 
     const avatarBoxStyle = {
-        backgroundImage: backgroundImage === null ?   '#FFF':`url(${URL.createObjectURL(backgroundImage)})`,
+        backgroundImage: backgroundImage === null ? '#FFF' : `url(${URL.createObjectURL(backgroundImage)})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
     };
@@ -101,6 +111,8 @@ const PersonalInfo = () => {
 
     return (
         <>
+            <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
+
             <div className="wrapper">
                 <div className="personal-info__progress-bar">
                     <div className="personal-info__progress-thumb"></div>
@@ -143,7 +155,7 @@ const PersonalInfo = () => {
                         <LogInput placeholder="MM.DD.YYYY" type="date" label="Date of birthday" id="email-input" setInputValue={setDate}></LogInput>
                     </div>
                     <div className="personal-info__buttons">
-                        <OrangeButton back={true} text="Back" marginTop={0} ></OrangeButton>
+                        <OrangeButton back={true} text="Back" marginTop={0} handleLogin={handleBack}></OrangeButton>
                         <OrangeButton text="Next" marginTop={0} handleLogin={handleLogin}></OrangeButton>
                     </div>
                 </div>

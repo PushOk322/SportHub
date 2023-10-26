@@ -31,6 +31,7 @@
 			background: rgba(0, 0, 0, 0.4);
 			backdrop-filter: blur(2.2391304969787598px);
 			font-size: 13.435px;
+			z-index: 15;
 		}
 
 		.video-card__video {
@@ -66,6 +67,7 @@
 		.video-card__menu-dropdown {
 			right: 7.21px;
 			top: 45px;
+			z-index: 20;
 			position: absolute;
 			border-radius: 7.212px;
 			background: rgba(0, 0, 0, 0.4);
@@ -93,7 +95,7 @@
 			align-self: flex-end;
 			width: 50px;
 			height: 24px;
-
+			z-index: 15;
 			border-radius: 7.212px;
 			background: rgba(0, 0, 0, 0.4);
 			backdrop-filter: blur(1.803108811378479px);
@@ -181,6 +183,7 @@
 		background: rgba(0, 0, 0, 0.4);
 		backdrop-filter: blur(1.803108811378479px);
 		padding: 7.21px;
+		z-index: 20;
 	}
 
 	&__menu-item {
@@ -221,6 +224,7 @@
 		color: var(--3, #fff);
 		font-family: Uto-400;
 		font-size: 10.819px;
+		z-index: 15;
 	}
 
 	&__video {
@@ -392,6 +396,7 @@
 				background: rgba(0, 0, 0, 0.4);
 				backdrop-filter: blur(1.803108811378479px);
 				padding: 7.21px;
+				z-index: 20;
 			}
 			.video-card__play-button {
 				margin: -150px 0px 0 0;
@@ -495,6 +500,7 @@
 			background: rgba(0, 0, 0, 0.4);
 			backdrop-filter: blur(1.803108811378479px);
 			padding: 7.21px;
+			z-index: 20;
 		}
 
 		&__menu-item {

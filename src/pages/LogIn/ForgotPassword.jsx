@@ -52,7 +52,7 @@ const ForgotPassword = () => {
     return (
         <>
             <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
-            <div className="wrapper">
+            <div className="wrapper login">
                 <div className="background-elipse log-1"></div>
                 <div className="background-elipse log-2"></div>
 

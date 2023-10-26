@@ -14,7 +14,7 @@
 	&__log-window {
 		margin: 0 -24px 0 0;
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		max-width: 580px;
 		background: #111;
 		display: flex;
@@ -226,6 +226,7 @@
 	&__gender-container {
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 		gap: 16px;
 	}
 
@@ -249,6 +250,8 @@
 		border: 1px solid var(--8, #323232);
 		border-radius: 50%;
 		&.active {
+			width: 28px;
+			height: 28px;
 			border: 6px solid var(--8, #ad7955);
 		}
 	}
@@ -292,7 +295,7 @@
 		&__log-window {
 			margin: 0;
 			width: 100%;
-			height: 100%;
+			min-height: 100%;
 			max-width: 580px;
 			background: #111;
 			display: flex;
@@ -300,7 +303,8 @@
 			padding: 24px 48px 24px 48px;
 			align-items: center;
 			&.forgot {
-				height: 800px;
+				margin: 0 0 -0px 0;
+				min-height: 100vh;
 			}
 		}
 	}
@@ -308,18 +312,19 @@
 
 @media (max-width: 650px) {
 	.login {
-		margin: 0 0 -30px 0;
+		margin: 0 0 -60px 0;
 		z-index: 10;
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		justify-content: center;
 		&__left {
 			display: none;
 		}
 
 		&__log-window {
+			margin: 0 0 -30px 0;
 			width: 100%;
 			height: 100%;
 			max-width: 580px;
@@ -510,7 +515,7 @@
 
 		&__gender-item {
 			width: 100%;
-			max-width: 103px;
+			max-width: 113px;
 			border-radius: 8px;
 			background: var(--9, #222);
 			display: flex;

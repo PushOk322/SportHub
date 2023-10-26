@@ -49,6 +49,10 @@ body {
 	align-items: center;
 	overflow: hidden;
 	position: relative;
+
+	&.login{
+		padding: 0 24px 0px 24px;
+	}
 }
 
 .wrapper-user {

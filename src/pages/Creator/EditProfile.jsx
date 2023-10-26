@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { addVideo } from '../../data/store/videoSlice';
+import { loginUser } from '../../data/store/userSlice';
 
 import Header from '../../components/Page-Size-Components/Header';
 
@@ -24,6 +25,9 @@ import videoFileAsset from '../../img/videos/video.mp4';
 import videoPreview from '../../img/video-preview-2.png';
 
 const EditProfile = () => {
+
+    const [successErrorState, setSuccessErrorState] = useState(0);
+
 
     const handleImageInputChange = (event) => {
         const file = event.target.files[0];
@@ -75,6 +79,7 @@ const EditProfile = () => {
 
     // Define the function to get and validate the stored playlist data
     const getStoredUser = () => {
+
         try {
             // Check if currentUser is available in Redux
             const currentUser = useSelector(state => state.users.users);
@@ -198,8 +203,9 @@ const EditProfile = () => {
         // formData.append('user_avatar', previewId);
         // formData.append('user_cover', coverId);
         formData.append('user_first_name', profileFirstName);
+        formData.append('user_gender', profileGender);
         formData.append('user_last_name', profileLastName);
-        // formData.append('date_of_birth', profileDate);
+        formData.append('date_of_birth', profileDate);
         formData.append('user_address', profileAddress);
         formData.append('user_LLC', profileLLC);
         formData.append('user_description', profileDescription);
@@ -220,7 +226,7 @@ const EditProfile = () => {
             );
             console.log("info update success", responseInfo);
 
-            navigate("/Playlists");
+            // navigate("/Playlists");
         } catch (error) {
             console.log("info upload error: ", error);
         }
@@ -230,12 +236,43 @@ const EditProfile = () => {
         // } catch (error) {
         //     console.log("preview upload error: ", error);
         // }
+
+
+        try {
+            const response = await axios.get(`https://paul-sporthub-app.onrender.com/api/users/${storedUser[0].id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${storedUser[0].jwt}`, // Include the JWT token in the headers
+                    },
+                }
+            );
+            response.data.jwt = storedUser[0].jwt;
+            dispatch(loginUser(response.data));
+            sessionStorage.setItem(`currentUser`, JSON.stringify(response.data));
+
+            setSuccessErrorState(1);
+
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 1000);
+            
+            // uncomment!
+            // window.location.reload(false);
+        } catch (error) {
+            console.log("!!!!!!! error:", error)
+            
+            setSuccessErrorState(2);
+            setTimeout(() => {
+                setSuccessErrorState(0);
+            }, 2000);
+        }
     };
 
 
 
     return (
         <>
+            <SuccessErrorCard popUpState={successErrorState}></SuccessErrorCard>
             <div className="wrapper" style={{ color: "white" }}>
                 <Header videosButtons={true} />
                 <div className="edit-profile">
