@@ -9,19 +9,23 @@ const commentSlice = createSlice({
 		addComment(state, action) {
 			const { dataPath, index } = action.payload;
 			console.log("data, index:", dataPath, index);
-			
+			const userAvatar = dataPath.attributes.comment_author.data.attributes.user_avatar ? dataPath.attributes.comment_author.data.attributes.user_avatar.data.attributes.url : "https://res.cloudinary.com/dykvs6jfa/image/upload/v1697813673/creator_avatar_10_e071638019.svg";
+			const commentIdToAdd = dataPath.id;
 
-			state.comments.push({
+			// Check if a video with the same video_id already exists in state
+			const existingComment = state.comments.find((comment) => comment.comment_id === commentIdToAdd);
+			if (!existingComment) {
+				state.comments.push({
 				comment_id: dataPath.id,
                 comment_text: dataPath.attributes.comment_text,
                 comment_likes: dataPath.attributes.comment_likes,
                 comment_dislikes: dataPath.attributes.comment_dislikes,
-                comment_author_avatar: dataPath.attributes.comment_author.data.attributes.user_avatar.data.attributes.url,
+                comment_author_avatar: userAvatar,
                 comment_author_name: dataPath.attributes.comment_author.data.attributes.username,
 
                 comment_replies: dataPath.attributes.comment_replies
-                
-			});
+				});
+			}
 		},
 		deleteComment(state, action) {
 			if (state.comments.length > 0) {

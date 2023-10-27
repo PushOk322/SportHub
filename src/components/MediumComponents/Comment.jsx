@@ -16,7 +16,8 @@ import videoMenuIcon from '../../img/video-menu-icon.svg';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-
+import { addComment } from '../../data/store/commentSlice';
+import replyAvatar from '../../img/creator-avatar-1.svg';
 const Comment = (props) => {
     const navigate = useNavigate();
 
@@ -153,22 +154,97 @@ const Comment = (props) => {
     };
 
 
+
+
+
+
+
+
+
+
+    const [commentMenuOpen, setCommentMenuOpen] = useState({});
+    const toggleCommentMenu = (commentId) => {
+        setCommentMenuOpen((prevState) => ({
+            ...prevState,
+            [commentId]: !prevState[commentId],
+        }));
+    };
+
+
+    const [replyInputsOpen, setReplyInputsOpen] = useState({});
+    const toggleReplyInput = (commentId) => {
+        setReplyInputsOpen((prevState) => ({
+          ...prevState,
+          [commentId]: !prevState[commentId], // Toggle the input state
+        }));
+      };
+      
+
+
+
+
+    const [replyInputs, setReplyInputs] = useState({});
+    const [currentReply, setCurrentReply] = useState({});
+
+
+    const sendReply = async (commentId, replyId) => {
+        const storedUser = sessionStorage.getItem('currentUser');
+        const parsedUser = JSON.parse(storedUser);
+        console.log("method sent");
+        try {
+            const response = await axios.post(`https://paul-sporthub-app.onrender.com/api/comments?populate[0]=comment_author`, {
+                data: {
+                    comment_text: currentReply[replyId],
+                    comment_author: parsedUser[0].id,
+                    comment: {
+                        set: [commentId]
+                    }
+                }
+            });
+
+
+
+            window.location.reload(false);
+
+            setReplyInputsOpen({});
+            // Close the reply input field after submission
+            // toggleReplyInput(replyId);
+        } catch (error) {
+            console.log("🚀 ~ file: Comment.jsx:234 ~ sendReply ~ error:", error)
+            // Handle the error
+
+        }
+    };
+
+
     const CommentsRender = () => {
 
         let combinedIndex = 0;
         return (commentsObj.map((commentData, index) => {
             // console.log("🚀 first map combinedIndex:", combinedIndex)
             let commentCombinedIndex = combinedIndex;
-
+            combinedIndex++;
             return (
 
                 <div className="comment-component__comment" key={index}>
                     <div className="comment-component__comment-head">
                         <div className="comment-component__author">
-                            <img src={ commentData.comment_author_avatar} alt="" className="comment-component__comment-avatar" />
+                            <img src={commentData.comment_author_avatar} alt="" className="comment-component__comment-avatar" />
                             <div className="comment-component__author-name">{commentData.comment_author_name}</div>
                         </div>
-                        <img src={videoMenuIcon} alt="" className="comment-component__menu-icon" />
+                        <div className="comment-component__menu">
+                            <img
+                                src={videoMenuIcon}
+                                alt=""
+                                className="comment-component__menu-icon"
+                                onClick={() => toggleCommentMenu(commentCombinedIndex)}
+                            />
+                            {commentMenuOpen[commentCombinedIndex] && (
+                                <div className="comment-component__menu-dropdown">
+                                    <button onClick={() => toggleReplyInput(commentCombinedIndex)}>Reply</button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                     <div className="comment-component__text">
                         {commentData.comment_text}
@@ -196,6 +272,31 @@ const Comment = (props) => {
                         </div>
                     </div>
 
+                    {replyInputsOpen[commentCombinedIndex] && (
+                        <div className="comment-component__reply-input-box">
+                            <input
+                                className="comment-component__reply-input"
+                                type="text"
+                                placeholder="Your reply..."
+                                value={currentReply[commentCombinedIndex] || ""}
+                                onChange={(e) =>
+                                    setCurrentReply({ ...currentReply, [commentCombinedIndex]: e.target.value })
+                                }
+                                autoFocus={true} // Add this line
+                            />
+
+
+
+                            <button
+                                className="comment-component__reply-input-send"
+                                onClick={() => sendReply(commentData.comment_id, commentCombinedIndex)}
+                            >
+                                Submit
+                            </button>
+
+                        </div>
+                    )}
+
 
 
                     <div className={`comment-component__reply ${expandedComments[commentData.comment_id] && "active"}`}>
@@ -210,10 +311,9 @@ const Comment = (props) => {
                                 <div className="comment-component__comment reply" key={replyIndex}>
                                     <div className="comment-component__comment-head">
                                         <div className="comment-component__author">
-                                            <img src={ replyData.attributes.comment_author.data.attributes.user_avatar.data.attributes.url} alt="" className="comment-component__comment-avatar" />
+                                            <img src={replyData.attributes.comment_author.data.attributes.user_avatar.data ? replyData.attributes.comment_author.data.attributes.user_avatar.data.attributes.url : replyAvatar} alt="" className="comment-component__comment-avatar" />
                                             <div className="comment-component__author-name">{replyData.attributes.comment_author.data.attributes.username}</div>
                                         </div>
-                                        <img src={videoMenuIcon} alt="" className="comment-component__menu-icon" />
                                     </div>
                                     <div className="comment-component__text">
                                         {replyData.attributes.comment_text}
@@ -269,103 +369,6 @@ const Comment = (props) => {
 
                             <>
                                 <CommentsRender></CommentsRender>
-                                {/* {
-
-                                    commentsObj.map((commentData, index) => {
-                                        // Initialize the combined index for the comment
-                                        combinedIndex++;
-                                        return (
-
-                                            <div className="comment-component__comment" key={index}>
-                                                <div className="comment-component__comment-head">
-                                                    <div className="comment-component__author">
-                                                        <img src={ commentData.comment_author_avatar} alt="" className="comment-component__comment-avatar" />
-                                                        <div className="comment-component__author-name">{commentData.comment_author_name}</div>
-                                                    </div>
-                                                    <img src={videoMenuIcon} alt="" className="comment-component__menu-icon" />
-                                                </div>
-                                                <div className="comment-component__text">
-                                                    {commentData.comment_text}
-                                                </div>
-                                                <div className="comment-component__buttons">
-                                                    <div className="comment-component__likes-container">
-                                                        <div className="comment-component__likes-block" onClick={() => { handleLikeClick(commentData.comment_id, combinedIndex) }}>
-                                                            <img src={likeIconSrc[combinedIndex]} alt="" className="comment-component__like-icon" />
-                                                            <div className="comment-component__likes-count">
-                                                                {commentData.comment_likes}
-                                                            </div>
-                                                        </div>
-                                                        <div className="comment-component__likes-line"></div>
-                                                        <div className="comment-component__likes-block" onClick={() => { handleDislikeClick(commentData.comment_id, combinedIndex) }}>
-                                                            <img src={dislikeIconSrc[combinedIndex]} alt="" className="comment-component__like-icon dis" />
-                                                            <div className="comment-component__likes-count">
-                                                                {commentData.comment_dislikes}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="comment-component__replies-button" onClick={() => toggleReplies(commentData.comment_id)}>
-                                                        <img src={commentIcon} alt="" className="comment-component__replies-icon" />
-                                                        {commentData.comment_replies.data.length + " replies"}
-
-                                                    </div>
-                                                </div>
-
-
-
-                                                {expandedComments[commentData.comment_id] && (
-                                                    <div className="comment-component__reply">
-                                                        {commentData.comment_replies.data.map((replyData, replyIndex) => {
-                                                            combinedIndex++;
-                                                            return (
-                                                                <div className="comment-component__comment reply" key={replyIndex}>
-                                                                    <div className="comment-component__comment-head">
-                                                                        <div className="comment-component__author">
-                                                                            <img src={ replyData.attributes.comment_author.data.attributes.user_avatar.data.attributes.url} alt="" className="comment-component__comment-avatar" />
-                                                                            <div className="comment-component__author-name">{replyData.attributes.comment_author.data.attributes.username}</div>
-                                                                        </div>
-                                                                        <img src={videoMenuIcon} alt="" className="comment-component__menu-icon" />
-                                                                    </div>
-                                                                    <div className="comment-component__text">
-                                                                        {replyData.attributes.comment_text}
-                                                                    </div>
-                                                                    <div className="comment-component__buttons">
-                                                                        <div className="comment-component__likes-container">
-                                                                            <div className="comment-component__likes-block" onClick={() => { handleLikeClick(replyData.id, combinedIndex) }}>
-                                                                                <img src={likeIconSrc[combinedIndex]} alt="" className="comment-component__like-icon" />
-                                                                                <div className="comment-component__likes-count">
-                                                                                    {replyData.attributes.comment_likes}
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="comment-component__likes-block" onClick={() => { handleDislikeClick(replyData.id, combinedIndex) }}>
-                                                                                <img src={dislikeIconSrc[combinedIndex]} alt="" className="comment-component__like-icon dis" />
-                                                                                <div className="comment-component__likes-count">
-                                                                                    {replyData.attributes.comment_dislikes}
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            );
-                                                        })}
-                                                    </div>
-                                                )}
-
-
-
-
-                                                {
-                                                    expandedComments[commentData.comment_id] && (
-                                                        <div className="comment-component__hide-reply-button" onClick={() => toggleReplies(commentData.comment_id)}>
-                                                            Hide replies
-                                                        </div>
-                                                    )
-                                                }
-                                            </div>
-
-                                        );
-                                    })
-                                } */}
-
                             </>
                         )}
                 </div>

@@ -400,7 +400,7 @@ const VideoPage = () => {
                 {showComments ? (
                     /* Render the comments container when showComments is true */
                     <div className="comments__container">
-                        <Comment></Comment>
+                        <Comment reloadFunc={loadComments} reloadState={setShowComments}></Comment>
                     </div>
                 ) : (
                     /* Render the video list container when showComments is false */
